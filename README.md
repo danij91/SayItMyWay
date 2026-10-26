@@ -1,79 +1,79 @@
 ﻿<p align="center"><img src="extension/icons/normal.svg" width="88" alt="SayItMyWay"></p>
 
 <h1 align="center">SayItMyWay</h1>
-<p align="center">웹사이트의 표현을 내 방식으로.<br>Replace website text your way.</p>
+<p align="center">Replace website text your way.</p>
 <p align="center"><a href="LICENSE">MIT License</a> · Chrome Manifest V3 · 15 languages · Local-first</p>
 
-**원문 → 대체문 테이블**로 웹사이트의 텍스트를 바꾸는 무료 Chrome 확장 프로그램입니다. 게임 용어를 익숙한 이름으로 바꾸거나, 사이트 메뉴를 번역하거나, 원하는 표현으로 고쳐 볼 수 있습니다.
+A free Chrome extension that replaces website text using **source → replacement tables**. Translate menus, use familiar names for game terms, or change wording to suit your preferences.
 
-가입·구독·후원 없이 사용합니다. 사이트 등록 수나 동시 적용 수에 유료 제한을 두지 않습니다. 자동 번역기와 달리 테이블에 지정한 표현만 교체하며 외부 번역 API를 자동 호출하지 않습니다.
+No account, subscription, or donation required. There are no paid limits on saved sites or simultaneously enabled sites. Unlike an automatic translator, SayItMyWay replaces only the text you specify and does not automatically call translation APIs.
 
-> Free, open-source text replacement for Chrome. Create reusable source/replacement tables, assign them to websites, collect page text, and prepare translation requests for an AI of your choice. No account or subscription required. Your tables stay in your browser.
+## Features
 
-## 주요 기능
+- **Manage tables:** Search, add, edit, and delete entries; duplicate tables; import and export JSON.
+- **Configure each site:** Choose one table per page and toggle replacement on or off. Set case sensitivity and word replacement within sentences per site.
+- **Handle dynamic content:** Replace text in menus and popups as they appear. Turn replacement off to restore the original text.
+- **Collect source text:** Create a new table from a page or append only new entries to an existing table.
+- **Prepare AI requests:** Copy or download a translation or rewriting request. Import the AI's response to fill empty replacements while preserving existing work.
+- **Edit on the page:** Use shortcuts to preview original text or add, edit, and delete entries directly on a webpage.
+- **Convert currencies:** Convert displayed prices using ECB reference rates, independently of text replacement. Cached rates remain available offline.
+- **Use your language:** English, Korean, Japanese, Simplified and Traditional Chinese, Spanish, French, German, Brazilian Portuguese, Russian, Indonesian, Vietnamese, Thai, Hindi, and Arabic with RTL support.
 
-- **테이블 관리:** 원문·대체문 검색, 추가·수정·삭제, 테이블 복사, JSON 가져오기·내보내기.
-- **사이트별 적용:** 사이트마다 테이블 하나를 선택하고 교체를 켜거나 끕니다. 대소문자 구분과 문장 안 단어 교체도 사이트별로 설정합니다.
-- **동적 페이지:** 나중에 나타나는 메뉴·팝업에도 적용하고, 끄면 원문으로 복원합니다.
-- **원문 수집:** 새 테이블로 수집하거나 기존 테이블에 새로운 원문만 추가합니다.
-- **AI 요청:** 번역·텍스트 교체 요청을 복사하거나 파일로 받습니다. AI 결과를 가져와 기존 대체문을 보존하면서 빈 항목을 채웁니다.
-- **페이지 위 편집:** 단축키로 원문을 잠깐 보거나 페이지에서 항목을 직접 추가·수정·삭제합니다.
-- **통화 변환:** 테이블과 별도로 ECB 기준 환율로 가격 표시를 바꿉니다. 마지막 정상 환율을 저장해 오프라인에서도 사용합니다.
-- **15개 언어:** 한국어, 영어, 일본어, 중국어 간체·번체, 스페인어, 프랑스어, 독일어, 브라질 포르투갈어, 러시아어, 인도네시아어, 베트남어, 태국어, 힌디어, 아랍어(RTL).
+## How it works
 
-## 사용하기
+### Apply a table
 
-### 테이블 적용
+Open the table manager using the table icon at the top of the popup. Create a table or import JSON, enter source and replacement text, and **save** your changes. On a website, choose that table in the popup and turn on **text replacement**. Chrome will request site access the first time it is needed.
 
-팝업 상단의 테이블 아이콘에서 테이블을 만들거나 JSON을 가져옵니다. 원문·대체문을 입력하고 상단에서 **저장**한 다음, 웹사이트의 팝업에서 해당 테이블을 선택해 **텍스트 교체**를 켭니다. 처음에는 Chrome의 사이트 접근 권한 승인이 필요합니다.
+Switching tables while replacement is enabled applies the new table. Empty replacement values leave the original text unchanged. Nonempty values apply regardless of verification status; status, sources, and notes are metadata for managing your entries.
 
-켜진 상태에서 테이블을 바꾸면 새 테이블을 적용합니다. 빈 대체문은 원문을 유지하며 값이 있는 항목은 검증 상태와 관계없이 적용합니다. 검증 상태·출처·메모는 자료 관리용입니다.
+Expand the sites panel to manage table assignments and enabled states. Each row's settings button controls case sensitivity and replacement within sentences. By default, the entire text must match. Word replacement checks word boundaries, and substitutions are calculated from the original text in one pass: rules A → B and B → C do not turn A into C.
 
-**적용 사이트**를 펼치면 사이트별 테이블과 켜짐 상태를 관리할 수 있습니다. 각 행의 톱니바퀴에서 대소문자 구분과 문장 안 단어 교체를 설정합니다. 기본은 텍스트 전체 일치입니다. 문장 안 교체도 단어 경계를 확인하며, 원문에서 한 번 계산하므로 A→B, B→C가 있어도 A가 C로 연쇄 변경되지 않습니다.
+### Collect text and work with AI
 
-### 수집과 AI 요청
+- **New collection:** Create a new table from the current page's source text.
+- **Append collection:** Add text missing from the selected table without changing existing replacements.
+- Open menus yourself during collection to capture newly displayed text. The extension does not automatically click hidden menus. Finish collection when you are done.
+- **AI requests** are independent of collection and use the selected table. Choose languages or describe how you want the text rewritten, then copy the request or download it as a file.
+- Send the request to your chosen AI and import its JSON response for review. Linked responses fill only entries that were empty when requested and have not since been changed. Ordinary JSON imports create a new table.
 
-- **새로 수집:** 현재 페이지의 원문으로 새 테이블을 만듭니다.
-- **추가 수집:** 선택한 테이블에 없는 원문만 추가합니다. 기존 대체문은 보존합니다.
-- 수집 중 직접 메뉴를 열면 새로 나타나는 텍스트도 모읍니다. 숨은 메뉴를 자동 클릭하지는 않습니다. **수집 완료**로 끝냅니다.
-- **AI 요청**은 수집과 별개로 선택한 테이블에서 실행합니다. 언어 또는 교체 방식을 지정한 뒤 요청을 복사하거나 파일로 받습니다.
-- 원하는 AI에 직접 전달하고 응답 JSON을 **가져오기**에 넣어 검토 후 적용합니다. 연결된 결과는 요청 당시 비어 있었고 그 뒤 수정되지 않은 항목만 채웁니다. 일반 JSON은 새 테이블로 가져옵니다.
+Requests include source text, existing replacements, and context such as the website address. Check for sensitive information before sharing a request with an external AI. The extension does not send it automatically.
 
-AI 요청에는 원문·기존 대체문과 사이트 주소 등 문맥이 포함됩니다. 외부 AI에 전달하기 전에 민감한 정보가 없는지 확인하세요. 앱 자체는 AI에 자동 전송하지 않습니다.
+### Shortcuts and saving
 
-### 단축키와 저장
+- Hold **Left Shift** to preview the original text by default.
+- Hold **Left Alt and click text** to open the page editor by default.
+- Popup settings let you enable each shortcut, change its keys, and choose **Hold** or **Toggle**. Settings save immediately.
+- Changes in the table manager require its **Save** action. Edits made on a webpage are saved through the page editor.
+- The sites and currency panels start collapsed and independently remember their last expanded or collapsed state.
 
-- 기본 **왼쪽 Shift:** 누르는 동안 원문 보기.
-- 기본 **왼쪽 Alt + 텍스트 클릭:** 페이지 위 편집창 열기.
-- 팝업 설정에서 기능별 활성화, 단축키, **유지 / 토글**을 바꿀 수 있습니다. 설정은 즉시 저장됩니다.
-- 테이블 관리의 변경은 상단 **저장**을 눌러야 반영됩니다. 페이지 위 편집은 해당 편집창에서 저장합니다.
-- **적용 사이트·통화 변환**은 처음에는 접혀 있으며 각각 마지막 접힘 상태를 기억합니다.
+Choose different keys if a shortcut conflicts with your browser or a website. Shortcuts do not run inside input fields, editable content, or during IME composition.
 
-브라우저·사이트 단축키와 충돌하면 다른 키로 바꾸세요. 입력창·편집 가능한 영역과 IME 입력 중에는 단축키가 동작하지 않습니다.
+### Currency conversion
 
-### 통화 변환
+At the bottom of the popup, choose source and target currencies and turn conversion on. It works independently of text replacement and does not require a table.
 
-팝업 최하단에서 원본 통화와 대상 통화를 선택하고 스위치를 켭니다. 텍스트 교체와 독립적이며 테이블 없이도 사용할 수 있습니다.
+- **Auto:** Resolve ambiguous symbols such as `$` or `¥` only when explicit page metadata identifies a single currency.
+- **All currencies:** Convert supported amounts whose currency can be identified clearly.
+- **Specific currency:** Convert only amounts in the selected source currency.
 
-- **자동:** 명시적인 페이지 통화 정보가 하나로 일치할 때 모호한 `$`·`¥` 기호를 해석합니다.
-- **모든 통화:** 지원하는 통화 중 명확하게 식별되는 금액을 변환합니다.
-- **특정 통화:** 선택한 통화의 금액만 변환합니다.
+The extension checks [ECB daily reference rates](https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml) when conversion is first enabled and every six hours while in use. Manual refresh is also available. If a refresh fails, it uses the last valid rates or bundled fallback rates and displays their date and status.
 
-[ECB 일일 기준 환율](https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml)을 처음 켤 때와 사용 중 6시간 간격으로 확인합니다. 수동 새로고침도 가능합니다. 실패하면 마지막 정상 환율 또는 번들 환율을 사용하고 기준일·상태를 표시합니다.
+**Converted prices are estimates; checkout amounts are not changed.** Card issuer rates and fees may differ. Ambiguous symbols, numbers without a currency, prices split across multiple elements, and dual-currency labels may remain unchanged.
 
-**실제 결제 금액을 바꾸지 않는 참고 표시**입니다. 카드사 환율·수수료와 다를 수 있습니다. 모호한 기호, 통화 표시 없는 숫자, 여러 태그에 나뉜 가격, 이중 통화 표시는 그대로 남을 수 있습니다.
+## Data, permissions, and limitations
 
-## 데이터·권한·지원 범위
+- Tables are stored in the browser's **IndexedDB**; site settings use **chrome.storage.local**. There is no account-based sync or upload to an application server.
+- Removing the extension or browser profile may delete your data. Export tables as JSON if you need to keep or move them.
+- Text replacement and collection require access to the selected website. ECB access and scheduled alarms support exchange-rate updates.
+- The extension replaces DOM text and selected attributes (`title`, `aria-label`, and `alt`). Input values, editable content, and input placeholders are protected.
+- **Text inside images, canvases, iframes, or website Shadow DOM is not supported.** Sentences split across multiple elements are not joined. Restricted pages, such as Chrome's internal pages, cannot be modified.
+- Site search logic, layout, and fonts are not changed. Some sites may require searching with the original wording, and replacement text may be clipped by the site's layout.
+- ECB requests do not include page text, prices, or tables. When you share an AI request or open an external link, that service's policies apply.
 
-- 테이블은 브라우저의 **IndexedDB**, 사이트 설정은 **chrome.storage.local**에 저장합니다. 계정 기반 동기화나 자체 서버 업로드는 없습니다.
-- 확장·브라우저 프로필 삭제 시 자료가 사라질 수 있으므로 필요한 테이블은 JSON으로 내보내세요.
-- 선택한 사이트에서 교체·수집하려면 해당 사이트 접근 권한이 필요합니다. ECB 접근과 주기적 갱신에는 환율 조회 권한·알람을 사용합니다.
-- DOM 텍스트와 일부 속성(`title`, `aria-label`, `alt`)을 교체합니다. 입력값·편집 가능한 영역·입력 안내문(`placeholder`)은 보호합니다.
-- **이미지·캔버스·iframe·사이트 Shadow DOM의 글자와 여러 태그로 나뉜 문장 연결은 지원하지 않습니다.** Chrome 내부 페이지 등 확장 접근이 금지된 페이지에서도 동작하지 않습니다.
-- 사이트 검색 로직이나 레이아웃·글꼴은 바꾸지 않습니다. 일부 사이트에서는 원문 검색이 필요하거나 대체문이 잘릴 수 있습니다.
-- ECB 조회에는 페이지 텍스트·가격·테이블을 보내지 않습니다. AI 요청을 직접 전달하거나 외부 링크를 열면 해당 서비스의 정책이 적용됩니다.
+## Development
 
-## 개발
+Use Node.js **22 or later**.
 
 ```sh
 npm ci
@@ -81,32 +81,34 @@ npm test
 npm run build:extension
 ```
 
-일부 실제 브라우저 검사는 별도의 Playwright·Chromium 환경이 필요하며 기본 검사에서 건너뛸 수 있습니다. `tests/*browser.mjs`는 선택적 실행 도구입니다. 각 파일의 환경 변수·실행 조건을 확인하세요.
+The build produces `dist/extension/` from an explicit list of extension files, excluding developer tools and personal tables.
 
-개발자용 번들 콘텐츠 열람 화면:
+Some native browser checks require a separate Playwright/Chromium environment and may be skipped by the default test run. The `tests/*browser.mjs` scripts are optional checks; see each file for environment variables and prerequisites.
+
+To inspect bundled application content:
 
 ```sh
 npm run dev:tools
 ```
 
-`http://127.0.0.1:4318/`에서 앱에 포함된 AI 프롬프트·언어 문구·번들 사전을 확인합니다. 사용자 테이블을 읽지 않는 개발 도구이며 확장 사용에는 필요 없습니다. 종료는 `Ctrl+C`입니다.
+Open `http://127.0.0.1:4318/` to browse AI prompts, UI strings, and the bundled dictionary. This developer tool does not read user tables and is not needed to use the extension. Stop it with `Ctrl+C`.
 
-| 경로 | 내용 |
+| Path | Contents |
 | --- | --- |
-| `extension/` | 확장, 팝업, 테이블 관리, 텍스트 엔진 |
-| `extension/locales/` | 앱 언어와 AI 요청 문구 |
-| `extension/data/` | 원본 예시 사전과 환율 기본 자료 |
-| `examples/` | 가져올 수 있는 예시 테이블 |
-| `tests/` | 자동 검사와 선택적 브라우저 검사 |
-| `scripts/` | 빌드·개발 도구 |
-| `tools/devtools/` | 개발자용 콘텐츠 열람 UI |
+| `extension/` | Extension, popup, table manager, and replacement engine |
+| `extension/locales/` | UI translations and AI request wording |
+| `extension/data/` | Original example dictionary and fallback exchange-rate data |
+| `examples/` | Importable example tables |
+| `tests/` | Automated tests and optional browser checks |
+| `scripts/` | Build and development tools |
+| `tools/devtools/` | Developer content browser |
 
-`npm start`는 이전 파일 기반 도구를 위한 개발 명령입니다. 현재 확장은 이 서버와 동기화하지 않으며 실행할 필요도 없습니다.
+`npm start` runs a legacy file-based development tool. The current extension neither requires that server nor synchronizes with it.
 
-## 예시 데이터와 라이선스
+## Example data and license
 
-붉은사막 지도용 한글 패치에서 출발해 범용 도구로 확장된 프로젝트입니다. 원본 예시 사전의 출처·검증 상태를 보존하며 아랍어 테이블은 일반 번역을 사용한 테스트 자료입니다. 게임 용어가 모두 공식 번역으로 검증된 것은 아닙니다. Pearl Abyss·MapGenie의 공식 제품이거나 제휴한 프로젝트가 아닙니다.
+SayItMyWay began as a Korean text patch for a Crimson Desert map and evolved into a general-purpose tool. The original example dictionary retains its sources and verification status. The Arabic table is a test fixture using general translations; not every game term has been verified against an official localization. This project is not affiliated with or endorsed by Pearl Abyss or MapGenie.
 
-프로젝트 코드는 **[MIT License](LICENSE)**로 공개합니다. 개인·상업적 사용, 수정, 재배포가 가능하며 라이선스와 저작권 고지는 유지해야 합니다. 외부 라이브러리·데이터·상표에는 각각의 권리가 적용됩니다. [외부 자료 안내](THIRD_PARTY_NOTICES.md)를 참고하세요.
+The original project code is available under the **[MIT License](LICENSE)**. Personal and commercial use, modification, and redistribution are permitted, provided the copyright and license notices are retained. Third-party libraries, data, and trademarks remain subject to their own rights and terms. See [Third-party notices](THIRD_PARTY_NOTICES.md).
 
-오류 제보와 개선 제안은 [GitHub Issues](https://github.com/danij91/SayItMyWay/issues)에 남겨주세요. 비밀번호·토큰·개인 테이블 등 민감한 자료는 공개 이슈에 첨부하지 마세요.
+Report bugs and suggest improvements through [GitHub Issues](https://github.com/danij91/SayItMyWay/issues). Do not include passwords, tokens, private tables, or other sensitive information in public issues.

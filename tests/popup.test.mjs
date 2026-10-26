@@ -263,9 +263,9 @@ test('searchable combobox filters independently, navigates and commits only an e
  search.blur();assert.equal(search.getAttribute('aria-expanded'),'false');assert.equal($('table').value,'b');
 });
 
-test('header has three icons and language chooser opens only on click, closes on Escape and outside click',async t=>{
+test('header has four icons and language chooser opens only on click, closes on Escape and outside click',async t=>{
  const h=await popup(t),{$}=h,w=h.d.window;
- assert.deepEqual([...h.doc.querySelectorAll('.header-actions > *')].map(n=>n.id),['options','settings-open','language-open']);
+ assert.deepEqual([...h.doc.querySelectorAll('.header-actions > *')].map(n=>n.id),['options','settings-open','language-open','github-link']);
  assert.equal($('language-menu').hidden,true);$('language-open').dispatchEvent(new w.Event('mouseover'));assert.equal($('language-menu').hidden,true);
  $('language-open').click();assert.equal($('language-menu').hidden,false);assert.equal($('language-open').getAttribute('aria-expanded'),'true');
  $('app-locale').dispatchEvent(new w.KeyboardEvent('keydown',{key:'Escape',bubbles:true,cancelable:true}));assert.equal($('language-menu').hidden,true);assert.equal(h.doc.activeElement,$('language-open'));
