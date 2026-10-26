@@ -2,7 +2,7 @@ import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
 import {JSDOM} from 'jsdom';
-import {harness} from './background-harness.mjs';
+import {seededHarness as harness} from './background-harness.mjs';
 import {loadKorean} from './i18n-harness.mjs';
 import {toggleDraftName,hasDraftName} from './editor-draft-helpers.mjs';
 const read=file=>readFile(new URL('../extension/'+file,import.meta.url),'utf8');

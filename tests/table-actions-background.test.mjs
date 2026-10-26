@@ -1,6 +1,6 @@
 ﻿import {test} from 'node:test';
 import assert from 'node:assert/strict';
-import {harness} from './background-harness.mjs';
+import {seededHarness as harness} from './background-harness.mjs';
 
 test('popup file import appends unique fresh tables without changing applied site or losing newer edits',async()=>{
  const h=await harness({rules:[{id:'site',origin:'https://example.com',scope:'site',path:'/',tableId:'crimson-desert',enabled:true}]});

@@ -3,7 +3,7 @@ import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
 import {JSDOM} from 'jsdom';
-import {harness} from './background-harness.mjs';
+import {seededHarness as harness} from './background-harness.mjs';
 const source=f=>readFile(new URL('../extension/'+f,import.meta.url),'utf8');
 const tick=()=>new Promise(r=>setTimeout(r,0));
 async function until(predicate){for(let n=0;n<100;n++){if(await predicate())return;await new Promise(r=>setTimeout(r,5));}assert.fail('popup did not reach expected state');}

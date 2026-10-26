@@ -37,13 +37,11 @@ async function initial() {
     const bundle=await LibraryRepository.bundled(fetch,chrome.runtime.getURL);
     const cache=state.library ?? (state.dictionary ? TextPatch.migrate(state.dictionary) : null);
     if(cache || bundle)return LibraryRepository.mergeMigration(cache,bundle);
-    const response=await fetch(chrome.runtime.getURL('data/dictionary.json'));
-    if(!response.ok)throw Error(TextPatchI18n.t('could_not_read_the_default_table'));
-    return TextPatch.migrate(await response.json());
+    return {schemaVersion:2,revision:1,tables:[]};
   });
   state.interactionSettings=TextPatchInteraction.validate(state.interactionSettings);
   state.offline=false;
-  if (!Array.isArray(state.rules)) patch.rules = state.rules = TextPatch.defaultRules();
+  if (!Array.isArray(state.rules)) patch.rules = state.rules = [];
   const previousRules=JSON.stringify(state.rules);
   TextPatch.seedRuleOptions(state.rules,state.library);TextPatch.validateRules(state.rules);
   if(previousRules!==JSON.stringify(state.rules))patch.rules=state.rules;

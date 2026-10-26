@@ -2,7 +2,7 @@ import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {JSDOM} from 'jsdom';
 import {readFile} from 'node:fs/promises';
-import {harness} from './background-harness.mjs';
+import {seededHarness as harness} from './background-harness.mjs';
 const source=f=>readFile(new URL('../extension/'+f,import.meta.url),'utf8');
 const tick=()=>new Promise(r=>setTimeout(r,0));
 async function until(predicate){for(let n=0;n<200;n++){if(predicate())return;await tick();}assert.ok(predicate(),'expected asynchronous popup result');}

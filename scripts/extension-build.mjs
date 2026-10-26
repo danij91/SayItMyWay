@@ -118,7 +118,6 @@ const productionFiles = [
   'site-list.js', 'shared.js', 'repository.js', 'popup.js', 'popup.html', 'popup.css',
   'options.js', 'options.html', 'options.css', 'i18n.js', 'engine.js',
   'editor/transport.js', 'editor/style.css', 'editor/index.html', 'editor/import.js', 'editor/app.js',
-  'data/dictionary.json',
   ...['ar', 'de', 'en', 'es', 'fr', 'hi', 'id', 'ja', 'ko', 'pt-BR', 'ru', 'th', 'vi', 'zh-Hans', 'zh-Hant']
     .map(locale => `locales/${locale}.js`),
   ...['ar', 'de', 'en', 'es', 'fr', 'hi', 'id', 'ja', 'ko', 'pt_BR', 'ru', 'th', 'vi', 'zh_CN', 'zh_TW']

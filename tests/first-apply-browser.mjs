@@ -16,7 +16,7 @@ const fixture=http.createServer((req,res)=>{res.setHeader('Content-Type','text/h
 await new Promise(r=>fixture.listen(0,'127.0.0.1',r));
 const url='http://127.0.0.1:'+fixture.address().port+'/docs/a';
 // Serve a read-only library at a separate random port. Never contact live 4317.
-const seed=JSON.parse(await readFile(path.join(extension,'data/dictionary.json'),'utf8'));
+const seed=JSON.parse(await readFile(new URL('../extension/data/dictionary.json',import.meta.url),'utf8'));
 const table=(id,ko)=>({...structuredClone(seed),id,name:'Fixture '+id,description:'',excludedTerms:[],excludedCategories:[],defaults:{matchMode:'exact',caseSensitive:false,translatePlaceholders:true},entries:[{...seed.entries[0],id:'fixture',en:'Original fixture text',ko,status:'verified',kind:'general',category:'fixture',context:'fixture',selector:'',source:'사용자 확인: fixture',evidence:'Synthetic test fixture'}]});
 const library={schemaVersion:2,revision:1,tables:[table('a','First replacement'),table('b','Second replacement')]};
 const api=http.createServer((req,res)=>{res.setHeader('Content-Type','application/json');res.end(JSON.stringify(library));});

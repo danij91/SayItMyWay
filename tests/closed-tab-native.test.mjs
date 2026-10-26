@@ -52,7 +52,7 @@ test('native Chromium consumes closed-tab action errors and retires stale presen
   const repeated=await evaluate(`(async()=>{let calls=0;const get=chrome.tabs.get;chrome.tabs.get=async(...args)=>{calls++;return get(...args);};try{await reconcileCollections();await reconcileCollections();}finally{chrome.tabs.get=get;}return calls;})()`);
   assert.equal(repeated,0,'retired closed sessions are never retargeted');
   const storage=await evaluate(`(async()=>{
-    await repository.initialize(async()=>TextPatch.migrate(await(await fetch(chrome.runtime.getURL('data/dictionary.json'))).json()));
+    await repository.initialize(async()=>({schemaVersion:2,revision:1,tables:[{schemaVersion:1,revision:1,id:'fixture',name:'Native fixture',description:'',excludedTerms:[],excludedCategories:[],entries:[{id:'row',en:'Original',ko:'Replacement',kind:'general',category:'fixture',context:'global',selector:'',status:'verified',source:'Synthetic fixture',evidence:'Native storage test',notes:''}]}]}));
     const draft=await repository.get(),stale=structuredClone(draft);draft.tables[0].entries[0].notes='Native DB note';
     const saved=await repository.save(draft);let conflict='';try{await repository.save(stale);}catch(e){conflict=e.message;}
     const put=IDBObjectStore.prototype.put;let writes=0,failure='';

@@ -29,8 +29,7 @@ test('generated replacement retries transient locks while moving old and publish
   }});
   assert.deepEqual([...attempts], [['backup', 3], ['publish', 3]]);
   assert.deepEqual(await readdir(path.join(root, 'dist')), ['extension']);
-  assert.deepEqual(await readFile(path.join(output, 'data/dictionary.json')),
-    await readFile(path.join(root, 'extension/data/dictionary.json')));
+  await assert.rejects(readFile(path.join(output, 'data/dictionary.json')), {code: 'ENOENT'});
 });
 
 test('persistent publication locks stop after five attempts and rollback retries transient locks', async t => {
@@ -127,7 +126,7 @@ test('build validates every source before replacing a prior output', async t => 
 test('production package excludes private and development files and preserves production bytes', async t => {
   const root = await fixture(t);
   await cp(new URL('../extension/', import.meta.url), path.join(root, 'extension'), {recursive: true});
-  const privateFiles = ['devtools/index.html', 'data/library.json', 'data/tables/private.json', 'data/dictionary.json.bak',
+  const privateFiles = ['data/examples/crimson-desert.json', 'devtools/index.html', 'data/library.json', 'data/tables/private.json', 'data/dictionary.json.bak',
     'data/private.tmp', 'layout-fit.js', 'private.js', 'editor/app.backup.js', 'locales/en.bak.js',
     'icons/private.png', 'editor/private.html', 'README.md'];
   for (const name of privateFiles) {
@@ -147,9 +146,10 @@ test('production package excludes private and development files and preserves pr
     return files.sort();
   }
   const before = await list(output);
-  for (const name of privateFiles) assert.ok(!before.includes(name), name);
+  for (const name of [...privateFiles, 'data/dictionary.json']) assert.ok(!before.includes(name), name);
+  assert.deepEqual(before.filter(name => name.startsWith('data/')), ['data/eurofxref-2026-10-23.xml']);
   assert.ok(!before.some(name => name.startsWith('devtools/')));
-  for (const name of ['manifest.json', 'data/dictionary.json', 'manager.html', 'manager.js', 'manager.css',
+  for (const name of ['manifest.json', 'manager.html', 'manager.js', 'manager.css',
     'interaction-settings.js', 'locales/ko.js', '_locales/en/messages.json', 'icons/normal-16.png', 'editor/app.js']) {
     assert.deepEqual(await readFile(path.join(output, name)), await readFile(path.join(root, 'extension', name)), name);
   }
@@ -167,10 +167,12 @@ test('production refresh is repeatable and removes obsolete generated files', as
   const root = await fixture(t);
   const output = await buildExtension(root);
   await writeFile(path.join(output, 'obsolete.js'), 'obsolete');
+  await writeFile(path.join(output, 'data/dictionary.json'), 'obsolete seed');
   await writeFile(path.join(root, 'extension/popup.js'), 'updated');
   assert.equal(await buildExtension(root), output);
   assert.equal(await readFile(path.join(output, 'popup.js'), 'utf8'), 'updated');
   await assert.rejects(readFile(path.join(output, 'obsolete.js')), {code: 'ENOENT'});
+  await assert.rejects(readFile(path.join(output, 'data/dictionary.json')), {code: 'ENOENT'});
   await buildExtension(root);
   assert.equal(await readFile(path.join(output, 'popup.js'), 'utf8'), 'updated');
 });

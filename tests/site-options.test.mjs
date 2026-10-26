@@ -1,6 +1,6 @@
 ﻿import {test} from 'node:test';
 import assert from 'node:assert/strict';
-import {harness} from './background-harness.mjs';
+import {seededHarness as harness} from './background-harness.mjs';
 test('legacy rule options seed once from table defaults and table selection retains them',async()=>{
  const h=await harness();h.grants.add('https://example.com/*');
  let state=await h.send({type:'state'});const table=state.library.tables[0];table.defaults.matchMode='word';table.defaults.caseSensitive=true;

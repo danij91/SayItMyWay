@@ -21,7 +21,7 @@ const fixture=http.createServer((req,res)=>{res.setHeader('Content-Type','text/h
 await new Promise(resolve=>fixture.listen(0,'127.0.0.1',resolve));
 const origin='http://127.0.0.1:'+fixture.address().port,url=origin+'/test';
 const manifest=JSON.parse(await readFile(path.join(extension,'manifest.json'),'utf8'));
-assert.equal(manifest.host_permissions,undefined);assert.ok(!JSON.stringify(manifest).includes('4317'));
+assert.deepEqual(manifest.host_permissions,['https://www.ecb.europa.eu/*']);assert.ok(!JSON.stringify(manifest).includes('4317'));
 const longOrigin='https://'+'long-domain-'.repeat(5)+'xyz.example.test';
 manifest.host_permissions=[TextPatch.hostPattern(origin),TextPatch.hostPattern(longOrigin)];
 await writeFile(path.join(extension,'manifest.json'),JSON.stringify(manifest));
@@ -46,11 +46,12 @@ try{
   const library=()=>page.evaluate(()=>chrome.runtime.sendMessage({type:'state'})).then(s=>s.library);
   const initial=await library();
   if(freshInstall){
-    const seed=JSON.parse(await readFile(path.join(extension,'data/dictionary.json'),'utf8'));
-    assert.deepEqual(initial,TextPatch.migrate(seed),'absent optional manifest initializes the complete dictionary in native IndexedDB');
+    await assert.rejects(access(path.join(extension,'data/dictionary.json')),{code:'ENOENT'});
+    assert.deepEqual(initial,{schemaVersion:2,revision:1,tables:[]});
+    assert.deepEqual(await page.evaluate(()=>chrome.runtime.sendMessage({type:'state'})).then(s=>s.rules),[]);
     const optional=await worker.evaluate(async()=>{try{const response=await fetch(chrome.runtime.getURL('data/library.json'));return {status:response.status};}catch(error){return {name:error.name,message:error.message};}});
     assert.equal(optional.name,'TypeError');assert.match(optional.message,/Failed to fetch/);
-    result.checks.push('Fresh install without optional library manifest handles native Failed to fetch and migrates the complete tracked dictionary');
+    result.checks.push('Fresh install without optional library manifest handles native Failed to fetch and persists an empty library with no default site rules');
   }
   if(process.env.STANDALONE_EXPECT_TABLES)assert.equal(initial.tables.length,Number(process.env.STANDALONE_EXPECT_TABLES));
   // Create a new table and row entirely through the bundled editor.

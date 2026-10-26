@@ -1,6 +1,43 @@
 ﻿import {test} from 'node:test';
 import assert from 'node:assert/strict';
-import {harness,seed} from './background-harness.mjs';
+import {harness as emptyHarness,seededHarness as harness,seed} from './background-harness.mjs';
+
+test('fresh install stays empty across worker restart without fetching a default dictionary',async()=>{
+ const h=await emptyHarness(),state=await h.send({type:'state'});
+ assert.deepEqual(JSON.parse(JSON.stringify(state.library)),{schemaVersion:2,revision:1,tables:[]});
+ assert.deepEqual(Array.from(state.rules),[]);
+ assert.equal(h.fetches.some(url=>url.endsWith('data/dictionary.json')),false);
+ const restarted=await emptyHarness(h.store,h.indexedDB);
+ const again=await restarted.send({type:'state'});
+ assert.deepEqual(JSON.parse(JSON.stringify(again.library)),{schemaVersion:2,revision:1,tables:[]});
+ assert.deepEqual(restarted.fetches,[],'saved IndexedDB state skips all legacy file loading');
+});
+
+test('saved empty library survives stale caches and legacy files without repopulation',async()=>{
+ const h=await emptyHarness();let state=await h.send({type:'state'});
+ const saved=await h.send({type:'librarySave',library:state.library});assert.equal(saved.library.tables.length,0);
+ const restarted=await harness({...h.store,dictionary:seed},h.indexedDB);
+ state=await restarted.send({type:'state'});
+ assert.equal(state.library.revision,saved.library.revision);assert.equal(state.library.tables.length,0);
+ assert.deepEqual(restarted.fetches,[]);assert.equal(restarted.store.dictionary.entries.length,147);
+});
+
+test('legacy empty cache persists without loading the historical dictionary',async()=>{
+ const initial={library:{schemaVersion:2,revision:8,tables:[]},rules:[],unrelated:{keep:true}};
+ const h=await emptyHarness(initial),state=await h.send({type:'state'});
+ assert.equal(state.library.revision,8);assert.equal(state.library.tables.length,0);
+ assert.equal(h.fetches.some(url=>url.endsWith('data/dictionary.json')),false);
+ assert.deepEqual(h.store.library,initial.library);assert.deepEqual(h.store.unrelated,initial.unrelated);
+});
+
+test('legacy dictionary and site options migrate intact when no user library file exists',async()=>{
+ const dictionary=structuredClone(seed);dictionary.entries[0].notes='Saved personal note';
+ const rules=[{id:'saved',origin:'https://mapgenie.io',scope:'prefix',path:'/crimson-desert/maps/pywel',tableId:'crimson-desert',enabled:false,matchMode:'word',caseSensitive:true}];
+ const h=await emptyHarness({dictionary,rules}),state=await h.send({type:'state'});
+ assert.equal(state.library.tables[0].entries[0].notes,'Saved personal note');
+ assert.equal(state.library.tables[0].entries.length,147);assert.deepEqual(JSON.parse(JSON.stringify(state.rules)),rules);
+ assert.deepEqual(h.store.dictionary,dictionary);
+});
 
 test('editor library API saves canonical revisions, rejects stale or untrusted writes and notifies existing tabs',async()=>{
  const h=await harness({rules:[{id:'site',origin:'https://example.com',scope:'site',path:'/',tableId:'crimson-desert',enabled:true}]}),sender={id:'test',url:'chrome-extension://test/editor/index.html?table=crimson-desert',tab:{id:8}};
@@ -241,7 +278,7 @@ test('same-target upsert, specificity, permission registration and revoke restor
  s=await h.send({type:'saveRule',rule:{...rule,scope:'prefix',path:'/docs'}});
  s=await h.send({type:'saveRule',rule:{...rule,scope:'page',path:'/docs/a'}});
  s=await h.send({type:'saveRule',rule:{...rule,scope:'page',path:'/docs/a'}});
- assert.equal(s.rules.length,4);
+ assert.equal(s.rules.length,3);
  s=await h.send({type:'pageState',url:'https://example.com/docs/a?x=1#y'});
  assert.equal(s.rule.scope,'page');assert.equal(s.enabled,true);
  assert.deepEqual(Array.from(h.registrations[0].matches),['https://example.com/*']);

@@ -6,6 +6,8 @@
 
 A free Chrome extension that replaces website text using **source → replacement tables**. Translate menus, use familiar names for game terms, or change wording to suit your preferences.
 
+New installations start with no tables or site assignments. Create your own tables, collect page text, or import a JSON file.
+
 No account, subscription, or donation required. There are no paid limits on saved sites or simultaneously enabled sites. Unlike an automatic translator, SayItMyWay replaces only the text you specify and does not automatically call translation APIs.
 
 ## Features
@@ -81,7 +83,7 @@ npm test
 npm run build:extension
 ```
 
-The build produces `dist/extension/` from an explicit list of extension files, excluding developer tools and personal tables.
+The build produces `dist/extension/` from an explicit list of extension files, excluding developer tools, personal tables, and the historical Crimson Desert dictionary.
 
 Some native browser checks require a separate Playwright/Chromium environment and may be skipped by the default test run. The `tests/*browser.mjs` scripts are optional checks; see each file for environment variables and prerequisites.
 
@@ -97,7 +99,7 @@ Open `http://127.0.0.1:4318/` to browse AI prompts, UI strings, and the bundled 
 | --- | --- |
 | `extension/` | Extension, popup, table manager, and replacement engine |
 | `extension/locales/` | UI translations and AI request wording |
-| `extension/data/` | Original example dictionary and fallback exchange-rate data |
+| `extension/data/` | Historical source-only dictionary and bundled fallback exchange-rate data |
 | `examples/` | Importable example tables |
 | `tests/` | Automated tests and optional browser checks |
 | `scripts/` | Build and development tools |
@@ -107,7 +109,7 @@ Open `http://127.0.0.1:4318/` to browse AI prompts, UI strings, and the bundled 
 
 ## Example data and license
 
-SayItMyWay began as a Korean text patch for a Crimson Desert map and evolved into a general-purpose tool. The original example dictionary retains its sources and verification status. The Arabic table is a test fixture using general translations; not every game term has been verified against an official localization. This project is not affiliated with or endorsed by Pearl Abyss or MapGenie.
+SayItMyWay began as a Korean text patch for a Crimson Desert map and evolved into a general-purpose tool. The historical dictionary remains in the source repository for development and migration tests, with its sources and verification status preserved. It is not loaded by default or included in the production extension. The Arabic table is a test fixture using general translations; not every game term has been verified against an official localization. This project is not affiliated with or endorsed by Pearl Abyss or MapGenie.
 
 The original project code is available under the **[MIT License](LICENSE)**. Personal and commercial use, modification, and redistribution are permitted, provided the copyright and license notices are retained. Third-party libraries, data, and trademarks remain subject to their own rights and terms. See [Third-party notices](THIRD_PARTY_NOTICES.md).
 

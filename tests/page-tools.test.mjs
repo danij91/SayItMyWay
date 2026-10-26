@@ -252,7 +252,7 @@ test('new inline rows cannot delete and failed deletion retains draft with recov
 });
 
 test('confirmed inline deletion through content reload restores original page text',async()=>{
- const {harness}=await import('./background-harness.mjs');
+ const {seededHarness:harness}=await import('./background-harness.mjs');
  const h=await harness({rules:[]});const url='https://example.com/docs/a';h.grants.add('https://example.com/*');
  const initial=await h.send({type:'state'}),table=initial.library.tables[0];
  table.entries=[{...table.entries[0],id:'source',en:'Source',ko:'Rendered',selector:''}];

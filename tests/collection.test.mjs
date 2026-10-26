@@ -1,11 +1,12 @@
 ﻿import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import vm from 'node:vm';
+import {fixtureLibrary} from './background-harness.mjs';
 import {IDBFactory} from 'fake-indexeddb';
 import {JSDOM} from 'jsdom';
 import {readFile} from 'node:fs/promises';
 const source=f=>readFile(new URL('../extension/'+f,import.meta.url),'utf8');
-async function harness(store={},transport=null){
+async function harness(store={},library=null){
  let listener,updated,removed,mode='ok',candidates=['Fresh source'],doc='doc',url='https://example.com/page',requests=[],writes=0,contentRead=null,badgeFailure=false,closed=false,lastError,lookupError;
  const badges=new Map(),titles=new Map(),icons=new Map(),active=new Map(),sessionIds=new Map(),contentMessages=[];
  const actionCalls=[],unchecked=[];
@@ -21,7 +22,6 @@ async function harness(store={},transport=null){
   // Deliberately callback-only: awaiting this undefined return cannot catch errors.
  };
  const actionUnavailable=method=>badgeFailure===true || badgeFailure===method;
- const seed=JSON.parse(await source('data/dictionary.json'));
  const indexedDB=new IDBFactory();
  const open=indexedDB.open.bind(indexedDB);
  indexedDB.open=(...args)=>{const req=open(...args);req.addEventListener('success',()=>{
@@ -46,9 +46,8 @@ async function harness(store={},transport=null){
   return {documentId:doc,url,title:'Source title',language:'en',candidates,sessionId:sessionIds.get(id),active:active.get(id)===true};
   },onUpdated:{addListener:fn=>updated=fn},onRemoved:{addListener:fn=>removed=fn}}
  },fetch:async endpoint=>{
-  if(endpoint.endsWith('data/library.json'))return {ok:false,status:404};
-  assert.ok(endpoint.startsWith('chrome-extension:'),'normal runtime never calls a repository');
-  return {ok:true,json:async()=>structuredClone(seed)};
+  if(endpoint.endsWith('data/library.json'))return library?{ok:true,json:async()=>structuredClone(library)}:{ok:false,status:404};
+  throw Error('Unexpected fetch: '+endpoint);
  }});
  for(const f of ['locales/ko.js','locales/en.js','i18n.js','interaction-settings.js','currency-rates.js','currency.js','currency-feed.js','shared.js','library.js','collection.js','repository.js'])vm.runInContext(await source(f),context);
  // Observe the public repository capture boundary while executing the real IndexedDB implementation.
@@ -67,7 +66,7 @@ const update=(h,s,candidates,extra={})=>h.send({type:'collectionUpdate',sessionI
 
 test('append captures missing originals into the selected table and pins retries after selection changes',async()=>{
  const rule={id:'selected',origin:'https://example.com',scope:'site',path:'/',enabled:false,tableId:'crimson-desert'};
- const h=await harness({rules:[rule]});
+ const h=await harness({rules:[rule]},fixtureLibrary);
  const library=await h.library(),table=library.tables[0],existing=structuredClone(table.entries);
  h.candidates([existing[0].en,'Append fresh original']);
  const result=await h.send({type:'collectionBegin',tabId:1,mode:'append',tableId:table.id});
@@ -96,7 +95,7 @@ test('append requires a current explicit selection and never creates a fallback 
 });
 
 test('append rejects a stale selection; deletion during offline capture keeps originals without recreating the table',async()=>{
- const h=await harness({rules:[{id:'selection',origin:'https://example.com',scope:'site',path:'/',enabled:false,tableId:'crimson-desert'}]});
+ const h=await harness({rules:[{id:'selection',origin:'https://example.com',scope:'site',path:'/',enabled:false,tableId:'crimson-desert'}]},fixtureLibrary);
  assert.ok((await h.send({type:'collectionBegin',tabId:1,mode:'append',tableId:'deleted'})).error);
  assert.equal(h.contentMessages.some(m=>m.type==='captureRead'),false);
  const {collection:s}=await h.send({type:'collectionBegin',tabId:1,mode:'append',tableId:'crimson-desert'});
@@ -191,7 +190,7 @@ test('watch respects an immediate content limit and restores normal after a fail
 });
 
 test('fresh collection creates a separate table and preserves every original existing row',async()=>{
- const h=await harness(),before=(await h.send({type:'state'})).library.tables[0].entries;
+ const h=await harness({},fixtureLibrary),before=(await h.send({type:'state'})).library.tables[0].entries;
  const {collection:s,error}=await begin(h);assert.equal(error,undefined);
  assert.equal(s.firstSaved,1);assert.equal(s.saved,1);assert.equal(s.total,1);
  assert.deepEqual((await h.library()).tables[0].entries,structuredClone(before));
@@ -216,7 +215,7 @@ test('offline originals persist and retry reuses generated table ID, without rep
  h.restart();r=await h.send({type:'collectionState',tabId:1});assert.equal(r.collection.tableId,id);
  assert.equal(r.collection.createName,'New table');assert.equal(r.collection.needsCreate,true);
  h.mode('ok');r=await h.send({type:'collectionRetry',tabId:1});assert.equal(r.collection.saved,1);assert.equal(r.collection.pending.length,0);
- assert.equal(h.requests[1].tableId,id);assert.equal((await h.library()).tables.length,2);
+ assert.equal(h.requests[1].tableId,id);assert.equal((await h.library()).tables.length,1);
  assert.equal(h.requests[1].createName,'New table');assert.equal(r.collection.createName,undefined);
 });
 
@@ -332,7 +331,7 @@ test('each action API can reject independently without suppressing the other pre
 });
 
 test('historical session destination and pending originals survive restart and cannot be overwritten by fresh capture',async()=>{
- const h=await harness();await begin(h);
+ const h=await harness({},fixtureLibrary);await begin(h);
  Object.assign(h.store.collections['1'],{tableId:'crimson-desert',tableName:'Historical table',pending:['Legacy pending'],error:'offline',active:false});
  const historical=structuredClone(h.store.collections['1']);
  h.restart();
@@ -346,7 +345,7 @@ test('historical session destination and pending originals survive restart and c
 
 test('applied A remains unchanged while each new capture creates distinct B and later watch appends only B',async()=>{
  const rule={id:'a-rule',origin:'https://example.com',scope:'site',path:'/',enabled:true,tableId:'crimson-desert',matchMode:'exact',caseSensitive:false,fitText:{enabled:false,fontScale:1,lineHeight:0}};
- const h=await harness({rules:[rule]});
+ const h=await harness({rules:[rule]},fixtureLibrary);
  const before=structuredClone((await h.send({type:'state'})).library.tables[0]);
  let {collection:b}=await h.send({type:'collectionBegin',tabId:1});
  assert.notEqual(b.tableId,rule.tableId);assert.match(b.tableName,/^example.com \d{4}-\d{2}-\d{2}$/);
@@ -360,7 +359,7 @@ test('applied A remains unchanged while each new capture creates distinct B and 
 });
 
 test('editor messages preserve edits during later collection and reject a stale draft',async()=>{
- const h=await harness();const before=await h.library();
+ const h=await harness({},fixtureLibrary);const before=await h.library();
  const {collection:s}=await begin(h);const stale=await h.library();
  const edited=structuredClone(stale),entry=edited.tables.find(t=>t.id===s.tableId).entries[0];
  entry.ko='Manager edit';entry.status='review';entry.notes='Retained manager note';

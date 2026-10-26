@@ -1,6 +1,6 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
-import {harness} from './background-harness.mjs';
+import {seededHarness as harness} from './background-harness.mjs';
 const url='https://example.com/docs/a';
 const sender={id:'test',frameId:0,documentId:'document-1',url,tab:{id:1,url}};
 const context=(h,original='New original',extra={})=>h.send({type:'inlineContext',url,original,...extra},sender);
