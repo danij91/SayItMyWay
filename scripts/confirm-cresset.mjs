@@ -1,0 +1,12 @@
+import '../extension/shared.js';
+const base='http://127.0.0.1:4317';
+const response=await fetch(base+'/api/dictionary');
+if(!response.ok)throw Error('대응표를 읽을 수 없습니다.');
+const data=await response.json();
+const entry=data.entries.find(e=>e.en.toUpperCase()==='ABYSS CRESSET');
+if(!entry)throw Error('ABYSS CRESSET 항목 없음');
+Object.assign(entry,{ko:'어비스 표석',status:'verified',source:'사용자 확인: 프로젝트 대화 (2026-10-18)',evidence:'사용자가 “abyss Cresset은 어비스 표석 이야”라고 직접 정정함.',notes:'사용자 제공 명칭으로 확인 완료. 공식 문서 또는 클라이언트 직접 대조를 수행했다는 의미는 아님.'});
+CrimsonShared.validate(data);
+const saved=await fetch(base+'/api/dictionary',{method:'PUT',headers:{'Content-Type':'application/json',Origin:base},body:JSON.stringify(data)});
+const result=await saved.json();if(!saved.ok)throw Error(result.error);
+console.log(JSON.stringify({revision:result.revision,entry:result.entries.find(e=>e.id===entry.id)}));

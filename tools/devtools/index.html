@@ -1,0 +1,19 @@
+﻿<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>CrimsonMap 개발자 백오피스</title><link rel="stylesheet" href="/style.css"><script defer src="/app.js"></script></head>
+<body><header><h1>개발자 백오피스</h1><p>앱 번들 콘텐츠 검수 · 읽기 전용 · 확장 설치 없이 사용</p><p>사용자 테이블·저장소·탭과 연결하지 않습니다. 외부 AI를 호출하지 않습니다.</p></header>
+<nav aria-label="검수 도구"><button data-panel="prompt" aria-pressed="true">AI 프롬프트</button><button data-panel="locales" aria-pressed="false">언어 문구</button><button data-panel="dictionary" aria-pressed="false">번들 사전</button></nav>
+<main><p id="status" role="status">번들 읽는 중…</p>
+<section id="panel-prompt"><h2>AI 프롬프트 미리보기</h2><div class="controls">
+<label>요청문 언어<select id="locale"></select></label><label>작업<select id="task"><option value="translation">번역</option><option value="replacement">텍스트 교체</option></select></label>
+<label>입력 샘플<select id="sample"><option value="synthetic">개발용 합성 원문 2행</option><option value="bundled">번들 원문 5행 · 대체문 비움</option></select></label>
+<label>원문 언어<input id="source" value="auto" maxlength="4000"></label><label>목표 언어<input id="target" value="한국어" maxlength="4000"></label>
+<label>사이트 문맥 주소<input id="site" type="url" placeholder="https://example.com" maxlength="4096"></label><label class="wide">교체 지시<textarea id="instruction" maxlength="4000">자연스럽고 간결한 표현으로 바꾸세요.</textarea></label></div>
+<p>번들 샘플은 원문만 복제해 대체문을 비운 임시 데이터입니다. 원본 사전의 번역·검증 상태는 보존됩니다. 주소는 요청문에만 포함되며 사이트에 접속하지 않습니다.</p>
+<button id="generate" disabled>요청문 생성</button><button id="copy" disabled>전문 복사</button><button id="download" disabled>TXT 받기</button><p id="prompt-meta" role="status"></p>
+<label>생성 요청문 전문<textarea id="output" readonly dir="auto"></textarea></label>
+<details><summary>입력 샘플 JSON</summary><pre id="sample-json" dir="ltr"></pre></details>
+<details open><summary>선택 언어의 템플릿 원문 · 치환 전</summary><p id="template-source"></p><pre id="template" dir="ltr"></pre></details>
+<details><summary>실제 공유 builder 소스</summary><pre id="builder"></pre></details></section>
+<section id="panel-locales" hidden><h2>번들 언어 문구</h2><label>언어<select id="catalog-locale"></select></label><label>키·문구 검색<input id="locale-search" type="search"></label><p id="locale-meta"></p><div id="locale-rows"></div></section>
+<section id="panel-dictionary" hidden><h2>번들 사전</h2><p id="dictionary-meta"></p><details><summary>사전 메타데이터</summary><pre id="dictionary-source"></pre></details><label>원문·대체문·출처·검증 상태 검색<input id="dictionary-search" type="search"></label><p id="dictionary-count"></p><div id="dictionary-rows"></div></section>
+</main></body></html>

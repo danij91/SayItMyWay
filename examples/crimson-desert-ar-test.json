@@ -1,0 +1,1482 @@
+{
+  "format": "text-patch-table",
+  "version": 1,
+  "name": "붉은사막 아랍어 단순 번역 테스트 / الصحراء القرمزية - اختبار ترجمة عربية",
+  "defaults": {
+    "matchMode": "exact",
+    "caseSensitive": false,
+    "translatePlaceholders": false
+  },
+  "entries": [
+    {
+      "en": "Crimson Desert",
+      "ko": "الصحراء القرمزية",
+      "status": "review",
+      "kind": "game",
+      "category": "게임명",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "Pywel",
+      "ko": "بايويل",
+      "status": "review",
+      "kind": "game",
+      "category": "지명",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "Kliff",
+      "ko": "كليف",
+      "status": "review",
+      "kind": "game",
+      "category": "NPC",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "SEARCH",
+      "ko": "بحث",
+      "status": "review",
+      "kind": "ui",
+      "category": "메뉴·분류",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "SHOW ALL",
+      "ko": "إظهار الكل",
+      "status": "review",
+      "kind": "ui",
+      "category": "메뉴·분류",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "HIDE ALL",
+      "ko": "إخفاء الكل",
+      "status": "review",
+      "kind": "ui",
+      "category": "메뉴·분류",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "Settings",
+      "ko": "الإعدادات",
+      "status": "review",
+      "kind": "ui",
+      "category": "메뉴·분류",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "Login",
+      "ko": "تسجيل الدخول",
+      "status": "review",
+      "kind": "ui",
+      "category": "메뉴·분류",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "Search...",
+      "ko": "بحث...",
+      "status": "review",
+      "kind": "ui",
+      "category": "메뉴·분류",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "Tip: Right click a Region to focus on it",
+      "ko": "نصيحة: انقر بزر الفأرة الأيمن على منطقة للتركيز عليها",
+      "status": "review",
+      "kind": "ui",
+      "category": "메뉴·분류",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "Tip: Right click the map to suggest new locations!",
+      "ko": "نصيحة: انقر بزر الفأرة الأيمن على الخريطة لاقتراح مواقع جديدة!",
+      "status": "review",
+      "kind": "ui",
+      "category": "메뉴·분류",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "STRONGHOLDS",
+      "ko": "المعاقل",
+      "status": "review",
+      "kind": "ui",
+      "category": "메뉴·분류",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "LOCATIONS",
+      "ko": "المواقع",
+      "status": "review",
+      "kind": "ui",
+      "category": "메뉴·분류",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "SERVICES",
+      "ko": "الخدمات",
+      "status": "review",
+      "kind": "ui",
+      "category": "메뉴·분류",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "CRAFTING TOOLS",
+      "ko": "أدوات التصنيع",
+      "status": "review",
+      "kind": "ui",
+      "category": "메뉴·분류",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "COLLECTIBLES",
+      "ko": "المقتنيات",
+      "status": "review",
+      "kind": "ui",
+      "category": "메뉴·분류",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "ITEMS",
+      "ko": "العناصر",
+      "status": "review",
+      "kind": "ui",
+      "category": "메뉴·분류",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "CRAFTING MANUALS",
+      "ko": "أدلة التصنيع",
+      "status": "review",
+      "kind": "ui",
+      "category": "메뉴·분류",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "QUESTS",
+      "ko": "المهام",
+      "status": "review",
+      "kind": "ui",
+      "category": "메뉴·분류",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "ENEMIES",
+      "ko": "الأعداء",
+      "status": "review",
+      "kind": "ui",
+      "category": "메뉴·분류",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "OTHER",
+      "ko": "أخرى",
+      "status": "review",
+      "kind": "ui",
+      "category": "메뉴·분류",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "RESOURCES",
+      "ko": "الموارد",
+      "status": "review",
+      "kind": "ui",
+      "category": "메뉴·분류",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "MY SUGGESTIONS",
+      "ko": "اقتراحاتي",
+      "status": "review",
+      "kind": "ui",
+      "category": "메뉴·분류",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "MY SUGGESTIONS (0)",
+      "ko": "اقتراحاتي (0)",
+      "status": "review",
+      "kind": "ui",
+      "category": "메뉴·분류",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "+ SUGGEST LOCATION",
+      "ko": "+ اقتراح موقع",
+      "status": "review",
+      "kind": "ui",
+      "category": "메뉴·분류",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "SUGGEST LOCATION",
+      "ko": "اقتراح موقع",
+      "status": "review",
+      "kind": "ui",
+      "category": "메뉴·분류",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "STRONGHOLD",
+      "ko": "معقل",
+      "status": "review",
+      "kind": "game",
+      "category": "장소",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "ABYSS CRESSET",
+      "ko": "موقد الهاوية",
+      "status": "review",
+      "kind": "game",
+      "category": "장소",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "ABYSS NEXUS",
+      "ko": "ملتقى الهاوية",
+      "status": "review",
+      "kind": "game",
+      "category": "장소",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "BELL",
+      "ko": "جرس",
+      "status": "review",
+      "kind": "game",
+      "category": "장소",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "CAVE",
+      "ko": "كهف",
+      "status": "review",
+      "kind": "game",
+      "category": "장소",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "CONSTELLATION",
+      "ko": "كوكبة",
+      "status": "review",
+      "kind": "game",
+      "category": "장소",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "GREYMANE SHRINE",
+      "ko": "مزار غريماين",
+      "status": "review",
+      "kind": "game",
+      "category": "장소",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "HIDDEN SPACE",
+      "ko": "حيز مخفي",
+      "status": "review",
+      "kind": "game",
+      "category": "장소",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "POINT OF INTEREST",
+      "ko": "نقطة اهتمام",
+      "status": "review",
+      "kind": "ui",
+      "category": "메뉴·분류",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "SANCTUM",
+      "ko": "حرم",
+      "status": "review",
+      "kind": "game",
+      "category": "장소",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "SPIRE",
+      "ko": "برج مدبب",
+      "status": "review",
+      "kind": "game",
+      "category": "장소",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "WITCH HIDEOUT",
+      "ko": "مخبأ الساحرة",
+      "status": "review",
+      "kind": "game",
+      "category": "장소",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "ARTWORK SHOP",
+      "ko": "متجر الأعمال الفنية",
+      "status": "review",
+      "kind": "game",
+      "category": "상점·시설",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "BACK ALLEY SHOP",
+      "ko": "متجر الزقاق الخلفي",
+      "status": "review",
+      "kind": "game",
+      "category": "상점·시설",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "BANK",
+      "ko": "مصرف",
+      "status": "review",
+      "kind": "game",
+      "category": "상점·시설",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "BLACK MARKET TRADING POST",
+      "ko": "مركز تجارة السوق السوداء",
+      "status": "review",
+      "kind": "game",
+      "category": "상점·시설",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "BUTCHERY",
+      "ko": "ملحمة",
+      "status": "review",
+      "kind": "game",
+      "category": "상점·시설",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "CONFESSIONAL",
+      "ko": "كرسي الاعتراف",
+      "status": "review",
+      "kind": "game",
+      "category": "상점·시설",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "CONTRIBUTION SHOP",
+      "ko": "متجر المساهمات",
+      "status": "review",
+      "kind": "game",
+      "category": "상점·시설",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "DECORATIVE STONE SHOP",
+      "ko": "متجر أحجار الزينة",
+      "status": "review",
+      "kind": "game",
+      "category": "상점·시설",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "DYEHOUSE",
+      "ko": "مصبغة",
+      "status": "review",
+      "kind": "game",
+      "category": "상점·시설",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "EQUIPMENT SHOP",
+      "ko": "متجر المعدات",
+      "status": "review",
+      "kind": "game",
+      "category": "상점·시설",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "FISHING SHOP",
+      "ko": "متجر صيد الأسماك",
+      "status": "review",
+      "kind": "game",
+      "category": "상점·시설",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "FURNITURE SHOP",
+      "ko": "متجر الأثاث",
+      "status": "review",
+      "kind": "game",
+      "category": "상점·시설",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "GROCER'S SHOP",
+      "ko": "متجر البقالة",
+      "status": "review",
+      "kind": "game",
+      "category": "상점·시설",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "GUARD STATION",
+      "ko": "مركز الحراسة",
+      "status": "review",
+      "kind": "game",
+      "category": "상점·시설",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "HORSE BLACK MARKET",
+      "ko": "سوق الخيول السوداء",
+      "status": "review",
+      "kind": "game",
+      "category": "상점·시설",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "KUKU SHOP",
+      "ko": "متجر كوكو",
+      "status": "review",
+      "kind": "game",
+      "category": "상점·시설",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "LIVESTOCK FENCE",
+      "ko": "تاجر المواشي المسروقة",
+      "status": "review",
+      "kind": "game",
+      "category": "상점·시설",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "MINERAL SHOP",
+      "ko": "متجر المعادن",
+      "status": "review",
+      "kind": "game",
+      "category": "상점·시설",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "MINIGAME",
+      "ko": "لعبة مصغرة",
+      "status": "review",
+      "kind": "game",
+      "category": "상점·시설",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "NOTICE BOARD",
+      "ko": "لوحة الإعلانات",
+      "status": "review",
+      "kind": "game",
+      "category": "상점·시설",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "PET SHOP",
+      "ko": "متجر الحيوانات الأليفة",
+      "status": "review",
+      "kind": "game",
+      "category": "상점·시설",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "PROVISIONER'S SHOP",
+      "ko": "متجر المؤن",
+      "status": "review",
+      "kind": "game",
+      "category": "상점·시설",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "RANCHER'S SHOP",
+      "ko": "متجر مربي الماشية",
+      "status": "review",
+      "kind": "game",
+      "category": "상점·시설",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "RESEARCH INSTITUTE",
+      "ko": "معهد الأبحاث",
+      "status": "review",
+      "kind": "game",
+      "category": "상점·시설",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "SADDLERY",
+      "ko": "متجر السروج",
+      "status": "review",
+      "kind": "game",
+      "category": "상점·시설",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "SECRET SHOP",
+      "ko": "متجر سري",
+      "status": "review",
+      "kind": "game",
+      "category": "상점·시설",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "SMITHY",
+      "ko": "ورشة الحدادة",
+      "status": "review",
+      "kind": "game",
+      "category": "상점·시설",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "STABLE",
+      "ko": "إسطبل",
+      "status": "review",
+      "kind": "game",
+      "category": "상점·시설",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "STREET SHOP",
+      "ko": "متجر الشارع",
+      "status": "review",
+      "kind": "game",
+      "category": "상점·시설",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "TAILOR'S SHOP",
+      "ko": "متجر الخياط",
+      "status": "review",
+      "kind": "game",
+      "category": "상점·시설",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "TANNERY",
+      "ko": "مدبغة",
+      "status": "review",
+      "kind": "game",
+      "category": "상점·시설",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "TAVERN",
+      "ko": "حانة",
+      "status": "review",
+      "kind": "game",
+      "category": "상점·시설",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "TRADING CENTER",
+      "ko": "مركز التجارة",
+      "status": "review",
+      "kind": "game",
+      "category": "상점·시설",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "WAGON FENCE",
+      "ko": "تاجر العربات المسروقة",
+      "status": "review",
+      "kind": "game",
+      "category": "상점·시설",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "ANVIL",
+      "ko": "سندان",
+      "status": "review",
+      "kind": "game",
+      "category": "제작 도구",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "BONFIRE",
+      "ko": "نار مخيم",
+      "status": "review",
+      "kind": "game",
+      "category": "제작 도구",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "GRINDSTONE",
+      "ko": "حجر سن",
+      "status": "review",
+      "kind": "game",
+      "category": "제작 도구",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "SPECIAL COOKING TO...",
+      "ko": "",
+      "status": "untranslated",
+      "kind": "game",
+      "category": "제작 도구",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용. 잘린 원문 SPECIAL COOKING TO...의 전체 의미를 추측하지 않아 미번역. 별도 원문 SPECIAL COOKING TOOL과 합치거나 확장하지 않음."
+    },
+    {
+      "en": "WELL",
+      "ko": "بئر",
+      "status": "review",
+      "kind": "game",
+      "category": "제작 도구",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "ABYSS ARTIFACT",
+      "ko": "أثر الهاوية",
+      "status": "review",
+      "kind": "game",
+      "category": "수집 요소",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "ABYSS GEAR",
+      "ko": "عتاد الهاوية",
+      "status": "review",
+      "kind": "game",
+      "category": "수집 요소",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "KEY ITEM",
+      "ko": "عنصر رئيسي",
+      "status": "review",
+      "kind": "game",
+      "category": "수집 요소",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "KUKU POT ITEM",
+      "ko": "عنصر قدر كوكو",
+      "status": "review",
+      "kind": "game",
+      "category": "수집 요소",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "MEMORY FRAGMENT",
+      "ko": "شظية ذاكرة",
+      "status": "review",
+      "kind": "game",
+      "category": "수집 요소",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "MOUNT",
+      "ko": "مطية",
+      "status": "review",
+      "kind": "game",
+      "category": "수집 요소",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "SEALED ABYSS ARTIFACT",
+      "ko": "أثر الهاوية المختوم",
+      "status": "review",
+      "kind": "game",
+      "category": "수집 요소",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "TREASURE CHEST",
+      "ko": "صندوق كنز",
+      "status": "review",
+      "kind": "game",
+      "category": "수집 요소",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "TREASURE MAP",
+      "ko": "خريطة كنز",
+      "status": "review",
+      "kind": "game",
+      "category": "수집 요소",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "ACCESSORY",
+      "ko": "إكسسوار",
+      "status": "review",
+      "kind": "game",
+      "category": "아이템",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "ARMOR",
+      "ko": "درع",
+      "status": "review",
+      "kind": "game",
+      "category": "아이템",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "CHEST",
+      "ko": "صندوق",
+      "status": "review",
+      "kind": "game",
+      "category": "아이템",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "COMMON EQUIPMENT",
+      "ko": "معدات عادية",
+      "status": "review",
+      "kind": "game",
+      "category": "아이템",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "CURRENCY",
+      "ko": "عملة",
+      "status": "review",
+      "kind": "game",
+      "category": "아이템",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "DYE",
+      "ko": "صبغة",
+      "status": "review",
+      "kind": "game",
+      "category": "아이템",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "ELIXIR",
+      "ko": "إكسير",
+      "status": "review",
+      "kind": "game",
+      "category": "아이템",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "KEY",
+      "ko": "مفتاح",
+      "status": "review",
+      "kind": "game",
+      "category": "아이템",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "PACK",
+      "ko": "حزمة",
+      "status": "review",
+      "kind": "game",
+      "category": "아이템",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "READING MATERIAL",
+      "ko": "مادة للقراءة",
+      "status": "review",
+      "kind": "game",
+      "category": "아이템",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "TOOL",
+      "ko": "أداة",
+      "status": "review",
+      "kind": "game",
+      "category": "아이템",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "TREASURE MAP SOLUTION",
+      "ko": "حل خريطة الكنز",
+      "status": "review",
+      "kind": "game",
+      "category": "아이템",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "WEAPON",
+      "ko": "سلاح",
+      "status": "review",
+      "kind": "game",
+      "category": "아이템",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "ALCHEMY FORMULA",
+      "ko": "صيغة خيميائية",
+      "status": "review",
+      "kind": "game",
+      "category": "제작법",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "EQUIPMENT BLUEPRINT",
+      "ko": "مخطط معدات",
+      "status": "review",
+      "kind": "game",
+      "category": "제작법",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "RECIPE",
+      "ko": "وصفة",
+      "status": "review",
+      "kind": "game",
+      "category": "제작법",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "FACTION QUEST",
+      "ko": "مهمة فصيل",
+      "status": "review",
+      "kind": "game",
+      "category": "퀘스트",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "MAIN QUEST",
+      "ko": "مهمة رئيسية",
+      "status": "review",
+      "kind": "game",
+      "category": "퀘스트",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "ABYSS ENEMY",
+      "ko": "عدو الهاوية",
+      "status": "review",
+      "kind": "game",
+      "category": "적",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "BOSS",
+      "ko": "زعيم",
+      "status": "review",
+      "kind": "game",
+      "category": "적",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "ELITE ENEMY",
+      "ko": "عدو نخبة",
+      "status": "review",
+      "kind": "game",
+      "category": "적",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "LEGENDARY ANIMAL",
+      "ko": "حيوان أسطوري",
+      "status": "review",
+      "kind": "game",
+      "category": "적",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "MYSTERIOUS CREATURE",
+      "ko": "مخلوق غامض",
+      "status": "review",
+      "kind": "game",
+      "category": "적",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "WALKER",
+      "ko": "وولكر",
+      "status": "review",
+      "kind": "game",
+      "category": "적",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "HIDDEN PASSAGE",
+      "ko": "ممر مخفي",
+      "status": "review",
+      "kind": "game",
+      "category": "기타",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "MISCELLANEOUS",
+      "ko": "متفرقات",
+      "status": "review",
+      "kind": "ui",
+      "category": "메뉴·분류",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "OBSERVE SKILL",
+      "ko": "مراقبة مهارة",
+      "status": "review",
+      "kind": "game",
+      "category": "기타",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "PET",
+      "ko": "حيوان أليف",
+      "status": "review",
+      "kind": "game",
+      "category": "기타",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "PUZZLE CLUE",
+      "ko": "دليل لغز",
+      "status": "review",
+      "kind": "game",
+      "category": "기타",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "AZURITE",
+      "ko": "أزوريت",
+      "status": "review",
+      "kind": "game",
+      "category": "자원",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "BISMUTH ORE",
+      "ko": "خام البزموت",
+      "status": "review",
+      "kind": "game",
+      "category": "자원",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "BLOODSTONE",
+      "ko": "حجر الدم",
+      "status": "review",
+      "kind": "game",
+      "category": "자원",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "BRIMSTONE",
+      "ko": "كبريت",
+      "status": "review",
+      "kind": "game",
+      "category": "자원",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "COPPER ORE",
+      "ko": "خام النحاس",
+      "status": "review",
+      "kind": "game",
+      "category": "자원",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "CORAL MUSHROOM",
+      "ko": "فطر مرجاني",
+      "status": "review",
+      "kind": "game",
+      "category": "자원",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "COTTON",
+      "ko": "قطن",
+      "status": "review",
+      "kind": "game",
+      "category": "자원",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "DIAMOND",
+      "ko": "ألماس",
+      "status": "review",
+      "kind": "game",
+      "category": "자원",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "EPIDOTE",
+      "ko": "إبيدوت",
+      "status": "review",
+      "kind": "game",
+      "category": "자원",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "GARNET",
+      "ko": "غارنت",
+      "status": "review",
+      "kind": "game",
+      "category": "자원",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "GINSENG",
+      "ko": "جنسنغ",
+      "status": "review",
+      "kind": "game",
+      "category": "자원",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "GOLD ORE",
+      "ko": "خام الذهب",
+      "status": "review",
+      "kind": "game",
+      "category": "자원",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "GREEN ALGAE",
+      "ko": "طحالب خضراء",
+      "status": "review",
+      "kind": "game",
+      "category": "자원",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "HERB",
+      "ko": "عشبة",
+      "status": "review",
+      "kind": "game",
+      "category": "자원",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "HONEY",
+      "ko": "عسل",
+      "status": "review",
+      "kind": "game",
+      "category": "자원",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "IRON ORE",
+      "ko": "خام الحديد",
+      "status": "review",
+      "kind": "game",
+      "category": "자원",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "MERCURY",
+      "ko": "زئبق",
+      "status": "review",
+      "kind": "game",
+      "category": "자원",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "OAKWOOD MUSHROOM",
+      "ko": "فطر خشب البلوط",
+      "status": "review",
+      "kind": "game",
+      "category": "자원",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "PALMAR LEAF",
+      "ko": "ورقة بالمار",
+      "status": "review",
+      "kind": "game",
+      "category": "자원",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "PINE MUSHROOM",
+      "ko": "فطر الصنوبر",
+      "status": "review",
+      "kind": "game",
+      "category": "자원",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "PRODUCE",
+      "ko": "محاصيل زراعية",
+      "status": "review",
+      "kind": "game",
+      "category": "자원",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "RED SEAWEED",
+      "ko": "أعشاب بحرية حمراء",
+      "status": "review",
+      "kind": "game",
+      "category": "자원",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "RUBBER",
+      "ko": "مطاط",
+      "status": "review",
+      "kind": "game",
+      "category": "자원",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "SCOLECITE ORE",
+      "ko": "خام السكوليسيت",
+      "status": "review",
+      "kind": "game",
+      "category": "자원",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "SILVER ORE",
+      "ko": "خام الفضة",
+      "status": "review",
+      "kind": "game",
+      "category": "자원",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "SKYROOT",
+      "ko": "جذر السماء",
+      "status": "review",
+      "kind": "game",
+      "category": "자원",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "SPIDER WEB",
+      "ko": "شبكة عنكبوت",
+      "status": "review",
+      "kind": "game",
+      "category": "자원",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "STONE",
+      "ko": "حجر",
+      "status": "review",
+      "kind": "game",
+      "category": "자원",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "SPECIAL COOKING TOOL",
+      "ko": "أداة طهي خاصة",
+      "status": "review",
+      "kind": "game",
+      "category": "제작 도구",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "MY SUGGESTIONS (",
+      "ko": "اقتراحاتي (",
+      "status": "review",
+      "kind": "ui",
+      "category": "메뉴·분류",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "MY SUGGESTIONS(",
+      "ko": "اقتراحاتي(",
+      "status": "review",
+      "kind": "ui",
+      "category": "메뉴·분류",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    },
+    {
+      "en": "MY SUGGESTIONS(0)",
+      "ko": "اقتراحاتي(0)",
+      "status": "review",
+      "kind": "ui",
+      "category": "메뉴·분류",
+      "source": "AI 직접 작성: 영어 원문 기반 아랍어 단순 번역 테스트 (2026-10-20). 원문 목록: extension/data/dictionary.json.",
+      "evidence": "아랍어 공식 미검증. AI 테스트 초안이며 원어민 검수 없음. 기존 한국어 번역의 공식 출처·검증 상태는 아랍어 번역 근거가 아님.",
+      "notes": "테스트용 단순 번역·일부 고유명사 음역. 공식 아랍어 명칭이 아님. 검토 중 적용(includeReview)을 켜야 표시. 교환 스키마의 ko 필드가 아랍어 대체문을 담음."
+    }
+  ]
+}

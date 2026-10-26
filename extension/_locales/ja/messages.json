@@ -1,0 +1,8 @@
+{
+  "appName": {
+    "message": "SayItMyWay"
+  },
+  "appDescription": {
+    "message": "ローカルのテキスト置換表を選択したサイトに適用し、原文に戻します。"
+  }
+}

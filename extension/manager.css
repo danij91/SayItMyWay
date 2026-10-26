@@ -1,0 +1,8 @@
+:root{font:15px system-ui,sans-serif;color:#232831;background:#f5f6f8}body{margin:0}header{padding:16px 24px 0;background:white;border-bottom:1px solid #d7dce4}h1{font-size:20px;margin:0 0 16px}nav{display:flex;gap:8px}button,a{font:inherit;color:inherit}button{cursor:pointer;border:1px solid #bdc3ce;border-radius:6px;padding:9px 16px;background:white}button[aria-selected=true]{background:#843a35;color:white;border-color:#843a35}button:focus-visible,a:focus-visible{outline:3px solid #356eb5;outline-offset:2px}nav button{border-radius:6px 6px 0 0}a{margin-inline-start:8px}iframe{width:100%;height:calc(100vh - 175px);min-height:420px;display:block;border:0}#sites-frame{height:calc(100vh - 110px)}[hidden]{display:none!important}
+
+#table-frame{height:calc(100vh - 110px)}
+
+#table-frame{height:calc(100vh - 70px)}
+
+/* Isolate user content without changing stored strings. */
+[dir=auto],bdi{unicode-bidi:isolate} [dir=ltr]{direction:ltr;unicode-bidi:isolate} input,textarea{min-width:0;max-width:100%} select{max-width:100%}

@@ -1,0 +1,8 @@
+{
+  "appName": {
+    "message": "SayItMyWay"
+  },
+  "appDescription": {
+    "message": "Aplica tablas locales de sustitución de texto a los sitios seleccionados y restaura el texto original."
+  }
+}
