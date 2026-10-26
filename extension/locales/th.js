@@ -403,5 +403,4 @@
   "ai_result_apply": "นำไปใช้และบันทึก",
   "ai_result_title": "ผล AI",
   "ai_result_extension": "นำเข้าผล AI ที่เชื่อมโยงในตัวแก้ไขของส่วนขยาย",
-  "source_code": "ซอร์สโค้ด",
 };

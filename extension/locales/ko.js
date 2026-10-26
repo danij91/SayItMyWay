@@ -403,5 +403,4 @@
   "ai_result_apply": "적용 및 저장",
   "ai_result_title": "AI 결과",
   "ai_result_extension": "연결된 AI 결과는 확장 편집기에서 가져오세요.",
-  "source_code": "소스 코드",
 };

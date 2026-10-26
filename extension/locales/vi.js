@@ -403,5 +403,4 @@
   "ai_result_apply": "Áp dụng và lưu",
   "ai_result_title": "Kết quả AI",
   "ai_result_extension": "Nhập kết quả AI có liên kết trong trình chỉnh sửa tiện ích.",
-  "source_code": "Mã nguồn",
 };

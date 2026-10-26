@@ -403,5 +403,4 @@
   "ai_result_apply": "应用并保存",
   "ai_result_title": "AI结果",
   "ai_result_extension": "请在扩展编辑器中导入关联的AI结果。",
-  "source_code": "源代码",
 };

@@ -403,5 +403,4 @@
   "ai_result_apply": "Apply and save",
   "ai_result_title": "AI result",
   "ai_result_extension": "Import linked AI results in the extension editor.",
-  "source_code": "Source code",
 };

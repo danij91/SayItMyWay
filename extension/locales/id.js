@@ -403,5 +403,4 @@
   "ai_result_apply": "Terapkan dan simpan",
   "ai_result_title": "Hasil AI",
   "ai_result_extension": "Impor hasil AI tertaut di editor ekstensi.",
-  "source_code": "Kode sumber",
 };

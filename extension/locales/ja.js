@@ -403,5 +403,4 @@
   "ai_result_apply": "適用して保存",
   "ai_result_title": "AI結果",
   "ai_result_extension": "連携したAI結果は拡張機能のエディターで取り込んでください。",
-  "source_code": "ソースコード",
 };

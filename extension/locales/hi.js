@@ -403,5 +403,4 @@
   "ai_result_apply": "लागू करें और सहेजें",
   "ai_result_title": "AI परिणाम",
   "ai_result_extension": "लिंक किए गए AI परिणाम एक्सटेंशन संपादक में आयात करें।",
-  "source_code": "स्रोत कोड",
 };

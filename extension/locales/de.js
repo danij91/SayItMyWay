@@ -403,5 +403,4 @@
   "ai_result_apply": "Anwenden und speichern",
   "ai_result_title": "KI-Ergebnis",
   "ai_result_extension": "Importiere verknüpfte KI-Ergebnisse im Erweiterungseditor.",
-  "source_code": "Quellcode",
 };

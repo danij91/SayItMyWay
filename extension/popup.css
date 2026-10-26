@@ -34,4 +34,4 @@ header{display:flex;align-items:center;gap:8px;position:relative}.header-title{f
 #sites-list[open]>summary::before,#currency-expand[aria-expanded=true]::before{transform:rotate(90deg)}
 .currency-chevron{display:none}
 
-.popup-footer{margin-block-start:8px}.popup-footer .source-code-link{display:inline-flex;align-items:center;gap:5px;max-width:100%;padding:4px;color:#606977;font-size:11px;text-decoration:none}.source-code-link svg{flex-shrink:0}.source-code-link span{overflow-wrap:anywhere}.source-code-link:hover{text-decoration:underline}
+.popup-footer{margin-block-start:8px}.popup-footer .source-code-link{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;padding:6px;color:#606977;border-radius:5px;text-decoration:none}.source-code-link svg{flex-shrink:0}.source-code-link:hover{color:#20242b;background:#e8ebef}

@@ -403,5 +403,4 @@
   "ai_result_apply": "Appliquer et enregistrer",
   "ai_result_title": "Résultat IA",
   "ai_result_extension": "Importez les résultats liés dans l’éditeur de l’extension.",
-  "source_code": "Code source",
 };
