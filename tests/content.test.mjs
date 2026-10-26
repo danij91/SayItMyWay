@@ -34,8 +34,8 @@ test('singleton content applies exclusions, applies populated rows, restores on 
   d.window.eval(source);d.window.eval(source);assert.equal(listeners.length,1);
   const send=m=>new Promise(r=>listeners[0](m,{id:'test'},r));
   let report=await send({type:'applyState',state});
-  assert.equal(report.translated,1);assert.equal(report.error,'');assert.equal(report.tableId,'crimson-desert');
-  assert.equal(d.window.document.querySelector('span').textContent,'CRIMSON DESERT');
+  assert.equal(report.translated,2);assert.equal(report.error,'');assert.equal(report.tableId,'crimson-desert');
+  assert.equal(d.window.document.querySelector('span').textContent,seed.entries.find(e=>e.en.toLowerCase()==='crimson desert').ko);
   finishInitial({enabled:false});await new Promise(r=>setTimeout(r,0));
   assert.equal(d.window.document.querySelector('button').textContent,'모두 표시');
   report=await send({type:'applyState',state:{enabled:false,table:null}});

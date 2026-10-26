@@ -401,8 +401,8 @@ async function inlineRequest(message,sender,state){
   if(message.type==='inlineDelete'){
    if(!entry)throw Error(TextPatchI18n.t('inline_conflict'));
    table.entries=table.entries.filter(row=>row.id!==entry.id);
-  }else if(entry){if(entry.ko!==message.replacement){entry.ko=message.replacement;entry.status=message.replacement.trim()?'review':'untranslated';}}
-  else table.entries.push({id:crypto.randomUUID(),en:message.original,ko:message.replacement,kind:'general',category:'general',context:'global',selector:'',status:message.replacement.trim()?'review':'untranslated',source:'',evidence:'',notes:''});
+  }else if(entry){if(entry.ko!==message.replacement){entry.ko=message.replacement;}}
+  else table.entries.push({id:crypto.randomUUID(),en:message.original,ko:message.replacement});
   table.revision++;
   state.library=await repository.save(state.library);inlineTokens.delete(message.token);
   await libraryChanged(state.library);return message.type==='inlineDelete'?{deleted:true}:{saved:true};

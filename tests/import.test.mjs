@@ -75,11 +75,13 @@ test('table/library/bundle round trips preserve statuses and metadata, invalid I
     assert.deepEqual(JSON.parse(TableImport.exportJSON(next,'new-table')),next.tables[1]);
     assert.deepEqual(JSON.parse(TableImport.exportJSON(next)),next);
   }
-  for(const mutate of [x=>x.id='../bad',x=>x.entries[0].id=' ',x=>x.entries.push(x.entries[0]),x=>x.entries[0].status='official',x=>{x.entries[0].status='verified';x.entries[0].evidence='';}]){const invalid=structuredClone(copy);mutate(invalid);assert.throws(()=>TableImport.preview(base,JSON.stringify(invalid)));}
+  for(const mutate of [x=>x.id='../bad',x=>x.entries[0].id=' ',x=>x.entries.push(x.entries[0]),x=>x.entries[0].ko=null]){const invalid=structuredClone(copy);mutate(invalid);assert.throws(()=>TableImport.preview(base,JSON.stringify(invalid)));}
   assert.throws(()=>TableImport.preview(base,'{'),/JSON/);
   assert.throws(()=>TableImport.preview(base,JSON.stringify({schemaVersion:2,revision:1,tables:[copy,copy]})),/ID/);
   const collision=structuredClone(copy);collision.id=base.tables[0].id;collision.entries=[{...base.tables[0].entries[0],id:'different-id'}];
-  const plan=TableImport.preview(base,JSON.stringify(collision));assert.throws(()=>TableImport.apply(plan,plan.changes.map(c=>c.key)),/중복/);
+  const plan=TableImport.preview(base,JSON.stringify(collision));
+  const ambiguous=TableImport.apply(plan,plan.changes.map(c=>c.key));
+  assert.equal(ambiguous.tables[0].entries.length,base.tables[0].entries.length+1);
 });
 
 test('capture rows require an explicit target table and preserve empty replacement, status and source',()=>{

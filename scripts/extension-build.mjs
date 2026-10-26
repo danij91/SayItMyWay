@@ -115,7 +115,7 @@ const productionFiles = [
   'manifest.json', 'background.js', 'content.js', 'collection.js',
   'interaction-settings.js', 'page-tools.js', 'ai-request.js', 'ai-request.css', 'ai-request-ui.js',
   'manager.js', 'manager.html', 'manager.css', 'library.js', 'site-settings.css',
-  'site-list.js', 'shared.js', 'repository.js', 'popup.js', 'popup.html', 'popup.css',
+  'site-list.js', 'shared.js', 'repository.js', 'popup.js', 'import-ui.js', 'popup.html', 'popup.css',
   'options.js', 'options.html', 'options.css', 'i18n.js', 'engine.js',
   'editor/transport.js', 'editor/style.css', 'editor/index.html', 'editor/import.js', 'editor/app.js',
   ...['ar', 'de', 'en', 'es', 'fr', 'hi', 'id', 'ja', 'ko', 'pt-BR', 'ru', 'th', 'vi', 'zh-Hans', 'zh-Hant']

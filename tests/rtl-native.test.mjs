@@ -61,7 +61,7 @@ test('native Arabic mixed text, open dialogs, URL isolation and 400px popup',{sk
     await freshPage();
     await mount('popup.html',['popup.css','ai-request.css','site-settings.css'],400);
     await run(`globalThis.popupTable=TextPatch.migrate(${JSON.stringify(seed)}).tables[0];popupTable.name='جدول 한국어 ABC 123 (42)';globalThis.rule={id:'r',origin:'https://example.com',scope:'prefix',path:'/docs/123',tableId:popupTable.id,enabled:true};globalThis.snapshot={enabled:true,includeReview:false,library:{tables:[popupTable]},rules:[rule],page:{enabled:true,table:popupTable,rule}};globalThis.chrome={runtime:{getURL:p=>'https://example.test/'+p,sendMessage:async m=>m.type==='collectionState'?{collection:null}:m.type==='pageState'?snapshot.page:snapshot},tabs:{query:async()=>[{id:1,url:'https://example.com/docs/123'}],sendMessage:async()=>({enabled:true,tableId:popupTable.id,translated:12})},storage:{local:{get:async()=>({}),set:async()=>{}},onChanged:{addListener:()=>{}}}};`);
-    await run(await source('site-list.js'));await run(await source('popup.js'));
+    await run(await source('site-list.js'));await run(await source('import-ui.js'));await run(await source('popup.js'));
     await run(`new Promise(r=>setTimeout(r,20))`);await run(`TextPatchI18n.setLocale('ar');document.getElementById('sites-list').open=true`);await run(`new Promise(r=>setTimeout(r,20))`);
     assert.deepEqual(await run(`[innerWidth,document.body.getBoundingClientRect().width,document.documentElement.scrollWidth,document.documentElement.dir]`),[400,400,400,'rtl']);
     assert.equal(await run(`getComputedStyle(document.querySelector('.site-origin')).direction`),'ltr');

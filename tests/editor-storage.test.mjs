@@ -31,7 +31,7 @@ test('bundled editor uses message storage, preserves drafts on conflict and save
   const transport=await read('extension/editor/transport.js');
   w.chrome=chrome;
   w.EditorStorage=Function('location','chrome',transport+';return globalThis.EditorStorage;')({protocol:'chrome-extension:'},chrome);
-  w.eval(await read('extension/editor/app.js'));await tick();
+  w.eval(await read('extension/import-ui.js'));w.eval(await read('extension/editor/app.js'));await tick();
   assert.deepEqual(calls.map(c=>c.type),['libraryGet'],$('message').textContent);
   toggleDraftName(w);assert.equal(calls.length,1);
   failure='revision conflict';await $('save-all').onclick();
@@ -78,7 +78,7 @@ test('table deletion confirms table and linked sites, stays a draft through conf
  let stored=w.TextPatch.migrate(JSON.parse(await read('extension/data/dictionary.json'))),writes=0,failure=true,question;
  w.chrome={runtime:{sendMessage:async()=>({rules:[{tableId:'crimson-desert',origin:'https://a.example'},{tableId:'crimson-desert',origin:'https://b.example'}]}),onMessage:{addListener(){}}}};
  w.EditorStorage={load:async()=>structuredClone(stored),save:async value=>{writes++;if(failure)throw Error('revision conflict');stored=structuredClone(value);stored.revision++;return stored;}};
- w.confirm=message=>{question=message;return false;};w.eval(await read('extension/editor/app.js'));await tick();
+ w.confirm=message=>{question=message;return false;};w.eval(await read('extension/import-ui.js'));w.eval(await read('extension/editor/app.js'));await tick();
  assert.ok($('table-delete'));await $('table-delete').onclick();assert.equal($('table-select').options.length,1);assert.equal(writes,0);
  assert.match(question,/붉은사막/);assert.match(question,/2/);
  w.confirm=()=>true;await $('table-delete').onclick();assert.equal($('table-select').options.length,0);assert.equal(writes,0);assert.equal($('save-all').disabled,false);

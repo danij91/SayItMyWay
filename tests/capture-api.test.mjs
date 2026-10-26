@@ -70,10 +70,10 @@ test('unified editor opens captured table by URL, edits blank rows and copies sa
     w.fetch=(url,options={})=>fetch(new URL(url,base),{...options,headers:{...options.headers,...(options.method?{Origin:base}:{})}});
     w.HTMLDialogElement.prototype.showModal=function(){this.open=true;};w.HTMLDialogElement.prototype.close=function(){this.open=false;};
     let clipboard='';Object.defineProperty(w.navigator,'clipboard',{value:{writeText:async value=>{clipboard=value;}}});
-    for(const file of ['/shared.js','/library.js','/import.js','/ai-request.js','/ai-request-ui.js','/transport.js','/app.js']){const res=await fetch(base+file);assert.equal(res.status,200);w.eval(await res.text());}
+    for(const file of ['/shared.js','/library.js','/import.js','/ai-request.js','/ai-request-ui.js','/transport.js','/import-ui.js','/app.js']){const res=await fetch(base+file);assert.equal(res.status,200);w.eval(await res.text());}
     const until=async predicate=>{for(let i=0;i<150;i++){if(predicate())return;await new Promise(r=>setTimeout(r,10));}throw Error('UI timeout');};
-    await until(()=>$('#table-select').value==='capture-ui');assert.equal($('#rows').querySelector('img'),null);assert.match($('#counts').textContent,/미작성: 2/);
-    $('#rows button').click();$('#form').elements.ko.value='편집된 대체문';$('#form').elements.status.value='review';$('#form').dispatchEvent(new w.Event('submit',{cancelable:true}));await until(()=>!$('#editor').open);
+    await until(()=>$('#table-select').value==='capture-ui');assert.equal($('#rows').querySelector('img'),null);assert.match($('#counts').textContent,/전체: 2/);
+    $('#rows button').click();$('#form').elements.ko.value='편집된 대체문';$('#form').dispatchEvent(new w.Event('submit',{cancelable:true}));await until(()=>!$('#editor').open);
     assert.equal((await(await fetch(base+'/api/library')).json()).tables.find(t=>t.id==='capture-ui').entries[0].ko,'');
     await $('#save-all').onclick();
     const saved=await(await fetch(base+'/api/library')).json(),table=saved.tables.find(t=>t.id==='capture-ui');assert.equal(table.entries[0].ko,'편집된 대체문');
@@ -84,7 +84,7 @@ test('unified editor opens captured table by URL, edits blank rows and copies sa
       control('targetLanguage').value='English';control('instruction').value='간결하게';
       await control('copy').onclick();
       assert.ok(clipboard.includes(task==='replacement'?'간결하게':'English'));
-      assert.match(clipboard,/verified/);assert.match(clipboard,/신뢰할 수 없는/);
+      assert.doesNotMatch(clipboard,/\"(?:status|kind|context|category|source|evidence)\"\s*:/);assert.match(clipboard,/신뢰할 수 없는/);
       const payload=JSON.parse(clipboard.split('--- JSON 데이터 시작 ---\n\n')[1].split('\n\n--- JSON 데이터 끝 ---')[0]);
       assert.deepEqual(payload.entries.map(e=>e.original),[table.entries[1].en]);
       assert.equal(payload.entries[0].replacement,'');

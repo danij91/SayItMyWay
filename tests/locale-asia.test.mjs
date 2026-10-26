@@ -11,7 +11,7 @@ const additions = {
   collection_pending: 'Save failed. Unsaved text retained: {count}.',
   active_replacement_count: 'Active · Replacements: {count}',
   imported_table_count: 'Imported table drafts: {count}. Save changes at the top.',
-  entry_counts: 'Total: {total} · Not written: {untranslated} · In review: {review} · Verified: {verified}',
+  entry_counts: 'Total: {total}',
   collection_activity: 'Collecting more',
   collection_deleted: 'The collected table was deleted.'
 };
@@ -53,7 +53,7 @@ for (const [locale, chromeLocale] of Object.entries(locales)) {
       assert.doesNotMatch(value, /[\uFFFD\u202A-\u202E\u2066-\u2069]/u, `${key}: no damaged text or bidi controls`);
       assert.doesNotMatch(value, /\?{2,}/u, `${key}: no ASCII replacement runs from a damaged encoding`);
       // Indonesian "Status" is the normal local term, identical to English.
-      if (!unchanged.has(key) && !(locale === 'id' && key === 'status')) {
+      if (!unchanged.has(key) && !(locale === 'id' && ['status','entry_counts'].includes(key))) {
         assert.notEqual(value, expected[key], `${key}: untranslated English value`);
       }
     }
@@ -63,11 +63,11 @@ for (const [locale, chromeLocale] of Object.entries(locales)) {
   test(`${locale}: AI schema and security-relevant technical literals survive translation`, async () => {
     const catalog = await load(locale);
     const portable = catalog.return_a_portable_table_json_object_with_formattextpatchtable;
-    for (const literal of ['format:"text-patch-table"', 'version:2', 'defaults', 'captureSources', 'original', 'source/evidence/notes']) {
+    for (const literal of ['format:"text-patch-table"', 'version:2', 'defaults', 'captureSources', 'original', 'selector', 'notes']) {
       assert.ok(portable.includes(literal), `portable request retains ${literal}`);
     }
     const proposal = catalog.only_propose_text_for_empty_ko_fields_in;
-    for (const literal of ['entries', 'replacement', 'status', 'review', 'untranslated', 'verified', 'replacement/status/source/evidence/notes', 'JSON']) {
+    for (const literal of ['entries', 'replacement', 'JSON']) {
       assert.ok(proposal.includes(literal), `proposal request retains ${literal}`);
     }
     for (const key of ['verified_game_terms_need_an_official_source_url', 'game_terms_need_an_official_https_source_or']) {

@@ -27,7 +27,9 @@ No account, subscription, or donation required. There are no paid limits on save
 
 Open the table manager using the table icon at the top of the popup. Create a table or import JSON, enter source and replacement text, and **save** your changes. On a website, choose that table in the popup and turn on **text replacement**. Chrome will request site access the first time it is needed.
 
-Switching tables while replacement is enabled applies the new table. Empty replacement values leave the original text unchanged. Nonempty values apply regardless of verification status; status, sources, and notes are metadata for managing your entries.
+Choose **Import** in the popup or table manager, then select **File** to open a JSON file or **Clipboard** to import copied JSON. Clipboard access is requested when you choose it; the extension does not monitor your clipboard. Ordinary JSON creates a new table, while linked AI results show a preview before you apply them.
+
+Switching tables while replacement is enabled applies the new table. Empty replacement values leave the original text unchanged. Nonempty values apply directly. Entries can include optional notes and a CSS selector to limit replacement to part of a page.
 
 Expand the sites panel to manage table assignments and enabled states. Each row's settings button controls case sensitivity and replacement within sentences. By default, the entire text must match. Word replacement checks word boundaries, and substitutions are calculated from the original text in one pass: rules A → B and B → C do not turn A into C.
 
@@ -83,7 +85,7 @@ npm test
 npm run build:extension
 ```
 
-The build produces `dist/extension/` from an explicit list of extension files, excluding developer tools, personal tables, and the historical Crimson Desert dictionary.
+The build produces `dist/extension/` from an explicit list of extension files, excluding developer tools, personal tables, and development fixtures.
 
 Some native browser checks require a separate Playwright/Chromium environment and may be skipped by the default test run. The `tests/*browser.mjs` scripts are optional checks; see each file for environment variables and prerequisites.
 
@@ -93,13 +95,13 @@ To inspect bundled application content:
 npm run dev:tools
 ```
 
-Open `http://127.0.0.1:4318/` to browse AI prompts, UI strings, and the bundled dictionary. This developer tool does not read user tables and is not needed to use the extension. Stop it with `Ctrl+C`.
+Open `http://127.0.0.1:4318/` to browse AI prompts, UI strings, and development fixtures. This developer tool does not read user tables and is not needed to use the extension. Stop it with `Ctrl+C`.
 
 | Path | Contents |
 | --- | --- |
 | `extension/` | Extension, popup, table manager, and replacement engine |
 | `extension/locales/` | UI translations and AI request wording |
-| `extension/data/` | Historical source-only dictionary and bundled fallback exchange-rate data |
+| `extension/data/` | Development fixtures and bundled fallback exchange-rate data |
 | `examples/` | Importable example tables |
 | `tests/` | Automated tests and optional browser checks |
 | `scripts/` | Build and development tools |
@@ -107,9 +109,7 @@ Open `http://127.0.0.1:4318/` to browse AI prompts, UI strings, and the bundled 
 
 `npm start` runs a legacy file-based development tool. The current extension neither requires that server nor synchronizes with it.
 
-## Example data and license
-
-SayItMyWay began as a Korean text patch for a Crimson Desert map and evolved into a general-purpose tool. The historical dictionary remains in the source repository for development and migration tests, with its sources and verification status preserved. It is not loaded by default or included in the production extension. The Arabic table is a test fixture using general translations; not every game term has been verified against an official localization. This project is not affiliated with or endorsed by Pearl Abyss or MapGenie.
+## License
 
 The original project code is available under the **[MIT License](LICENSE)**. Personal and commercial use, modification, and redistribution are permitted, provided the copyright and license notices are retained. Third-party libraries, data, and trademarks remain subject to their own rights and terms. See [Third-party notices](THIRD_PARTY_NOTICES.md).
 

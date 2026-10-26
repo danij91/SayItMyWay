@@ -63,7 +63,7 @@ test('editor language chooser is click-only and closes on choice, Escape and out
  const w=await mount(t,{html:await source('editor/index.html')});w.structuredClone=structuredClone;
  for(const file of ['shared.js','library.js'])w.eval(await source(file));
  const saved=w.TextPatch.migrate(JSON.parse(await source('data/dictionary.json')));
- w.EditorStorage={load:async()=>structuredClone(saved)};w.eval(await source('editor/app.js'));await tick();
+ w.EditorStorage={load:async()=>structuredClone(saved)};w.eval(await source('import-ui.js'));w.eval(await source('editor/app.js'));await tick();
  const menu=w.document.getElementById('editor-language'),trigger=menu.querySelector('summary'),select=menu.querySelector('select');
  assert.equal(menu.open,false);trigger.dispatchEvent(new w.Event('mouseover'));assert.equal(menu.open,false);
  trigger.click();assert.equal(menu.open,true);select.dispatchEvent(new w.KeyboardEvent('keydown',{key:'Escape',bubbles:true,cancelable:true}));assert.equal(menu.open,false);assert.equal(w.document.activeElement,trigger);
@@ -77,13 +77,13 @@ test('popup language choice synchronizes an editor draft, open entry and AI inpu
   for(const file of ['shared.js','library.js','ai-request.js','ai-request-ui.js','editor/import.js'])w.eval(await source(file));
   const saved=w.TextPatch.migrate(JSON.parse(await source('data/dictionary.json'))),before=JSON.stringify(saved);
   w.EditorStorage={load:async()=>{calls.push('load');return structuredClone(saved);},save:async()=>{calls.push('save');throw Error('unexpected save');}};
-  w.eval(await source('editor/app.js'));await tick();const $=id=>w.document.getElementById(id);
+  w.eval(await source('import-ui.js'));w.eval(await source('editor/app.js'));await tick();const $=id=>w.document.getElementById(id);
   toggleDraftName(w);$('query').value='Search';$('query').dispatchEvent(new w.Event('input'));
-  $('add').click();const form=$('form');form.elements.en.value='미저장 original';form.elements.ko.value='Untouched replacement';form.elements.source.value='사용자 확인: evidence';
+  $('add').click();const form=$('form');form.elements.en.value='미저장 original';form.elements.ko.value='Untouched replacement';form.elements.notes.value='사용자 확인: evidence';
   form.elements.en.dispatchEvent(new w.Event('input',{bubbles:true}));
   const popup=await mount(t,{html:await source('popup.html'),chrome:bus.chrome});const chooser=popup.document.getElementById('app-locale');chooser.value='en';chooser.dispatchEvent(new popup.Event('change'));await tick();
   assert.equal(w.document.documentElement.lang,'en');assert.equal($('save-all').textContent,'Save');assert.equal($('save-state').textContent,'Not saved');
-  assert.equal($('app-locale').value,'en');assert.equal($('editor').open,true);assert.equal(form.elements.en.value,'미저장 original');assert.equal(form.elements.ko.value,'Untouched replacement');assert.equal(form.elements.source.value,'사용자 확인: evidence');
+  assert.equal($('app-locale').value,'en');assert.equal($('editor').open,true);assert.equal(form.elements.en.value,'미저장 original');assert.equal(form.elements.ko.value,'Untouched replacement');assert.equal(form.elements.notes.value,'사용자 확인: evidence');
   assert.equal($('query').value,'Search');assert.equal(hasDraftName(w),true);assert.deepEqual(calls,['load']);assert.equal(JSON.stringify(saved),before);assert.equal($('defaults-placeholder'),null);
   const table={schemaVersion:1,id:'t',name:'한국어 user table',entries:[{id:'r',en:'原文',ko:'',status:'untranslated'}]};
   const dialog=await w.TextPatchAIUI.open({table,loadPreferences:async()=>({sourceLanguage:'Japanese',targetLanguage:'French',instruction:'keep MY choices'})});

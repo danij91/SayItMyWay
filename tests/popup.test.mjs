@@ -10,7 +10,7 @@ async function popup(t,{page={},collection=null,report={},failure=false,offlineR
  const d=new JSDOM(await source('popup.html'),{runScripts:'outside-only'});t.after(()=>d.window.close());
  d.window.TextEncoder=TextEncoder;
  const calls=[];let changed,allow=true,requested=0;
- loadKorean(d.window);d.window.eval(await source('shared.js'));d.window.eval(await source('library.js'));d.window.eval(await source('editor/import.js'));
+ d.window.HTMLDialogElement.prototype.showModal=function(){this.open=true;};d.window.HTMLDialogElement.prototype.close=function(){this.open=false;};loadKorean(d.window);d.window.eval(await source('shared.js'));d.window.eval(await source('library.js'));d.window.eval(await source('editor/import.js'));
  const template=d.window.TextPatch.migrate(JSON.parse(await source('data/dictionary.json'))).tables[0];
  const tables=[{...template,id:'a',name:'Applied A'},{...template,id:'b',name:'Collected'}];
  const state={enabled:true,includeReview:false,library:{schemaVersion:2,revision:1,tables},page:{enabled:true,table:tables[0],rule:{id:'rule',origin:'https://example.com',scope:'prefix',path:'/docs',tableId:'a',enabled:true},...page}};
@@ -36,7 +36,7 @@ async function popup(t,{page={},collection=null,report={},failure=false,offlineR
   if(h.failure)throw Error('No receiver');
   return {enabled:state.page.enabled,tableId:state.page.table?.id,translated:12,...h.report};
  }},storage:{local:{get:async()=>({aiRequestPreferences:{task:'replacement'}}),set:async value=>h.preferences=value},onChanged:{addListener:fn=>changed=fn}}};
- d.window.eval(await source('library.js'));d.window.eval(await source('site-list.js'));d.window.eval(await source('popup.js'));await tick();await tick();
+ d.window.eval(await source('library.js'));d.window.eval(await source('site-list.js'));d.window.eval(await source('import-ui.js'));d.window.eval(await source('popup.js'));await tick();await tick();
  return Object.assign(h,{$:id=>d.window.document.getElementById(id),doc:d.window.document,d,requested:()=>requested,allow:v=>allow=v,changed});
 }
 test('idle popup exposes site application, selected table AI, capture and discreet settings',async t=>{
@@ -48,7 +48,7 @@ test('idle popup exposes site application, selected table AI, capture and discre
  for(const id of ['change','apply','chooser'])assert.equal($(id),null,id);
  assert.equal($('capture').textContent,h.d.window.TextPatchI18n.t('capture_new'));
  for(const id of ['scope','path','unlink','inspection','inspection-log','collection-name','collection-new','collection-edit','refresh'])assert.equal($(id),null,id);
- assert.doesNotMatch(doc.body.textContent,/작업할 대응표|공통 적용|불러온 시간|JSON|기존 표/);
+ assert.doesNotMatch(doc.querySelector("#main-view").textContent,/작업할 대응표|공통 적용|불러온 시간|JSON|기존 표/);
  assert.equal($('options').href,'chrome-extension://test/manager.html');
  assert.equal($('include-review'),null);assert.equal(doc.querySelector('[data-i18n=include_drafts_in_review]'),null);
  assert.equal(h.calls.some(m=>m.type==='setReview'),false);
@@ -290,8 +290,8 @@ test('explicit popup file import announces save and errors without changing site
  assert.equal($('table').value,'a');assert.equal($('enabled').checked,false);assert.equal($('table').options.length,4);
  assert.equal(h.calls.some(m=>['selectTable','activateSite','toggleSite'].includes(m.type)),false);
  w.chrome.runtime.sendMessage=async message=>message.type==='importTables'?{error:'File invalid'}:original(message);
- await $('import-file').onchange();assert.equal($('import-status').textContent,'File invalid');assert.equal($('import-open').disabled,false);
- files=[new w.File(['{}'],'bad.txt')];await $('import-file').onchange();assert.match($('import-status').textContent,/JSON/);
+ await $('import-file').onchange();assert.equal($('import-error').textContent,'File invalid');assert.equal($('import-open').disabled,false);
+ files=[new w.File(['{}'],'bad.txt')];await $('import-file').onchange();assert.match($('import-error').textContent,/JSON/);
  assert.equal($('import-file').value,'');
 });
 test('linked popup import previews destination and counts, cancels safely, then explicitly applies and saves',async t=>{

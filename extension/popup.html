@@ -35,7 +35,7 @@
 <p id="currency-rate-status" role="status" hidden></p>
 </div>
 </section></main><section id="interaction-view" hidden aria-labelledby="interaction-title">
-<div class="settings-heading"><button id="interaction-back" type="button" data-i18n="interaction_back">뒤로</button><h2 id="interaction-title" data-i18n="interaction_settings">설정</h2></div>
+<div class="settings-heading"><button id="interaction-back" type="button" title="Back" aria-label="Back" data-i18n-title="interaction_back" data-i18n-aria-label="interaction_back"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false"><path d="m12 5-7 7 7 7M5 12h15"/></svg></button><h2 id="interaction-title" data-i18n="interaction_settings">설정</h2></div>
 <form id="shortcuts-form">
 <div class="shortcut-group"><h3 data-i18n="interaction_peek_key">원문 보기</h3>
 <div id="peek-mode" class="segmented" role="group" data-i18n-aria-label="interaction_peek_mode"><button type="button" data-mode="hold" aria-pressed="true" data-i18n="interaction_hold">유지</button><button type="button" data-mode="toggle" aria-pressed="false" data-i18n="interaction_toggle">토글</button></div>
@@ -47,5 +47,5 @@
 </section><p id="status" role="status" hidden=""></p>
 
 
-<script src="shared.js"></script><script src="library.js"></script><script src="editor/import.js"></script><script src="ai-request.js"></script><script src="ai-request-ui.js"></script><script src="site-list.js"></script><script src="interaction-settings.js"></script><script src="popup.js"></script>
+<dialog id="import-editor" aria-labelledby="import-title"><h2 id="import-title" data-i18n="import_choose_title">Import from</h2><p data-i18n="import_choose_help">Choose JSON input.</p><p data-i18n="import_json_only"></p><div class="import-choices"><button id="import-file-choice" type="button" data-i18n="import_from_file">File</button><button id="import-clipboard" type="button" data-i18n="import_from_clipboard">Clipboard</button></div><p id="import-error" role="alert" aria-live="polite"></p><div class="actions"><button id="import-cancel" type="button" data-i18n="import_choose_cancel">Cancel</button></div></dialog><script src="shared.js"></script><script src="library.js"></script><script src="editor/import.js"></script><script src="ai-request.js"></script><script src="ai-request-ui.js"></script><script src="site-list.js"></script><script src="interaction-settings.js"></script><script src="import-ui.js"></script><script src="popup.js"></script>
 </body></html>

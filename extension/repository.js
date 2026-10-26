@@ -122,7 +122,7 @@
       const rows=new Map(next.tables.map(table=>[table.id,new Map(table.entries.map(row=>[row.id,row]))]));
       for(const table of current.tables)for(const row of table.entries){
         const after=rows.get(table.id)?.get(row.id);
-        if(JSON.stringify(row)!==JSON.stringify(after)){
+        if(JSON.stringify(CrimsonShared.activeRow(row))!==JSON.stringify(CrimsonShared.activeRow(after))){
           const key=rowKey(table.id,row.id);history[key]=(history[key]||0)+1;
         }
       }

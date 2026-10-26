@@ -14,7 +14,7 @@ const additions = {
   collection_pending: 'Save failed. Unsaved text retained: {count}.',
   active_replacement_count: 'Active · Replacements: {count}',
   imported_table_count: 'Imported table drafts: {count}. Save changes at the top.',
-  entry_counts: 'Total: {total} · Not written: {untranslated} · In review: {review} · Verified: {verified}',
+  entry_counts: 'Total: {total}',
   collection_activity: 'Collecting more',
   collection_deleted: 'The collected table was deleted.'
 };
@@ -32,10 +32,10 @@ assert.equal(Object.keys(expected).length, Object.keys(english).length, 'all agr
 // Exact English equality is permitted only for a brand, placeholders, and
 // independently valid target-language cognates. This is not a fallback list.
 const identical = {
-  es: ['inline_original', 'total', 'text_table_patch', 'general', 'total_p0', 'p0_p1'],
+  es: ['entry_counts', 'inline_original', 'total', 'text_table_patch', 'general', 'total_p0', 'p0_p1'],
   fr: ['inline_original', 'inline_table', 'total', 'text_table_patch', 'notes', 'site', 'total_p0', 'p0_p1', 'table_to_use'],
   de: ['inline_original', 'text_table_patch', 'name', 'status', 'p0_p1'],
-  'pt-BR': ['inline_original', 'total', 'text_table_patch', 'site', 'total_p0', 'p0_p1'],
+  'pt-BR': ['entry_counts', 'inline_original', 'total', 'text_table_patch', 'site', 'total_p0', 'p0_p1'],
   ru: ['text_table_patch', 'p0_p1']
 };
 
@@ -83,11 +83,11 @@ for (const locale of locales) {
 
   test(`${locale}: AI and verification instructions preserve schema literals`, () => {
     const portable = catalog.return_a_portable_table_json_object_with_formattextpatchtable;
-    for (const literal of ['format:"text-patch-table"', 'version:2', 'defaults', 'captureSources', 'original', 'source/evidence/notes']) {
+    for (const literal of ['format:"text-patch-table"', 'version:2', 'defaults', 'captureSources', 'original', 'selector', 'notes']) {
       assert.ok(portable.includes(literal), literal);
     }
     const proposal = catalog.only_propose_text_for_empty_ko_fields_in;
-    for (const literal of ['replacement', 'entries', 'status review', 'status untranslated', 'verified', 'replacement/status/source/evidence/notes', 'JSON']) {
+    for (const literal of ['replacement', 'entries', 'JSON']) {
       assert.ok(proposal.includes(literal), literal);
     }
     for (const key of ['verified_game_terms_need_an_official_source_url', 'game_terms_need_an_official_https_source_or']) {

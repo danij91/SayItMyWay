@@ -26,7 +26,7 @@ test('trusted linked results survive restart and fill only unchanged blank rows 
   const applied=await restarted.aiResult(JSON.stringify(result),true);
   assert.equal(applied.filled,1);
   assert.deepEqual(Array.from(applied.library.tables[0].entries,row=>row.ko),['AI 0','','User edit','Existing']);
-  assert.equal(applied.library.tables[0].entries[0].status,'review');
+  assert.equal(applied.library.tables[0].entries[0].status,'untranslated');
   const again=await restarted.aiResult(JSON.stringify(result),true);
   assert.equal(again.filled,0);assert.equal(again.library.revision,applied.library.revision);
 });
@@ -57,7 +57,7 @@ test('partial results after recovery fill remaining blanks but preserve edits in
   base.tables=[];await repo.save(base);
   let result=await repo.aiResult(response([0]),true);
   assert.equal(result.library.tables[0].entries[0].notes,table.entries[0].notes);
-  assert.equal(result.library.tables[0].entries[0].status,'review');
+  assert.equal(result.library.tables[0].entries[0].status,'untranslated');
   const draft=await repo.get();draft.tables[0].entries[2].notes='Restored user note';await repo.save(draft);
   result=await repo.aiResult(response([1,2]),true);
   assert.equal(result.filled,1);assert.equal(result.library.tables[0].entries[1].ko,'AI 1');assert.equal(result.library.tables[0].entries[2].ko,'');
@@ -84,4 +84,18 @@ test('stale request creation fails instead of trusting a returned or caller-supp
  const {repo}=await setup(),base=await repo.get(),table=structuredClone(base.tables[0]);
  base.tables[0].entries[0].notes='Newer';await repo.save(base);
  await assert.rejects(repo.recordAIRequest(table));
+});
+
+test('minimal row AI fills only replacement, ignores legacy metadata edits and returned metadata',async()=>{
+ const {repo}=await setup(),base=await repo.get();
+ base.tables[0].entries=[{id:'minimal',en:'Hello',ko:''}];await repo.save(base);
+ const table=(await repo.get()).tables[0],request=await repo.recordAIRequest(table);
+ const draft=await repo.get();Object.assign(draft.tables[0].entries[0],{status:'verified',kind:'game',category:'legacy',context:'old',source:'',evidence:''});await repo.save(draft);
+ const before=(await repo.get()).tables[0].entries[0];
+ const result=await repo.aiResult(JSON.stringify({format:'text-patch-table',version:2,aiRequest:{version:1,id:request.id},entries:[{requestRow:'0',original:'Hello',replacement:'World',status:'review',notes:'invented',selector:'.invented'}]}),true);
+ assert.equal(result.filled,1);assert.deepEqual(result.library.tables[0].entries[0],{...before,ko:'World'});
+ const clean=await repo.get();clean.tables[0].entries=[{id:'clean',en:'New',ko:''}];await repo.save(clean);
+ const cleanTable=(await repo.get()).tables[0],cleanRequest=await repo.recordAIRequest(cleanTable);
+ const filled=await repo.aiResult(JSON.stringify({format:'text-patch-table',version:2,aiRequest:{version:1,id:cleanRequest.id},entries:[{requestRow:'0',original:'New',replacement:'Value'}]}),true);
+ assert.deepEqual(filled.library.tables[0].entries[0],{id:'clean',en:'New',ko:'Value'});
 });

@@ -16,11 +16,11 @@ test('permission approval after popup disposal preserves chosen table and applie
  h.setMode('offline');h.setRequest(()=>new Promise(()=>{}));
  const d=new JSDOM(await source('popup.html'),{runScripts:'outside-only'});
  try{
-  loadKorean(d.window);for(const file of ['shared.js','library.js'])d.window.eval(await source(file));
+  d.window.HTMLDialogElement.prototype.showModal=function(){this.open=true;};d.window.HTMLDialogElement.prototype.close=function(){this.open=false;};loadKorean(d.window);for(const file of ['shared.js','library.js'])d.window.eval(await source(file));
   d.window.chrome={runtime:{getURL:p=>'chrome-extension://test/'+p,sendMessage:m=>h.send(m)},
    tabs:{query:async()=>[{id:1,url:'https://example.com/docs/a'}],sendMessage:async()=>({enabled:true,tableId:'selected',translated:1})},
    storage:{onChanged:{addListener:()=>{}}},permissions:{request:()=>new Promise(()=>{})}};
-  d.window.eval(await source('site-list.js'));d.window.eval(await source('popup.js'));await h.send({type:'state'});await h.send({type:'state'});await tick();
+  d.window.eval(await source('site-list.js'));d.window.eval(await source('import-ui.js'));d.window.eval(await source('popup.js'));await h.send({type:'state'});await h.send({type:'state'});await tick();
   await until(()=>d.window.document.getElementById('table').options.length===3 && !d.window.document.getElementById('table').disabled && !d.window.document.getElementById('capture').disabled);
   // Old UI uses Apply; new UI saves selection then uses only the checkbox.
   d.window.document.getElementById('change')?.click();await tick();

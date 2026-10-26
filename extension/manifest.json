@@ -9,6 +9,7 @@
     "activeTab",
     "alarms"
   ],
+  "optional_permissions": ["clipboardRead"],
   "host_permissions": ["https://www.ecb.europa.eu/*"],
   "optional_host_permissions": [
     "http://*/*",

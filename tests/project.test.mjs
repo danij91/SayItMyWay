@@ -38,11 +38,11 @@ test('context conflicts, scoped matches and attributes',async()=>{
   d.window.close();
 });
 test('dictionary validation and Korean/English search and filters',()=>{
-  assert.throws(()=>CrimsonShared.validate(dictionary([entry('X','',{status:'verified'})])));
+  assert.doesNotThrow(()=>CrimsonShared.validate(dictionary([entry('X','',{status:'verified',source:'',evidence:''})])));
   assert.throws(()=>CrimsonShared.validate(dictionary([entry('X','가'),entry('X','나')])));
   assert.equal(CrimsonShared.filter(seed.entries,'파이웰','game','verified','지명').length,1);
   assert.equal(CrimsonShared.filter(seed.entries,'PYWEL').length,1);
-  assert.equal(CrimsonShared.filter(seed.entries,'Pywel','ui').length,0);
+  assert.equal(CrimsonShared.filter(seed.entries,'Pywel','ui').length,1);
 });
 test('populated replacements ignore status and legacy false, keep exclusions, and restore on toggle off',async()=>{
   const d=await dom('<body><p>Draft</p><span>Unknown</span><b>Blank</b><i>HERNAND</i></body>');
@@ -61,7 +61,7 @@ test('region names remain original even with verified cached translations',async
   const d=await dom('<body>'+names.map(n=>`<p>${n}</p>`).join('')+'<p>Other place</p><span>Kliff</span></body>');
   const t=new d.window.CrimsonTranslator(d.window.document);
   t.setData(dictionary([...names.map(n=>entry(n,'번역 금지')),entry('Other place','다른 지명',{category:'지명'}),entry('Kliff','클리프')]),crimsonExclusions);
-  assert.deepEqual([...d.window.document.querySelectorAll('p')].map(p=>p.textContent),[...names,'Other place']);
+  assert.deepEqual([...d.window.document.querySelectorAll('p')].map(p=>p.textContent),[...names,'다른 지명']);
   assert.equal(d.window.document.querySelector('span').textContent,'클리프');
   d.window.close();
 });

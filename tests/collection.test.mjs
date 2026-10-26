@@ -73,7 +73,7 @@ test('append captures missing originals into the selected table and pins retries
  assert.equal(result.error,undefined);const s=result.collection;
  assert.equal(s.tableId,table.id);assert.equal(s.needsCreate,false);assert.equal(s.firstSaved,1);
  let saved=await h.library();assert.equal(saved.tables.length,1);assert.deepEqual(saved.tables[0].entries.slice(0,existing.length),existing);
- assert.equal(saved.tables[0].entries.at(-1).ko,'');assert.equal(saved.tables[0].entries.at(-1).status,'untranslated');
+ assert.equal(saved.tables[0].entries.at(-1).ko,'');assert.equal(Object.hasOwn(saved.tables[0].entries.at(-1),'status'),false);
  h.mode('offline');await update(h,s,['Durable append original']);
  await h.send({type:'collectionStop',tabId:1});
  const other=structuredClone(saved.tables[0]);other.id='other';other.name='Other';other.entries=[];saved.tables.push(other);
@@ -195,7 +195,7 @@ test('fresh collection creates a separate table and preserves every original exi
  assert.equal(s.firstSaved,1);assert.equal(s.saved,1);assert.equal(s.total,1);
  assert.deepEqual((await h.library()).tables[0].entries,structuredClone(before));
  assert.notEqual(s.tableId,'crimson-desert');
- assert.equal((await h.library()).tables[1].entries[0].ko,'');assert.equal((await h.library()).tables[1].entries[0].status,'untranslated');
+ assert.equal((await h.library()).tables[1].entries[0].ko,'');assert.equal(Object.hasOwn((await h.library()).tables[1].entries[0],'status'),false);
  assert.equal(h.requests.length,1);
 });
 

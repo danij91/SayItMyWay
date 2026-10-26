@@ -1,7 +1,6 @@
 const $ = s => document.querySelector(s);
-const labels = {get untranslated(){return TextPatchI18n.t('untranslated');},get review(){return TextPatchI18n.t('in_review');},get verified(){return TextPatchI18n.t('verified');}};
 let library, baseline, saveError='', selectedId=new URLSearchParams(location.search).get('table'), editingId, tableAction, busy=false;
-const fields = ['en','ko','kind','category','context','selector','status','source','evidence','notes'];
+const fields = ['en','ko','selector','notes'];
 const current=()=>library?.tables.find(t=>t.id===selectedId);
 const dialogBaselines=new Map();
 const formSnapshot=form=>JSON.stringify([...form.querySelectorAll('input,select,textarea')].map(el=>[el.name||el.id,el.type==='checkbox'?el.checked:el.value]));
@@ -15,23 +14,23 @@ function render() {
   $('#rows').replaceChildren();
   if(!table){TextPatchI18n.text($('#counts'),()=>TextPatchI18n.t('create_a_table'));return;}
   const entries = table.entries;
-  TextPatchI18n.text($('#counts'),()=>TextPatchI18n.t('entry_counts',{total:entries.length,...Object.fromEntries(Object.keys(labels).map(key=>[key,entries.filter(e=>e.status===key).length]))}));
-  const rows=CrimsonShared.filter(entries,$('#query').value,'',$('#status').value,'');
+  TextPatchI18n.text($('#counts'),()=>TextPatchI18n.t('entry_counts',{total:entries.length}));
+  const rows=CrimsonShared.filter(entries,$('#query').value);
   for(const e of rows){
     const tr=document.createElement('tr');
-    for(const text of [e.en,e.ko||'—',()=>labels[e.status]]){
-      const td=document.createElement('td');if(typeof text==='function')TextPatchI18n.text(td,text);else {td.dir='auto';td.textContent=text;}tr.append(td);
+    for(const text of [e.en,e.ko||'—']){
+      const td=document.createElement('td');td.dir='auto';td.textContent=text;tr.append(td);
     }
     const td=document.createElement('td'),editButton=document.createElement('button'),remove=document.createElement('button');
     TextPatchI18n.text(editButton,()=>'✎');TextPatchI18n.attribute(editButton,'title',()=>TextPatchI18n.t('edit_entry'));TextPatchI18n.attribute(editButton,'aria-label',()=>TextPatchI18n.t('edit_entry_2')+e.en);editButton.onclick=()=>edit(e);TextPatchI18n.text(remove,()=>'⌫');TextPatchI18n.attribute(remove,'title',()=>TextPatchI18n.t('delete_entry'));TextPatchI18n.attribute(remove,'aria-label',()=>TextPatchI18n.t('delete_entry_2')+e.en);remove.dataset.delete=e.id;
     remove.onclick=()=>{if(busy||!confirm(TextPatchI18n.t('delete_entry_p0',{p0:e.en})))return;const next=structuredClone(library);next.tables.find(t=>t.id===selectedId).entries=table.entries.filter(row=>row.id!==e.id);try{applyDraft(next);TextPatchI18n.text($('#message'),()=>TextPatchI18n.t('entry_removed_from_draft_save_changes_at_the'));}catch(error){TextPatchI18n.text($('#message'),()=>TextPatchI18n.message(error.message));}};
     td.append(editButton,remove);tr.append(td);$('#rows').append(tr);
   }
-  if(!rows.length){const tr=document.createElement('tr'),td=document.createElement('td');td.colSpan=4;TextPatchI18n.text(td,()=>TextPatchI18n.t('no_search_results'));tr.append(td);$('#rows').append(tr);}
+  if(!rows.length){const tr=document.createElement('tr'),td=document.createElement('td');td.colSpan=3;TextPatchI18n.text(td,()=>TextPatchI18n.t('no_search_results'));tr.append(td);$('#rows').append(tr);}
 }
 function dirty(){return !!library&&JSON.stringify(library)!==JSON.stringify(baseline);}
 function updateSaveState(){
-  $('#save-all').disabled=!dirty()||busy||importSaving;
+  $('#save-all').disabled=!dirty()||busy||importSaving||importChooser.pending;
   TextPatchI18n.text($('#save-state'),()=>busy?TextPatchI18n.t('saving'):saveError?TextPatchI18n.t('save_failed_2')+TextPatchI18n.message(saveError):dirty()||dialogDirty()?TextPatchI18n.t('unsaved_changes'):TextPatchI18n.t('saved_2'));
 }
 function applyDraft(next){
@@ -39,7 +38,7 @@ function applyDraft(next){
   library=TextPatch.validateLibrary(next);loadToken++;saveError='';render();updateSaveState();
 }
 async function save(){
-  if(busy||importSaving||!dirty())return;
+  if(busy||importSaving||importChooser.pending||!dirty())return;
   busy=true;loadToken++;saveError='';
   // Lock mutations until the submitted snapshot is acknowledged.
   const controls=[...document.querySelectorAll('input,select,textarea,button')].map(el=>[el,el.disabled]);
@@ -59,7 +58,7 @@ for(const id of ['editor','table-editor']){
   $('#'+id).addEventListener('close',updateSaveState);
 }
 let loadToken=0;
-function hasDraft(){return busy||dirty()||dialogDirty()||importSaving;}
+function hasDraft(){return busy||dirty()||dialogDirty()||importSaving||importChooser.pending;}
 async function load(){
   if(hasDraft())return;
   const token=++loadToken;
@@ -73,7 +72,7 @@ async function load(){
 function edit(entry){
   if(busy)return;
   editingId=entry?.id;$('#form').reset();$('#entry-details').open=false;TextPatchI18n.text($('#form-error'),()=>'');TextPatchI18n.text($('#edit-title'),()=>entry?TextPatchI18n.t('edit_entry'):TextPatchI18n.t('add_entry'));
-  if(entry)for(const field of fields)$('#form').elements[field].value=entry[field];
+  if(entry)for(const field of fields)$('#form').elements[field].value=entry[field]??'';
   $('#editor').showModal();watchDialog('editor');
 }
 $('#form').addEventListener('submit',async event=>{
@@ -105,7 +104,7 @@ $('#table-form').onsubmit=async event=>{
     applyDraft(next);$('#table-editor').close();updateSaveState();TextPatchI18n.text($('#message'),()=>TextPatchI18n.t('table_applied_to_draft_save_changes_at_the'));
   }catch(error){selectedId=previous;TextPatchI18n.text($('#table-error'),()=>TextPatchI18n.message(error.message));}
 };
-$('#table-select').onchange=()=>{selectedId=$('#table-select').value;const route=new URL(location.href);route.searchParams.set('table',selectedId);history.replaceState(null,'',route);for(const id of ['query','status'])$('#'+id).value='';render();};
+$('#table-select').onchange=()=>{selectedId=$('#table-select').value;const route=new URL(location.href);route.searchParams.set('table',selectedId);history.replaceState(null,'',route);$('#query').value='';render();};
 $('#table-delete').onclick=async()=>{
   const table=current();if(busy || !table)return;
   try{
@@ -126,48 +125,32 @@ $('#table-delete').onclick=async()=>{
     TextPatchI18n.text($('#message'),()=>TextPatchI18n.t('table_deleted_draft'));
   }catch(error){TextPatchI18n.text($('#message'),()=>TextPatchI18n.message(error.message));}
 };
-for(const id of ['query','status'])$('#'+id).addEventListener('input',()=>library&&render());
+$('#query').addEventListener('input',()=>library&&render());
 $('#add').onclick=()=>current()&&edit();$('#cancel').onclick=()=>{$('#editor').close();updateSaveState();};$('#table-cancel').onclick=()=>{$('#table-editor').close();updateSaveState();};$('#load-retry').onclick=load;
 
-let readToken=0,importSaving=false;
-function clearImport(){
-  readToken++;$('#import-file').value='';TextPatchI18n.text($('#import-summary'),()=>'');TextPatchI18n.text($('#import-error'),()=>'');
-}
-$('#import-open').onclick=()=>{if(!library||busy)return;clearImport();$('#import-editor').showModal();};
-$('#import-cancel').onclick=()=>{if(importSaving)return;clearImport();$('#import-editor').close();};
-$('#import-editor').addEventListener('cancel',event=>{event.preventDefault();$('#import-cancel').click();});
-async function importFiles(files){
-  if(importSaving||busy)return;
-  const token=++readToken;
-  TextPatchI18n.text($('#import-error'),()=>'');TextPatchI18n.text($('#import-summary'),()=>'');
-  if(!files.length)return;
-  if(files.length!==1){TextPatchI18n.text($('#import-error'),()=>TextPatchI18n.t('import_one_json_file_at_a_time'));return;}
-  const file=files[0];
-  importSaving=true;$('#import-file').disabled=true;$('#import-cancel').disabled=true;updateSaveState();
-  try{
-    if(!/\.json$/i.test(file.name))throw Error(TextPatchI18n.t('select_a_json_file'));
-    if(file.size>5_000_000)throw Error(TextPatchI18n.t('json_files_must_be_5mb_or_smaller'));
-    const text=await new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(reader.result);reader.onerror=()=>reject(Error(TextPatchI18n.t('could_not_read_the_file')));reader.readAsText(file);});
-    if(token!==readToken)return;
+let importSaving=false;
+const importChooser=TextPatchImportUI.chooser({open:$('#import-open'),dialog:$('#import-editor'),fileInput:$('#import-file'),fileButton:$('#import-file-choice'),clipboardButton:$('#import-clipboard'),cancel:$('#import-cancel'),status:$('#import-error'),changed:updateSaveState,allowed:()=>!!library&&!busy&&!importSaving,consume:async(text,name)=>{
+ importSaving=true;updateSaveState();
+ try{
     if(TableImport.isAIResult(text)){
       if(dirty()||dialogDirty())throw Error(TextPatchI18n.t('ai_save_first'));
       const preview=await EditorStorage.ai('aiResultPreview',{text});
-      if(!await TextPatchAIUI.confirmResult(preview))return;
+      if(!await TextPatchAIUI.confirmResult(preview))return false;
       if(dirty()||dialogDirty())throw Error(TextPatchI18n.t('ai_save_first'));
       const result=await EditorStorage.ai('aiResultApply',{text});
       library=TextPatch.validateLibrary(result.library);baseline=structuredClone(library);selectedId=result.tableIds[0];render();
-      clearImport();$('#import-editor').close();
+
       TextPatchI18n.text($('#message'),()=>TextPatchI18n.t('ai_result_preview',{filled:result.filled,preserved:result.preserved}));return;
     }
     // Merge against the latest draft after the asynchronous read.
-    const result=TableImport.createNew(library,text,file.name.replace(/\.json$/i,''));
+    const result=TableImport.createNew(library,text,name.replace(/\.json$/i,''));
     const previous=selectedId;selectedId=result.tableIds[0];
     try{applyDraft(result.library);}catch(error){selectedId=previous;throw error;}
-    clearImport();$('#import-editor').close();
+
     TextPatchI18n.text($('#message'),()=>TextPatchI18n.t('imported_table_count',{count:result.tableIds.length}));
-  }catch(error){TextPatchI18n.text($('#import-summary'),()=>'');TextPatchI18n.text($('#import-error'),()=>TextPatchI18n.message(error.message));}
-  finally{importSaving=false;$('#import-file').disabled=false;$('#import-file').value='';$('#import-cancel').disabled=false;updateSaveState();}
-}
+ }finally{importSaving=false;updateSaveState();}
+}});
+const importFiles=files=>importChooser.files(files);
 $('#import-file').onchange=()=>importFiles([...$('#import-file').files]);
 // Prevent navigation even when a file misses the visible drop target.
 for(const type of ['dragover','drop'])document.addEventListener(type,event=>{event.preventDefault();});

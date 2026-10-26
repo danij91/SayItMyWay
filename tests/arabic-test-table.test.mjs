@@ -47,13 +47,13 @@ test('production importer creates independent valid tables and portable JSON rou
   const table=first.library.tables[1];
   assert.deepEqual(first.tableIds,[table.id]);
   assert.equal(table.name,portable.name);
-  assert.deepEqual(table.excludedTerms,[]);assert.deepEqual(table.excludedCategories,[]);
+  assert.deepEqual(table.excludedTerms,[]);assert.equal(table.excludedCategories,undefined);
   assert.deepEqual(table.defaults,portable.defaults);
   assert.equal(new Set([table.id,...table.entries.map(e=>e.id)]).size,148);
   const existingIds=new Set(before.tables.flatMap(t=>[t.id,...t.entries.map(e=>e.id)]));
   for(const id of [table.id,...table.entries.map(e=>e.id)])assert.equal(existingIds.has(id),false);
   const exported=TableImport.exportPortable(first.library,table.id);
-  const expected={...portable,version:2,entries:portable.entries.map(({en,ko,...metadata})=>({original:en,replacement:ko,...metadata}))};
+  const expected={...portable,version:2,entries:portable.entries.map(({en,ko,notes,matchMode,caseSensitive,selector})=>({original:en,replacement:ko,...Object.fromEntries(Object.entries({notes,matchMode,caseSensitive,selector}).filter(([,value])=>value!==undefined))}))};
   assert.deepEqual(JSON.parse(exported),expected);
   assert.equal(bidi.test(exported),false);
   const second=TableImport.createNew(first.library,exported),copy=second.library.tables[2];

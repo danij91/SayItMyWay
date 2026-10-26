@@ -22,10 +22,10 @@ test('AI builder requires explicit task intent and returns portable new table pr
   assert.equal(result.count,1);assert.equal(result.total,1);assert.equal(result.nextOffset,null);
   const partial=JSON.parse(result.text.split('--- JSON 데이터 시작 ---\n\n')[1].split('\n\n--- JSON 데이터 끝 ---')[0]);
   assert.deepEqual(partial,TextPatch.portableTable({...input,entries:[input.entries[0]]}));
-  for(const field of ['id','revision','excludedTerms','excludedCategories','context','selector','custom'])assert.equal(result.text.includes('"'+field+'"'),false);
+  for(const field of ['id','revision','excludedTerms','excludedCategories','context','custom'])assert.equal(result.text.includes('"'+field+'"'),false);
   assert.doesNotMatch(result.text,/ABYSS|CRIMSON DESERT|HERNAND|지명/);
   assert.match(result.text,/사용자에게.*질문/);
-  partial.entries[0].replacement='Proposition';partial.entries[0].status='review';
+  partial.entries[0].replacement='Proposition';
   const library={schemaVersion:2,revision:1,tables:[input]},next=TableImport.createNew(library,JSON.stringify(partial)).library;
   assert.equal(next.tables[1].entries[0].ko,'Proposition');assert.deepEqual(next.tables[0],input);
   assert.equal(JSON.stringify(input),before);assert.match(result.text,/French/);assert.match(result.text,/auto/);
@@ -53,7 +53,7 @@ test('AI prompt includes research/access/provenance guards and restricts page co
   const result=TextPatchAI.build({table:table(),task:'translation',sourceLanguage:'German',targetLanguage:'Spanish',page:{url:'https://user:pass@example.com/a?q=secret#token',title:'<img src=x>',language:'de',cookies:'SECRET',html:'SECRET',input:'SECRET'}});
   assert.match(result.text,/German/);assert.match(result.text,/Spanish/);assert.match(result.text,/https:\/\/example.com\/a/);
   assert.doesNotMatch(result.text,/q=secret|token|user:pass|SECRET/);
-  for(const text of ['공식 자료','한계','신뢰할 수 없는','verified로 승격하지','발명하지','읽기 전용','review'])assert.ok(result.text.includes(text));
+  for(const text of ['공식 자료','한계','신뢰할 수 없는','읽기 전용'])assert.ok(result.text.includes(text));
 });
 
 test('AI website context distinguishes permissible absence from invalid HTTP(S) URLs without fabricating metadata',()=>{

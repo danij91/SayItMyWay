@@ -10,6 +10,26 @@ async function setup(indexedDB=new IDBFactory()) {
  for(const f of ['shared.js','library.js','collection.js','repository.js'])vm.runInContext(await source(f),c);
  return {c,indexedDB,repo:c.LibraryRepository.create({indexedDB}),library:c.TextPatch.migrate(seed)};
 }
+
+test('empty install persists minimal captured rows and an explicitly emptied library across restart',async()=>{
+ const {repo,indexedDB}=await setup();await repo.initialize(async()=>({schemaVersion:2,revision:1,tables:[]}));
+ const result=await repo.capture({tableId:'fresh',createName:'Fresh',candidates:['Hello','Hello'],source:{url:'https://user:password@example.com/page?secret=value#private'}});
+ assert.equal(result.added,1);const row=result.library.tables[0].entries[0];
+ assert.deepEqual(Object.keys(row).sort(),['en','id','ko']);
+ assert.equal(result.library.tables[0].captureSources[0].url,'https://example.com/page');
+ const restarted=(await setup(indexedDB)).repo;assert.equal((await restarted.get()).tables[0].entries[0].en,'Hello');
+ const draft=await restarted.get();draft.tables=[];await restarted.save(draft);
+ const again=(await setup(indexedDB)).repo;await again.initialize(async()=>{throw Error('must not reseed');});
+ assert.deepEqual((await again.get()).tables,[]);
+});
+
+test('capture preserves existing scoped rows and deduplicates their source text',async()=>{
+ const {repo,library}=await setup();library.tables[0].entries=[{id:'scoped',en:'Hello',ko:'Scoped',selector:'.menu'}];
+ await repo.initialize(async()=>library);
+ const result=await repo.capture({tableId:'crimson-desert',candidates:['Hello','Hello']});
+ assert.equal(result.added,0);assert.equal(result.library.tables[0].entries.length,1);
+ assert.equal((await repo.capture({tableId:'crimson-desert',candidates:['Hello']})).added,0);
+});
 test('repository saves atomically, rejects stale drafts and persists across instances',async()=>{
  const {repo,library,indexedDB}=await setup();
  await repo.initialize(async()=>library);
@@ -18,7 +38,7 @@ test('repository saves atomically, rejects stale drafts and persists across inst
  await assert.rejects(repo.save(b),/충돌|변경/);
  const restarted=await setup(indexedDB);assert.equal((await restarted.repo.get()).tables[0].entries[0].notes,'Edited note');
  let called=false;await restarted.repo.initialize(async()=>{called=true;return library;});assert.equal(called,false);
- const invalid=await repo.get();invalid.tables[0].entries[0].status='bad';await assert.rejects(repo.save(invalid));
+ const invalid=await repo.get();invalid.tables[0].entries[0].ko=null;await assert.rejects(repo.save(invalid));
  assert.equal((await repo.get()).revision,2);
 });
 
@@ -36,7 +56,7 @@ test('migration prefers newest revision, cache wins ties, missing and conflictin
   assert.ok(merged.tables.some(t=>t.id==='cache-only'));assert.ok(merged.tables.some(t=>t.id==='bundle-only'));
   const conflict=merged.tables.find(t=>t.migrationConflict);
   assert.equal(conflict.migrationConflict.originalId,'crimson-desert');assert.notEqual(conflict.entries[0].notes,winner);
-  assert.ok(conflict.excludedCategories.includes('지명'));assert.ok(conflict.entries[0].evidence);
+  assert.deepEqual(conflict.excludedTerms,[]);assert.ok(conflict.entries[0].evidence);
   assert.ok(merged.migrationSources[0].metadata.customMetadata);
  }
 });
@@ -71,7 +91,7 @@ test('capture commits rows and durable receipt together; quota failure rolls bot
  const draft=await restarted.get();draft.tables[1].entries[0].notes='Editor metadata';await restarted.save(draft);
  const appended=await restarted.capture({tableId:'new-capture',candidates:['Original','Second']});
  assert.equal(appended.added,1);assert.equal(appended.library.tables[1].entries[0].notes,'Editor metadata');
- assert.equal(appended.library.tables[1].entries[1].status,'untranslated');
+ assert.equal(Object.hasOwn(appended.library.tables[1].entries[1],'status'),false);
  assert.equal(appended.library.tables[1].entries[1].ko,'');
 });
 

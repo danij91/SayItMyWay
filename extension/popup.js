@@ -186,34 +186,25 @@ $('language-open').onclick=()=>{const opening=$('language-menu').hidden;closeTab
 $('app-locale').addEventListener('change',()=>{closeLanguages();$('language-open').focus();});
 document.addEventListener('click',event=>{if(!event.target.closest('#language-menu,#language-open'))closeLanguages();});
 document.addEventListener('keydown',event=>{if(event.key==='Escape' && closeLanguages()){$('language-open').focus();event.preventDefault();}});
-$('import-open').onclick=()=>{if(!busy && !importing)$('import-file').click();};
-$('import-file').onchange=async()=>{
-  const files=[...$('import-file').files];
-  if(!files.length || importing || busy)return;
-  importing=true;available();$('import-status').hidden=false;
-  TextPatchI18n.text($('import-status'),()=>TextPatchI18n.t('popup_import_saving'));
-  try{
-    if(files.length!==1)throw Error(TextPatchI18n.t('import_one_json_file_at_a_time'));
-    const file=files[0];
-    if(!/\.json$/i.test(file.name))throw Error(TextPatchI18n.t('select_a_json_file'));
-    if(file.size>5_000_000)throw Error(TextPatchI18n.t('json_files_must_be_5mb_or_smaller'));
-    const text=await new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(reader.result);reader.onerror=()=>reject(Error(TextPatchI18n.t('could_not_read_the_file')));reader.readAsText(file);});
+const importChooser=TextPatchImportUI.chooser({open:$('import-open'),dialog:$('import-editor'),fileInput:$('import-file'),fileButton:$('import-file-choice'),clipboardButton:$('import-clipboard'),cancel:$('import-cancel'),status:$('import-error'),allowed:()=>!!state&&!busy&&!importing,consume:async(text,name)=>{
+ importing=true;available();$('import-status').hidden=false;
+ try{
     let result;
     if(TableImport.isAIResult(text)){
       const preview=await chrome.runtime.sendMessage({type:'aiResultPreview',text});
       if(preview.error)throw Error(preview.error);
-      if(!await TextPatchAIUI.confirmResult(preview))return;
+      if(!await TextPatchAIUI.confirmResult(preview))return false;
       result=await chrome.runtime.sendMessage({type:'aiResultApply',text});
       result.notice=TextPatchI18n.t('ai_result_preview',{filled:result.filled,preserved:result.preserved});
-    }else result=await chrome.runtime.sendMessage({type:'importTables',text,fileName:file.name,url:tab?.url});
+    }else result=await chrome.runtime.sendMessage({type:'importTables',text,fileName:name,url:tab?.url});
     if(result.error)throw Error(result.error);
     // Reload through the same path as repository notifications; no selection
     // message is sent, so importing cannot enable or replace the applied table.
     await act({type:'state'});
     TextPatchI18n.text($('import-status'),()=>TextPatchI18n.message(result.notice));
-  }catch(error){TextPatchI18n.text($('import-status'),()=>TextPatchI18n.message(error.message));}
-  finally{importing=false;$('import-file').value='';available();}
-};
+ }finally{importing=false;available();}
+}});
+$('import-file').onchange=()=>importChooser.files([...$('import-file').files]);
 async function act(message){
   busy=true;available();
   try{

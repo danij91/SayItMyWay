@@ -10,7 +10,7 @@ async function popup({stored={},rates,refresh,read,currencyEnabled=false}={}){
  loadKorean(d.window);for(const f of ['shared.js','library.js'])d.window.eval(await source(f));
  const state={library:{tables:[]},rules:[],page:{table:null,enabled:false,currency:{enabled:currencyEnabled,source:'auto',target:'USD'}},currencyRates:rates};
  d.window.chrome={runtime:{onMessage:{addListener:fn=>messages.push(fn)},getURL:p=>p,sendMessage:async m=>{calls.push(m);if(m.type==='collectionState')return {collection:null};if(m.type==='refreshCurrencyRates')return refresh();return structuredClone(state);}},tabs:{query:async()=>[{id:1,url:'https://example.com'}]},storage:{local:{get:read || (async()=>structuredClone(stored)),set:async value=>{writes.push(value);Object.assign(stored,value);}},onChanged:{addListener:fn=>listeners.push(fn)}}};
- for(const f of ['site-list.js','popup.js'])d.window.eval(await source(f));await settle();
+ for(const f of ['site-list.js','import-ui.js','popup.js'])d.window.eval(await source(f));await settle();
  return {d,calls,writes,$:id=>d.window.document.getElementById(id),notify:changes=>listeners.forEach(fn=>fn(changes,'local')),message:m=>messages.forEach(fn=>fn(m)),state};
 }
 test('popup bottom currency controls stay available without table and send independent preference changes',async()=>{
@@ -19,7 +19,7 @@ test('popup bottom currency controls stay available without table and send indep
  loadKorean(d.window);for(const f of ['shared.js','library.js'])d.window.eval(await source(f));
  const state={library:{tables:[]},rules:[],page:{table:null,enabled:false,currency:{enabled:false,source:'auto',target:'USD'}}};
  d.window.chrome={runtime:{getURL:p=>p,sendMessage:async m=>{calls.push(m);if(m.type==='collectionState')return {collection:null};if(m.type==='activateCurrency')state.page.currency={...m.currency,enabled:true};if(m.type==='saveCurrency')state.page.currency=m.currency;return structuredClone(state);}},tabs:{query:async()=>[{id:1,url:'https://example.com'}]},storage:{onChanged:{addListener(){}}}};
- for(const f of ['site-list.js','popup.js'])d.window.eval(await source(f));await new Promise(r=>setTimeout(r,30));
+ for(const f of ['site-list.js','import-ui.js','popup.js'])d.window.eval(await source(f));await new Promise(r=>setTimeout(r,30));
  const $=id=>d.window.document.getElementById(id);
  assert.equal($('enabled').disabled,true);assert.equal($('currency-enabled').disabled,false);assert.equal($('currency-enabled').getAttribute('role'),'switch');
  assert.equal($('main-view').lastElementChild.id,'currency-section');

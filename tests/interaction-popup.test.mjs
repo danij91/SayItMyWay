@@ -12,7 +12,7 @@ async function popup(t,preferences){
  const d=new JSDOM(await source('popup.html'),{runScripts:'outside-only'});t.after(()=>d.window.close());const w=d.window;w.structuredClone=structuredClone;
  let pending=0,initialized=false;
  w.chrome={runtime:{getURL:p=>'chrome-extension://test/'+p,sendMessage:async m=>{pending++;try{return await h.send(m);}finally{pending--;if(m.type==='collectionState')initialized=true;}}},tabs:{query:async()=>h.tabs,sendMessage:async()=>({})},storage:{local:{get:async()=>({appLocale:'ko',...structuredClone(h.store)}),set:async()=>{}},onChanged:{addListener(){}}}};
- for(const file of ['locales/ko.js','locales/en.js','locales/ar.js','i18n.js','shared.js','library.js','interaction-settings.js','site-list.js','popup.js'])w.eval(await source(file));
+ for(const file of ['locales/ko.js','locales/en.js','locales/ar.js','i18n.js','shared.js','library.js','interaction-settings.js','site-list.js','import-ui.js','popup.js'])w.eval(await source(file));
  for(let n=0;n<200;n++){await tick();if(initialized && !pending){await tick();if(!pending)break;}}
  assert.equal(initialized,true);assert.equal(pending,0);return {h,w,$:id=>w.document.getElementById(id)};
 }
@@ -22,16 +22,18 @@ function key(w,type,code,flags={}){w.document.dispatchEvent(new w.KeyboardEvent(
 function record(w,$,feature,code,flags={}){$(feature+'-key').click();key(w,'keydown',code,flags);key(w,'keyup',code,flags);}
 test('settings autosave without save state or leave warning and Back exits directly',async t=>{
  const {h,w,$}=await popup(t);$('settings-open').click();
+ const style=w.document.createElement('style');style.textContent=await source('popup.css');w.document.head.append(style);assert.equal(w.getComputedStyle($('interaction-back')).width,'30px');assert.equal(w.getComputedStyle($('interaction-back')).height,'30px');
+ assert.equal($('interaction-back').textContent.trim(),'');assert.ok($('interaction-back').querySelector('svg[aria-hidden="true"] path'));assert.equal($('interaction-back').getAttribute('aria-label'),w.TextPatchI18n.t('interaction_back'));assert.equal($('interaction-back').title,w.TextPatchI18n.t('interaction_back'));
  assert.equal($('main-view').hidden,true);assert.equal($('interaction-view').hidden,false);
  assert.equal($('options').target,'_blank');assert.match($('peek-key').textContent,/Shift/);
  for(const id of ['shortcuts-save','settings-state','settings-leave'])assert.equal($(id),null);
  assert.equal(w.document.querySelector('#fitting-form'),null);assert.equal(w.document.querySelectorAll('.shortcut-group').length,2);
  w.document.querySelector('[data-mode=toggle]').click();
  $('interaction-back').click();assert.equal($('interaction-view').hidden,true);
- await tick();await tick();assert.equal(h.store.interactionSettings.peekMode,'toggle');
+ await until(()=>h.store.interactionSettings?.peekMode==='toggle');assert.equal(h.store.interactionSettings.peekMode,'toggle');
  $('settings-open').click();assert.equal(w.document.querySelector('[data-mode=toggle]').getAttribute('aria-pressed'),'true');
  assert.equal($('shortcuts-status').textContent,'');
- await w.TextPatchI18n.setLocale('ar');assert.equal(w.document.documentElement.dir,'rtl');assert.equal($('interaction-title').textContent,w.TextPatchI18n.t('interaction_settings'));
+ await w.TextPatchI18n.setLocale('ar');assert.equal(w.document.documentElement.dir,'rtl');style.textContent=await source('popup.css');assert.equal(w.getComputedStyle($('interaction-back').querySelector('svg')).transform,'scaleX(-1)');assert.equal($('interaction-title').textContent,w.TextPatchI18n.t('interaction_settings'));assert.equal($('interaction-back').getAttribute('aria-label'),w.TextPatchI18n.t('interaction_back'));assert.equal($('interaction-back').title,w.TextPatchI18n.t('interaction_back'));assert.equal($('interaction-back').textContent.trim(),'');
 });
 test('recorder accepts Q/F2/Ctrl+Q, waits for modifier release, cancels Escape, rejects duplicate and preserves disabled bindings',async t=>{
  const {w,$}=await popup(t);$('settings-open').click();record(w,$,'peek','KeyQ');assert.equal($('peek-key').textContent,'Q');

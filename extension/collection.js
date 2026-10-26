@@ -33,7 +33,7 @@ function appendCapture(library, request) {
   if (!table) {
     if (!request.createName) throw Error('없는 표입니다. 새 표 이름을 지정하세요.');
     table = {schemaVersion:1,revision:1,id:request.tableId,name:TextPatch.uniqueTableName(request.createName,next.tables),description:'',
-      defaults:{matchMode:'exact',caseSensitive:false,translatePlaceholders:true},excludedTerms:[],excludedCategories:[],entries:[]};
+      defaults:{matchMode:'exact',caseSensitive:false,translatePlaceholders:true},excludedTerms:[],entries:[]};
     next.tables.push(table);
   }
   let sourceChanged=false;
@@ -64,7 +64,7 @@ function appendCapture(library, request) {
     const prefix='capture-'+(a>>>0).toString(16)+'-'+(b>>>0).toString(16);
     let id=prefix,suffix=0;while(ids.has(id))id=prefix+'-'+(++suffix);
     ids.add(id);
-    table.entries.push({id,en:text,ko:'',kind:'general',category:'일반',context:'global',selector:'',status:'untranslated',source:'',evidence:'',notes:''});
+    table.entries.push({id,en:text,ko:''});
     (table.defaults.caseSensitive ? sensitive : folded).add(key);
     added++;
   }

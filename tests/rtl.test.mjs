@@ -39,7 +39,7 @@ test('Arabic switching isolates mixed table data and preserves drafts, AI choice
     table.name=mixed;Object.assign(table.entries[0],{en:'English 한국어 123 (س)',ko:'العربية ABC 42 (한)',status:'review'});
     const before=JSON.stringify(library),calls=[];
     w.EditorStorage={load:async()=>structuredClone(library),save:async()=>{calls.push('save');}};
-    w.eval(await source('editor/app.js'));await new Promise(r=>setTimeout(r,0));
+    w.eval(await source('import-ui.js'));w.eval(await source('editor/app.js'));await new Promise(r=>setTimeout(r,0));
     const $=id=>w.document.getElementById(id),i=w.TextPatchI18n;
     assert.equal($('app-locale').options.length,15);
     assert.equal($('rows').firstChild.children[0].dir,'auto');
@@ -59,7 +59,7 @@ test('Arabic switching isolates mixed table data and preserves drafts, AI choice
     const request=w.TextPatchAI.build({table,task:'translation',sourceLanguage:'한국어',targetLanguage:'العربية'});
     assert.doesNotMatch(request.text,/[\u061c\u200e\u200f\u202a-\u202e\u2066-\u2069]/);
     assert.deepEqual(calls,[]);assert.equal(JSON.stringify(library),before);
-    assert.equal(form.elements.selector.dir,'ltr');assert.equal(form.elements.context.dir,'ltr');
+    assert.equal(form.elements.selector.dir,'ltr');assert.equal(form.elements.context,undefined);
     delete w.TextPatchLocales.ar.saved_2;assert.equal(i.t('saved_2'),'Saved');
     assert.equal(i.t('active_replacement_count',{count:1}),'تم الاستبدال في 1 موضع');
   }finally{w.close();}

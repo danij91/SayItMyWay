@@ -27,7 +27,7 @@ test('defaults and overrides, literal matching, ambiguity and scopes are determi
     t.setData(dictionary(entries,{matchMode:'word',caseSensitive:true}));
     assert.deepEqual([...doc.querySelectorAll('p')].map(p=>p.textContent),['chest Box Token Token Sum','Scoped teller','Bank teller','Two  words','City']);
     t.setData({...dictionary(entries,{matchMode:'word',caseSensitive:true}),excludedCategories:['test']});
-    assert.equal(doc.querySelector('p').textContent,'chest Chest KEY Key A+B');
+    assert.equal(doc.querySelector('p').textContent,'chest Box Token Token Sum');
   } finally {dom.window.close();}
 });
 test('candidate and replacement snapshots expose originals without changing DOM or collecting private text',async()=>{

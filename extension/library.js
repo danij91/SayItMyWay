@@ -1,6 +1,5 @@
 (function(root) {
   const S=root.CrimsonShared;
-  const regions=['ABYSS','CRIMSON DESERT','DELESYIA','DEMENISS','HERNAND','PAILUNE','PYWEL'];
   function uniqueTableName(name,tables,excludeId){
     if(typeof name!=='string' || !name.trim())throw Error('대응표 이름을 입력하세요.');
     const base=name.trim().slice(0,200),used=new Set(tables.filter(t=>excludeId===undefined || t.id!==excludeId).map(t=>t.name));
@@ -18,12 +17,12 @@
       ...(table.captureSources?{captureSources:table.captureSources.map(s=>pick(s,['url','title','language','capturedAt']))}:{}),
       entries:table.entries.map(e=>{
         if(Object.hasOwn(e,'original') || Object.hasOwn(e,'replacement'))throw Error('원문·대체문 필드 형식이 혼합되어 있습니다.');
-        return {original:e.en,replacement:e.ko,...pick(e,['status','kind','category','source','evidence','notes','matchMode','caseSensitive'])};
+        return {original:e.en,replacement:e.ko,...pick(e,['selector','notes','matchMode','caseSensitive'])};
       })};
   }
   function migrate(dictionary) {
     S.validate(dictionary);
-    return validateLibrary({schemaVersion:2,revision:1,tables:[{...dictionary,id:'crimson-desert',name:'붉은사막',description:'기존 붉은사막 지도 대응표. 지명은 원문 유지.',excludedTerms:regions,excludedCategories:['지명']}]});
+    return validateLibrary({schemaVersion:2,revision:1,tables:[{...dictionary,id:'crimson-desert',name:'붉은사막',description:'기존 붉은사막 지도 대응표.',excludedTerms:dictionary.excludedTerms || []}]});
   }
   function validateLibrary(library) {
     if(library?.schemaVersion!==2 || !Number.isSafeInteger(library.revision) || library.revision<1 || !Array.isArray(library.tables) || library.tables.length>100)throw Error('잘못된 대응표 모음 형식입니다.');
@@ -34,7 +33,7 @@
       if(!['exact','word'].includes(table.defaults.matchMode) || typeof table.defaults.caseSensitive!=='boolean' || typeof table.defaults.translatePlaceholders!=='boolean')throw Error('표 기본값을 확인하세요.');
       if(typeof table.id!=='string' || !/^[a-zA-Z0-9_-]{1,100}$/.test(table.id) || ids.has(table.id) || typeof table.name!=='string' || !table.name.trim() || table.name.length>200 || typeof table.description!=='string')throw Error('대응표 ID 또는 이름을 확인하세요.');
       ids.add(table.id);
-      for(const field of ['excludedTerms','excludedCategories'])if(!Array.isArray(table[field]) || table[field].some(s=>typeof s!=='string' || s.length>2000))throw Error('원문 유지 설정이 올바르지 않습니다.');
+      for(const field of ['excludedTerms'])if(table[field]!==undefined && (!Array.isArray(table[field]) || table[field].some(s=>typeof s!=='string' || s.length>2000)))throw Error('원문 유지 설정이 올바르지 않습니다.');
     }
     return library;
   }

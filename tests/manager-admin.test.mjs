@@ -44,15 +44,15 @@ async function editor(t){
   w.structuredClone=structuredClone;w.TextEncoder=TextEncoder;w.fetch=(url,options={})=>{if(options.method==='PUT')puts.push(options.body);return fetch(new URL(url,base),{...options,headers:{...options.headers,...(options.method?{Origin:base}:{})}});};
   w.HTMLDialogElement.prototype.showModal=function(){this.open=true;};w.HTMLDialogElement.prototype.close=function(){this.open=false;};
   const ai=[];w.TextPatchAIUI={open:args=>ai.push(args)};
-  loadKorean(w);for(const file of ['extension/shared.js','extension/library.js','extension/editor/import.js','extension/editor/transport.js','extension/editor/app.js'])w.eval(await read(file));
+  loadKorean(w);for(const file of ['extension/shared.js','extension/library.js','extension/editor/import.js','extension/editor/transport.js','extension/import-ui.js','extension/editor/app.js'])w.eval(await read(file));
   const $=s=>w.document.querySelector(s);
   const until=async predicate=>{for(let i=0;i<100;i++){if(predicate())return;await new Promise(r=>setTimeout(r,10));}throw Error('UI timeout');};
   await until(()=>$('#rows').children.length>0);
   return {w,$,ai,until,initial,puts,get:async()=>await(await fetch(base+'/api/library')).json()};
 }
-test('table editor shows four columns, opens shared AI and preserves protected metadata with matching controls removed',async t=>{
+test('table editor shows three columns, opens shared AI and preserves protected metadata with matching controls removed',async t=>{
   const {$,w,ai,until,initial,get}=await editor(t);
-  assert.deepEqual([...w.document.querySelectorAll('thead th')].map(el=>el.textContent),['원문','바꿀 텍스트','상태','편집']);
+  assert.deepEqual([...w.document.querySelectorAll('thead th')].map(el=>el.textContent),['원문','바꿀 텍스트','편집']);
   assert.equal($('#excluded-terms'),null);assert.equal($('#excluded-categories'),null);
   $('#ai-request').click();await tick();assert.equal(ai[0].table.id,'crimson-desert');
   assert.equal($('#table-description'),null);assert.equal($('#defaults-save'),null);
@@ -106,7 +106,7 @@ test('file selection drafts new tables with unique names; explicit save persists
   const saved=await get();assert.deepEqual(saved.tables[0],initial.tables[0]);
   assert.deepEqual(saved.tables.slice(1).map(t=>t.name),['Imported','Imported (2)']);
   assert.notEqual(saved.tables[1].id,saved.tables[2].id);assert.notEqual(saved.tables[1].entries[0].id,saved.tables[2].entries[0].id);
-  assert.equal($('#rows img'),null);assert.equal(saved.tables[1].entries[0].status,'review');
+  assert.equal($('#rows img'),null);for(const field of ['status','kind','context','category','source','evidence'])assert.equal(Object.hasOwn(saved.tables[1].entries[0],field),false);
   await selectFile('{');assert.ok($('#import-error').textContent);assert.equal($('#import-editor').open,true);
   assert.deepEqual(await get(),saved);$('#import-cancel').click();
   $('#table-create').click();$('#table-name').value='Imported';$('#table-form').dispatchEvent(new w.Event('submit',{cancelable:true}));
@@ -133,7 +133,7 @@ test('settings revert cleanly and edited dialogs warn on unload without writing'
 test('initial load failure exposes retry and retry loads without writing',async t=>{
   const dom=new JSDOM(await read('extension/editor/index.html'),{url:'http://localhost/',runScripts:'outside-only'}),w=dom.window;
   t.after(()=>w.close());w.structuredClone=structuredClone;w.fetch=async()=>{throw Error('offline');};
-  loadKorean(w);for(const file of ['extension/shared.js','extension/library.js','extension/editor/transport.js','extension/editor/app.js'])w.eval(await read(file));
+  loadKorean(w);for(const file of ['extension/shared.js','extension/library.js','extension/editor/transport.js','extension/import-ui.js','extension/editor/app.js'])w.eval(await read(file));
   await tick();assert.equal(w.document.querySelector('#load-retry').hidden,false);
   const data=w.TextPatch.migrate(JSON.parse(await read('extension/data/dictionary.json')));
   w.fetch=async()=>({ok:true,json:async()=>data});await w.document.querySelector('#load-retry').onclick();

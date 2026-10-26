@@ -30,7 +30,7 @@ test('editor linked import preserves unsaved drafts and persists only after expl
  w.HTMLDialogElement.prototype.showModal=function(){this.open=true;};w.HTMLDialogElement.prototype.close=function(){this.open=false;};
  for(const file of ['shared.js','library.js','editor/import.js','ai-request-ui.js'])w.eval(await read(file));
  w.EditorStorage={load:async()=>(await h.send({type:'libraryGet'})).library,ai:async(type,payload)=>{const result=await h.send({type,...payload});if(result.error)throw Error(result.error);return result;}};
- w.eval(await read('editor/app.js'));await tick();await tick();
+ w.eval(await read('import-ui.js'));w.eval(await read('editor/app.js'));await tick();await tick();
  const $=id=>w.document.getElementById(id);
  Object.defineProperty($('import-file'),'files',{value:[new w.File([text],'result.json')]});
  toggleDraftName(w);await $('import-file').onchange();assert.equal(hasDraftName(w),true);assert.match($('import-error').textContent,/먼저 저장/);assert.equal((await h.send({type:'libraryGet'})).library.tables[0].entries[0].ko,'');

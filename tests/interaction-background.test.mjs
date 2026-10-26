@@ -17,7 +17,7 @@ test('inline add uses narrow linked context, preserves association and unrelated
  state=await h.send({type:'state'});assert.equal(state.rules[0].tableId,c.tableId);
  assert.equal(state.library.tables[0].description,'Concurrent unrelated metadata');
  const entry=state.library.tables[0].entries.find(e=>e.en==='New original');
- assert.equal(entry.status,'review');assert.equal(entry.kind,'general');assert.equal(entry.source,'');assert.equal(entry.evidence,'');assert.ok(entry.id);
+ assert.deepEqual(Object.keys(entry).sort(),['en','id','ko']);assert.ok(entry.id);
  assert.ok(h.sent.some(m=>m.type==='applyState'));
  const restarted=await harness(h.store,h.indexedDB);assert.ok((await restarted.send({type:'state'})).library.tables[0].entries.some(e=>e.id===entry.id));
  assert.ok((await save(h,c)).error,'token is single use');
@@ -31,16 +31,16 @@ test('two inline drafts cannot overwrite each other, including absent-row creati
  assert.ok((await save(h,y,'New original','Stale')).error);
 });
 
-test('unique normalized original edits retain original spelling and provenance and demote verification',async()=>{
+test('unique normalized original edits retain original spelling and inert legacy metadata',async()=>{
  const h=await setup(),state=await h.send({type:'state'}),entry=state.library.tables[0].entries[0];
  entry.en='Unique   Original';entry.ko='Verified';entry.status='verified';entry.source='https://example.org/source';entry.evidence='Observed';entry.context='Descriptive context';entry.selector='';
  await h.send({type:'librarySave',library:state.library});
  const c=await context(h,'Unique Original');assert.equal(c.entry.id,entry.id);
  assert.equal((await save(h,c,'Unique Original','Changed')).saved,true);
  const next=(await h.send({type:'state'})).library.tables[0].entries.find(e=>e.id===entry.id);
- assert.equal(next.en,'Unique   Original');assert.equal(next.status,'review');assert.equal(next.source,entry.source);assert.equal(next.evidence,entry.evidence);assert.equal(next.context,entry.context);
+ assert.equal(next.en,'Unique   Original');assert.equal(next.status,'verified');assert.equal(next.source,entry.source);assert.equal(next.evidence,entry.evidence);assert.equal(next.context,entry.context);
  const empty=await context(h,'Unique Original');assert.equal((await save(h,empty,'Unique Original','')).saved,true);
- assert.equal((await h.send({type:'state'})).library.tables[0].entries.find(e=>e.id===entry.id).status,'untranslated');
+ assert.equal((await h.send({type:'state'})).library.tables[0].entries.find(e=>e.id===entry.id).status,'verified');
 });
 
 test('ambiguous contextual rows and selector-dependent rows never receive overwrite tokens',async()=>{

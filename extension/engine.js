@@ -101,16 +101,15 @@
       this.document.defaultView.clearTimeout(this.timer);
       this.timer=null;this.pending.clear();this.jobs=[];
     }
-    setData(data, {excludedTerms = [], excludedCategories = [], siteOptions} = {}) {
+    setData(data, {excludedTerms = [], siteOptions} = {}) {
       validate(data);
       const preservedTerms = new Set([...data.excludedTerms || [],...excludedTerms].map(s=>normalize(s).toLowerCase()));
-      const preservedCategories = new Set([...data.excludedCategories || [],...excludedCategories]);
       this.revision = data.revision;
       this.defaults = {matchMode:'exact',caseSensitive:false,translatePlaceholders:true,...data.defaults};
       this.pause(() => {
         this.cancelWork(); this.restore(); this.index.clear(); this.words = [];
         for (const e of data.entries) {
-          if (!e.ko.trim() || preservedCategories.has(e.category) || preservedTerms.has(normalize(e.en).toLowerCase())) continue;
+          if (!e.ko.trim() || preservedTerms.has(normalize(e.en).toLowerCase())) continue;
           if (e.selector) { try { this.document.querySelector(e.selector); } catch { continue; } }
           const key = e.en.trim().toLowerCase();
           const compiled = {...e,caseSensitive:siteOptions?.caseSensitive ?? e.caseSensitive ?? this.defaults.caseSensitive};

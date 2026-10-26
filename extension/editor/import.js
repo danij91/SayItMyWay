@@ -90,15 +90,15 @@
         name:root.TextPatch.uniqueTableName(table.name??fallbackName??'가져온 대응표',next.tables),
         description:isPortable?'':table.description??'',
         defaults:clone(table.defaults??{matchMode:'exact',caseSensitive:false,translatePlaceholders:true}),
-        excludedTerms:[],excludedCategories:[],
+        excludedTerms:[],
         entries:table.entries.map(entry=>{
           if(!object(entry))throw Error('행의 JSON 형식을 확인하세요.');
           const neutral=isPortable && input.version===2;
           const forbidden=neutral?['en','ko']:['original','replacement'];
           if(forbidden.some(key=>Object.hasOwn(entry,key)))throw Error('원문·대체문 필드 형식이 혼합되어 있습니다.');
           const internal=neutral?{...omit(entry,['original','replacement']),en:entry.original,ko:entry.replacement}:clone(entry);
-          const value=isPortable?Object.fromEntries(['en','ko','status','kind','category','source','evidence','notes','matchMode','caseSensitive'].filter(key=>Object.hasOwn(internal,key)).map(key=>[key,internal[key]])):internal;
-          return {kind:'general',category:'일반',context:'global',selector:'',status:typeof internal.ko==='string' && internal.ko.trim()?'review':'untranslated',source:'',evidence:'',notes:'',...value,id:fresh()};
+          const value=isPortable?Object.fromEntries(['en','ko','selector','notes','matchMode','caseSensitive'].filter(key=>Object.hasOwn(internal,key)).map(key=>[key,internal[key]])):internal;
+          return {...omit(value,['status','kind','context','category','source','evidence']),id:fresh()};
         })};
       if(isPortable && table.captureSources!==undefined)imported.captureSources=clone(table.captureSources);
       next.tables.push(imported);tableIds.push(imported.id);
@@ -137,9 +137,9 @@
       // References can be echoed unchanged but cannot be rewritten.
       if(before.ko.trim()){if(row.replacement!==before.ko)invalid();continue;}
       const current=currentRows.get(before.id);
-      if(!row.replacement.trim() || !current || current.ko.trim() || (!created && protectedRows[Number(row.requestRow)]) || !equal(current,before))continue;
-      current.ko=row.replacement;current.status='review';filled++;
-      // Only replacement/status are proposed. Existing provenance stays intact.
+      if(!row.replacement.trim() || !current || current.ko.trim() || (!created && protectedRows[Number(row.requestRow)]) || !equal(root.CrimsonShared.activeRow(current),root.CrimsonShared.activeRow(before)))continue;
+      current.ko=row.replacement;filled++;
+      // Only replacement is proposed; stored compatibility metadata stays intact.
     }
     validate(next);
     if(new TextEncoder().encode(JSON.stringify(next)).length>5_000_000)throw Error('대응표 모음이 5MB를 넘습니다.');

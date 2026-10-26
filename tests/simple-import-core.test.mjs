@@ -10,6 +10,48 @@ import {createServer} from '../server.mjs';
 const row={id:'old-row',en:'Hello',ko:'안녕',kind:'general',category:'일반',context:'global',selector:'',status:'review',source:'source',evidence:'evidence',notes:'note',custom:{keep:true}};
 const table={schemaVersion:1,revision:7,id:'old-table',name:'Table',description:'description',defaults:{matchMode:'word',caseSensitive:true,translatePlaceholders:false},excludedTerms:['KEEP'],excludedCategories:[],entries:[row],custom:{keep:true}};
 const fixture=()=>({schemaVersion:2,revision:9,custom:{keep:true},tables:[structuredClone(table)]});
+test('minimal rows validate without game proof and duplicate identity uses source and selector',()=>{
+  const minimal={schemaVersion:1,revision:1,entries:[{id:'a',en:'Hello',ko:''}]};
+  assert.doesNotThrow(()=>CrimsonShared.validate(minimal));
+  assert.doesNotThrow(()=>CrimsonShared.validate({...minimal,entries:[{...minimal.entries[0],status:'verified',kind:'game'}]}));
+  assert.doesNotThrow(()=>CrimsonShared.validate({...minimal,entries:[minimal.entries[0],{id:'b',en:' Hello ',ko:'Other'}]}));
+  assert.doesNotThrow(()=>CrimsonShared.validate({...minimal,entries:[minimal.entries[0],{id:'b',en:'Hello',ko:'Other',selector:'.scope'}]}));
+  assert.throws(()=>CrimsonShared.validate({...minimal,entries:[minimal.entries[0],{...minimal.entries[0],en:'Different'}]}),/ID/);
+  assert.doesNotThrow(()=>CrimsonShared.validate({...minimal,entries:[minimal.entries[0],{id:'b',en:'Hello',ko:'Other',context:'invented'}]}));
+  const legacy={...table,entries:[{...row,id:'a',context:'one'},{...row,id:'b',context:'two'}]};
+  assert.doesNotThrow(()=>CrimsonShared.validate(legacy));
+  assert.doesNotThrow(()=>TableImport.createNew(fixture(),JSON.stringify(legacy)));
+});
+
+test('scoped rows roundtrip selector, notes, matching options and table capture sources',()=>{
+  const base=fixture(),t=base.tables[0];
+  Object.assign(t.entries[0],{selector:'.menu',notes:'Keep this scope',matchMode:'word',caseSensitive:true});
+  t.captureSources=[{url:'https://example.com/page',title:'Title',language:'en',capturedAt:'2026-10-20T00:00:00.000Z',privateId:'omit'}];
+  const portable=JSON.parse(TableImport.exportPortable(base,t.id));
+  assert.deepEqual(portable.entries[0],{original:'Hello',replacement:'안녕',selector:'.menu',notes:'Keep this scope',matchMode:'word',caseSensitive:true});
+  const copy=TableImport.createNew(base,JSON.stringify(portable)).library.tables[1];
+  assert.equal(copy.entries[0].selector,'.menu');assert.equal(copy.entries[0].notes,'Keep this scope');
+  assert.deepEqual(copy.captureSources,[{url:'https://example.com/page',title:'Title',language:'en',capturedAt:'2026-10-20T00:00:00.000Z'}]);
+});
+
+test('legacy contextual conflicts roundtrip without context and preserve ambiguous DOM originals',async()=>{
+  const {JSDOM}=await import('jsdom');
+  const base=fixture();base.tables[0].entries=[{...row,id:'a',ko:'First',context:'one'},{...row,id:'b',ko:'Second',context:'two'}];
+  const portable=TableImport.exportPortable(base,'old-table');
+  assert.equal(portable.includes('"context"'),false);
+  const imported=TableImport.createNew(base,portable).library.tables[1];
+  assert.deepEqual(imported.entries.map(row=>[row.en,row.ko]),[['Hello','First'],['Hello','Second']]);
+  const internal=TableImport.createNew(base,JSON.stringify(base.tables[0])).library.tables[1];
+  for(const row of internal.entries)for(const key of ['status','kind','context','category','source','evidence'])assert.equal(Object.hasOwn(row,key),false);
+  const dom=new JSDOM('<p>Hello</p><input value="Hello"><div contenteditable>Hello</div>',{runScripts:'outside-only'});
+  try{
+    for(const file of ['shared.js','engine.js'])dom.window.eval(await readFile(new URL('../extension/'+file,import.meta.url),'utf8'));
+    const translator=new dom.window.CrimsonTranslator(dom.window.document);translator.setData(imported);
+    assert.equal(dom.window.document.querySelector('p').textContent,'Hello');
+    assert.equal(dom.window.document.querySelector('input').value,'Hello');
+    assert.equal(dom.window.document.querySelector('[contenteditable]').textContent,'Hello');
+  }finally{dom.window.close();}
+});
 test('importing existing IDs and repeated old library files always allocates new tables and rows',()=>{
   const base=fixture(),before=structuredClone(base);
   const first=TableImport.createNew(base,JSON.stringify(base));
@@ -30,22 +72,22 @@ test('portable round trip omits internal fields, accepts minimal rows, and isola
   assert.equal(portable.version,2);
   assert.equal(portable.entries[0].original,'Hello');assert.equal(portable.entries[0].replacement,'안녕');
   assert.equal(portable.entries[0].en,undefined);assert.equal(portable.entries[0].ko,undefined);
-  for(const field of ['id','revision','excludedTerms','excludedCategories','context','selector','custom'])assert.equal(json.includes('"'+field+'"'),false);
+  for(const field of ['id','revision','excludedTerms','excludedCategories','context','status','kind','category','source','evidence','custom'])assert.equal(json.includes('"'+field+'"'),false);
   const imported=TableImport.createNew(base,json).library.tables[1];
-  assert.equal(imported.entries[0].status,'review');assert.equal(imported.entries[0].source,'source');assert.equal(imported.defaults.matchMode,'word');
+  assert.equal(imported.entries[0].status,undefined);assert.equal(imported.entries[0].source,undefined);assert.equal(imported.defaults.matchMode,'word');
   assert.deepEqual(TableImport.createNew(base,JSON.stringify(table)).library.tables[1].excludedTerms,[]);
   const minimal={format:'text-patch-table',version:1,entries:[{en:'New',ko:''},{en:'Translated',ko:'번역'}]};
   const result=TableImport.createNew(base,JSON.stringify(minimal),'File name').library.tables[1];
-  assert.equal(result.name,'File name');assert.deepEqual(result.entries.map(e=>e.status),['untranslated','review']);
+  assert.equal(result.name,'File name');assert.deepEqual(result.entries.map(e=>e.status),[undefined,undefined]);
   const neutral={format:'text-patch-table',version:2,entries:[{original:'New',replacement:''},{original:'Replaced',replacement:'Any text'}]};
   const modern=TableImport.createNew(base,JSON.stringify(neutral),'Neutral').library.tables[1];
-  assert.deepEqual(modern.entries.map(e=>[e.en,e.ko,e.status]),[['New','','untranslated'],['Replaced','Any text','review']]);
+  assert.deepEqual(modern.entries.map(e=>[e.en,e.ko,e.status]),[['New','',undefined],['Replaced','Any text',undefined]]);
   assert.deepEqual(base,before);
 });
 
 test('invalid and oversized imports fail atomically and enforce whole library validation',()=>{
   const base=fixture(),before=structuredClone(base);
-  for(const input of ['{',' '.repeat(5_000_001),JSON.stringify({...base,revision:0}),JSON.stringify({format:'text-patch-table',version:9,entries:[]}),JSON.stringify({format:'text-patch-table',version:1,entries:[{en:'x',ko:'',status:'verified'}]})])assert.throws(()=>TableImport.createNew(base,input));
+  for(const input of ['{',' '.repeat(5_000_001),JSON.stringify({...base,revision:0}),JSON.stringify({format:'text-patch-table',version:9,entries:[]}),JSON.stringify({format:'text-patch-table',version:1,entries:[{en:'x',ko:null}]})])assert.throws(()=>TableImport.createNew(base,input));
   const full={...base,tables:Array.from({length:100},(_,i)=>({...structuredClone(table),id:'t'+i}))};
   assert.throws(()=>TableImport.createNew(full,JSON.stringify(table)));
   const large=fixture();large.custom='x'.repeat(5_000_000);assert.throws(()=>TableImport.createNew(large,JSON.stringify(table)),/5MB/);
@@ -60,12 +102,12 @@ test('version 2 keeps original text separate from provenance and round trips leg
   const text=JSON.stringify(legacy),first=TableImport.createNew(base,text).library;
   const portable=JSON.parse(TableImport.exportPortable(first,first.tables[1].id));
   assert.equal(portable.version,2);
-  assert.deepEqual(portable.entries[0],{original:'元の文',replacement:'Texte',status:'verified',kind:'ui',category:'menu',source:'https://example.com/evidence',evidence:'Checked',notes:'Retain',matchMode:'word',caseSensitive:true});
+  assert.deepEqual(portable.entries[0],{original:'元の文',replacement:'Texte',notes:'Retain',matchMode:'word',caseSensitive:true});
   const imported=TableImport.createNew(first,JSON.stringify(portable)).library.tables[2];
   assert.deepEqual(imported.captureSources,legacy.captureSources);assert.deepEqual(imported.defaults,legacy.defaults);
   assert.equal(imported.entries[0].en,'元の文');assert.equal(imported.entries[0].ko,'Texte');
-  assert.equal(imported.entries[0].source,'https://example.com/evidence');assert.equal(imported.entries[0].status,'verified');
-  assert.equal(imported.entries[1].status,'untranslated');
+  assert.equal(imported.entries[0].source,undefined);assert.equal(imported.entries[0].status,undefined);
+  assert.equal(imported.entries[1].status,undefined);
   assert.deepEqual(JSON.parse(TableImport.exportPortable({tables:[imported]},imported.id)),{...portable,name:'Legacy (2)'});
   assert.deepEqual(base,before);assert.equal(JSON.stringify(legacy),text);
   assert.notEqual(imported.entries[0].id,first.tables[1].entries[0].id);
@@ -91,8 +133,8 @@ test('legacy capture and bundles import fresh while verified provenance and port
   verified.captureSources=[{url:'https://example.com',title:'Title',language:'en',capturedAt:'2026-10-20T00:00:00.000Z',id:'private-id'}];
   const bundle={kind:'text-patch-bundle',schemaVersion:1,library:{schemaVersion:2,revision:30,tables:[verified]},settings:{private:true}};
   const imported=TableImport.createNew(base,JSON.stringify(bundle)).library;
-  assert.equal(imported.settings,undefined);assert.equal(imported.tables[1].entries[0].status,'verified');
-  assert.equal(imported.tables[1].entries[0].evidence,'checked');
+  assert.equal(imported.settings,undefined);assert.equal(imported.tables[1].entries[0].status,undefined);
+  assert.equal(imported.tables[1].entries[0].evidence,undefined);
   const exported=JSON.parse(TableImport.exportPortable(imported,imported.tables[1].id));
   assert.deepEqual(exported.captureSources,[{url:'https://example.com',title:'Title',language:'en',capturedAt:'2026-10-20T00:00:00.000Z'}]);
   const capture={schemaVersion:1,revision:1,entries:[row]};
