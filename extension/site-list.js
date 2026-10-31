@@ -2,24 +2,26 @@ globalThis.TextPatchSites={mount({rows,status,onChange=async()=>{}}){
 const $=id=>id==='rules'?rows:status;
 let loadGeneration=0;
 const dialog=document.createElement('dialog');dialog.className='site-settings';
-dialog.innerHTML='<form><h2 id="site-settings-title"></h2><p class="settings-origin" dir="ltr"></p><label><input name="caseSensitive" type="checkbox"><span class="case-label"></span></label><label><input name="wordReplacement" type="checkbox"><span class="word-label"></span></label><p class="settings-error" role="status"></p><div class="settings-actions"><button type="button" class="settings-cancel"></button><button type="submit" class="settings-save"></button></div></form>';
+dialog.innerHTML='<form><h2 id="site-settings-title"></h2><p class="settings-origin" dir="ltr"></p><label class="settings-field"><span class="url-label"></span><input name="url" type="url" dir="ltr" required></label><label class="settings-field"><span class="scope-label"></span><select name="scope"><option value="page"></option><option value="prefix"></option><option value="site"></option></select></label><p class="settings-scope-help"></p><label><input name="caseSensitive" type="checkbox"><span class="case-label"></span></label><label><input name="wordReplacement" type="checkbox"><span class="word-label"></span></label><p class="settings-error" role="status"></p><div class="settings-actions"><button type="button" class="settings-cancel"></button><button type="submit" class="settings-save"></button></div></form>';
 dialog.setAttribute('aria-labelledby','site-settings-title');document.body.append(dialog);
 const form=dialog.querySelector('form'),save=dialog.querySelector('.settings-save'),cancel=dialog.querySelector('.settings-cancel'),error=dialog.querySelector('.settings-error');
-for(const [selector,key] of [['h2','site_matching_settings'],['.case-label','case_sensitive'],['.word-label','site_word_replacement'],['.settings-cancel','cancel'],['.settings-save','save_changes']])TextPatchI18n.text(dialog.querySelector(selector),()=>TextPatchI18n.t(key));
+for(const [selector,key] of [['h2','site_matching_settings'],['.url-label','site_url'],['.scope-label','site_scope'],['option[value=page]','page'],['option[value=prefix]','path_prefix'],['option[value=site]','entire_site'],['.settings-scope-help','site_scope_help'],['.case-label','case_sensitive'],['.word-label','site_word_replacement'],['.settings-cancel','cancel'],['.settings-save','save_changes']])TextPatchI18n.text(dialog.querySelector(selector),()=>TextPatchI18n.t(key));
 let editingRule=null,opener=null,saving=false;
 function closeSettings(){if(saving)return;dialog.close();opener?.focus();editingRule=null;}
 cancel.onclick=closeSettings;
 dialog.addEventListener('cancel',event=>{event.preventDefault();closeSettings();});
 function openSettings(rule,button){
   editingRule={...rule};opener=button;form.elements.caseSensitive.checked=rule.caseSensitive===true;form.elements.wordReplacement.checked=rule.matchMode==='word';
+  form.elements.url.value=TextPatch.navigationURL(rule);form.elements.scope.value=rule.scope;
   dialog.querySelector('.settings-origin').textContent=rule.origin+(rule.scope==='site'?'':rule.path);TextPatchI18n.text(error,()=>'');dialog.showModal();
 }
 form.onsubmit=async event=>{
   event.preventDefault();if(saving || !editingRule)return;
-  const rule={...editingRule,matchMode:form.elements.wordReplacement.checked?'word':'exact',caseSensitive:form.elements.caseSensitive.checked};
+  let target;try{target=TextPatch.ruleTarget(form.elements.url.value,form.elements.scope.value);}catch(e){TextPatchI18n.text(error,()=>TextPatchI18n.message(e.message));return;}
+  const message={type:'saveSiteSettings',id:editingRule.id,url:target.url,scope:target.scope,matchMode:form.elements.wordReplacement.checked?'word':'exact',caseSensitive:form.elements.caseSensitive.checked,requestPermission:target.origin!==editingRule.origin};
   saving=true;for(const el of form.elements)el.disabled=true;
   try{
-    await send({type:'saveRuleOptions',id:rule.id,matchMode:rule.matchMode,caseSensitive:rule.caseSensitive});saving=false;closeSettings();
+    await send(message);saving=false;closeSettings();
     TextPatchI18n.text($('status'),()=>TextPatchI18n.t('site_settings_saved'));await load();await onChange();
   }catch(e){TextPatchI18n.text(error,()=>TextPatchI18n.message(e.message));}
   finally{saving=false;for(const el of form.elements)el.disabled=false;}
@@ -42,7 +44,7 @@ async function load(snapshot){
     const row=document.createElement('tr');
     const cell=()=>{const td=document.createElement('td');row.append(td);return td;};
     const site=cell(''),name=document.createElement('span'),scope=document.createElement('small');
-    name.className='site-origin';name.dir='ltr';TextPatchI18n.text(name,()=>rule.origin);TextPatchI18n.attribute(name,'title',()=>rule.origin);
+    name.className='site-origin';name.dir='ltr';TextPatchI18n.text(name,()=>TextPatch.navigationURL(rule));TextPatchI18n.attribute(name,'title',()=>TextPatch.navigationURL(rule));
     const scopeLabel=document.createElement('span'),path=document.createElement('bdi');path.dir='ltr';path.textContent=rule.path;TextPatchI18n.text(scopeLabel,()=>rule.scope==='site'?TextPatchI18n.t('entire_site'):(rule.scope==='prefix'?TextPatchI18n.t('path_prefix'):TextPatchI18n.t('page')));scope.append(scopeLabel);if(rule.scope!=='site')scope.append(path);TextPatchI18n.attribute(scope,'title',()=>scope.textContent);site.append(name,scope);
     const table=next.library.tables.find(t=>t.id===rule.tableId),tableCell=cell(''),select=document.createElement('select');
     TextPatchI18n.attribute(select,'aria-label',()=>rule.origin+' '+scope.textContent+TextPatchI18n.t('table'));
@@ -63,7 +65,7 @@ async function load(snapshot){
     TextPatchI18n.attribute(enabled,'title',()=>!url?TextPatchI18n.t('another_rule_takes_priority_over_this_entire_scope'):!table?TextPatchI18n.t('choose_a_different_table'):page?.missingPermission?TextPatchI18n.t('allow_access_in_the_site_popup'):TextPatchI18n.t('changes_the_enabled_state_for_this_entire_site'));
     actual.append(enabled);
     enabled.onchange=()=>{enabled.disabled=true;run(async()=>{try{await send({type:'toggleSite',url,enabled:enabled.checked});}finally{await load();await onChange();}});};
-    const link=document.createElement('a');link.href=rule.origin+(rule.scope==='site'?'/':rule.path);link.target='_blank';link.rel='noopener noreferrer';
+    const link=document.createElement('a');link.href=TextPatch.navigationURL(rule);link.target='_blank';link.rel='noopener noreferrer';
     TextPatchI18n.attribute(link,'title',()=>link.href);TextPatchI18n.attribute(link,'aria-label',()=>TextPatchI18n.t('open_site')+link.href);
     link.innerHTML='<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M14 3h7v7M21 3 10 14M10 3H4a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1v-6"/></svg>';
     const settings=document.createElement('button');settings.type='button';settings.className='site-settings-button';

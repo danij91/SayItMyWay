@@ -47,7 +47,7 @@ test('site settings dialog cancels drafts, retries save errors and preserves rul
  let state={library:{tables:[{id:'t',name:'Table'},{id:'other',name:'Other'}]},rules:[{id:'r',origin:'https://example.test',scope:'prefix',path:'/docs',tableId:'t',enabled:true,matchMode:'exact',caseSensitive:false},{id:'s',origin:'https://other.test',scope:'site',path:'/',tableId:'t',enabled:true,matchMode:'word',caseSensitive:true}]},failure=false;
  w.chrome={runtime:{sendMessage:async m=>{
   if(m.type==='pageState')return {enabled:true};
-  if(m.type==='saveRuleOptions'){if(failure)return {error:'save failed'};state.rules=state.rules.map(r=>r.id===m.id?{...r,matchMode:m.matchMode,caseSensitive:m.caseSensitive}:r);}
+  if(m.type==='saveSiteSettings'){if(failure)return {error:'save failed'};state.rules=state.rules.map(r=>r.id===m.id?{...r,...w.TextPatch.ruleTarget(m.url,m.scope),matchMode:m.matchMode,caseSensitive:m.caseSensitive}:r);}
   if(m.type==='saveRule'){if(failure)return {error:'save failed'};state.rules=state.rules.map(r=>r.id===m.rule.id?{...r,...structuredClone(m.rule)}:r);}
   return structuredClone(state);
  }}};

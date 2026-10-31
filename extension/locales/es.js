@@ -163,7 +163,7 @@
   "collect_again": "↻ Recopilar de nuevo",
   "retry_saving": "Reintentar el guardado",
   "applied_sites": "Sitios de aplicación",
-  "site_scope": "Sitio · Ámbito",
+  "site_scope": "Aplicar a",
   "enable": "Activar",
   "open": "Abrir",
   "site_replacement": "Sustitución en el sitio",
@@ -418,4 +418,9 @@
   "import_clipboard_name": "Importación del portapapeles",
   "import_file_reading": "Leyendo archivo…",
   "import_json_only": "Se admite JSON sin formato o un solo bloque de código JSON.",
+  "site_url": "URL del sitio",
+  "site_scope_help": "Página: ruta exacta. Prefijo: incluye subpáginas. Sitio: todas las rutas. Consulta y fragmento no afectan a la coincidencia.",
+  "site_url_invalid": "Introduce una URL HTTP(S) válida sin usuario ni contraseña.",
+  "site_url_mismatch": "La URL guardada debe coincidir con el origen y el ámbito de ruta de la regla.",
+  "site_url_permission": "Permite el acceso al nuevo sitio antes de guardar.",
 };

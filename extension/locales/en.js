@@ -163,7 +163,7 @@
   "collect_again": "↻ Collect again",
   "retry_saving": "Retry saving",
   "applied_sites": "Applied sites",
-  "site_scope": "Site · Scope",
+  "site_scope": "Apply to",
   "enable": "Enable",
   "open": "Open",
   "site_replacement": "Site replacement",
@@ -418,4 +418,9 @@
   "import_clipboard_name": "Clipboard import",
   "import_file_reading": "Reading file...",
   "import_json_only": "Plain JSON or one fenced JSON block is supported.",
+  "site_url": "Website URL",
+  "site_scope_help": "Page: exact path. Prefix: path and subpages. Site: all paths. Query and fragment are ignored for matching.",
+  "site_url_invalid": "Enter a valid HTTP(S) URL without a username or password.",
+  "site_url_mismatch": "The saved URL must match the rule’s origin and path scope.",
+  "site_url_permission": "Allow access to the new site before saving.",
 };

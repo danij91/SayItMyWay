@@ -42,6 +42,18 @@
     if(!['http:','https:'].includes(u.protocol) || u.username || u.password)throw Error('HTTP/HTTPS 사이트만 등록할 수 있습니다.');
     return u;
   }
+  function ruleTarget(value,scope){
+    let u;
+    try{u=webURL(value);}catch{throw Error(root.TextPatchI18n?.t('site_url_invalid') ?? 'site_url_invalid');}
+    if(!['page','prefix','site'].includes(scope))throw Error(root.TextPatchI18n?.t('invalid_application_rule') ?? 'invalid_application_rule');
+    return {origin:u.origin,scope,path:scope==='site'?'/':u.pathname,url:u.href};
+  }
+  function navigationURL(rule){
+    const value=rule.url===undefined?rule.origin+(rule.scope==='site'?'/':rule.path):rule.url;
+    let u;try{u=webURL(value);}catch{throw Error(root.TextPatchI18n?.t('site_url_invalid') ?? 'site_url_invalid');}
+    if(!matches(rule,u.href))throw Error(root.TextPatchI18n?.t('site_url_mismatch') ?? 'site_url_mismatch');
+    return u.href;
+  }
   function seedRuleOptions(rules,library) {
     for(const rule of rules){
       const defaults=library?.tables.find(t=>t.id===rule.tableId)?.defaults;
@@ -58,6 +70,7 @@
       if((r.matchMode!==undefined && !['exact','word'].includes(r.matchMode)) || (r.caseSensitive!==undefined && typeof r.caseSensitive!=='boolean'))throw Error('잘못된 적용 규칙입니다.');
       const u=webURL(r.origin);
       if(u.origin!==r.origin || typeof r.path!=='string' || !r.path.startsWith('/') || r.path.includes('#') || r.path.includes('?') || r.path.includes('*') || typeof r.tableId!=='string')throw Error('사이트 주소 또는 경로를 확인하세요. 쿼리·해시는 적용 범위에서 제외됩니다.');
+      if(r.url!==undefined)navigationURL(r);
       if(library && !library.tables.some(t=>t.id===r.tableId))throw Error('연결할 대응표가 없습니다.');
       const key=JSON.stringify([r.origin,r.scope,r.scope==='site'?'/':r.path]);
       if(targets.has(key))throw Error('같은 사이트·범위의 규칙이 중복되었습니다.');
@@ -81,5 +94,5 @@
   }
   function hostPattern(origin){return webURL(origin).protocol+'//'+webURL(origin).hostname+'/*';}
   const defaultRules=()=>[{id:'crimson-default',origin:'https://mapgenie.io',scope:'prefix',path:'/crimson-desert/maps/pywel',tableId:'crimson-desert',enabled:true}];
-  root.TextPatch={seedRuleOptions,migrate,validateLibrary,validateRules,webURL,matches,selectRule,hostPattern,defaultRules,uniqueTableName,portableTable};
+  root.TextPatch={seedRuleOptions,migrate,validateLibrary,validateRules,webURL,matches,selectRule,hostPattern,defaultRules,uniqueTableName,portableTable,ruleTarget,navigationURL};
 })(globalThis);

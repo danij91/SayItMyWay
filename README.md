@@ -31,7 +31,7 @@ Choose **Import** in the popup or table manager, then select **File** to open a 
 
 Switching tables while replacement is enabled applies the new table. Empty replacement values leave the original text unchanged. Nonempty values apply directly. Entries can include optional notes and a CSS selector to limit replacement to part of a page.
 
-Expand the sites panel to manage table assignments and enabled states. Each row's settings button controls case sensitivity and replacement within sentences. By default, the entire text must match. Word replacement checks word boundaries, and substitutions are calculated from the original text in one pass: rules A → B and B → C do not turn A into C.
+New site assignments default to the current page, rather than the whole domain. Expand the sites panel to manage table assignments and enabled states. Each row's settings button lets you edit the website URL and choose the current page, pages under that path, or the entire site, as well as case sensitivity and replacement within sentences. The open-site button opens the saved URL, including its path, even when the matching scope is the entire site. Query strings and fragments are retained for navigation but do not affect matching. Changing to another domain requests Chrome site access; declining leaves the saved assignment unchanged. Existing broad assignments keep their scope until you edit them. By default, the entire text must match. Word replacement checks word boundaries, and substitutions are calculated from the original text in one pass: rules A → B and B → C do not turn A into C.
 
 ### Collect text and work with AI
 

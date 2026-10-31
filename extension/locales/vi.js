@@ -163,7 +163,7 @@
   "collect_again": "↻ Thu thập lại",
   "retry_saving": "Thử lưu lại",
   "applied_sites": "Trang web đã áp dụng",
-  "site_scope": "Trang web · Phạm vi",
+  "site_scope": "Phạm vi áp dụng",
   "enable": "Bật",
   "open": "Mở",
   "site_replacement": "Thay thế trên trang web",
@@ -418,4 +418,9 @@
   "import_clipboard_name": "Nhập từ bộ nhớ tạm",
   "import_file_reading": "Đang đọc tệp…",
   "import_json_only": "Hỗ trợ JSON thuần hoặc một khối mã JSON duy nhất.",
+  "site_url": "URL trang web",
+  "site_scope_help": "Trang: đường dẫn chính xác. Tiền tố: gồm trang con. Trang web: mọi đường dẫn. Bỏ qua truy vấn và đoạn khi khớp.",
+  "site_url_invalid": "Nhập URL HTTP(S) hợp lệ không có tên người dùng hoặc mật khẩu.",
+  "site_url_mismatch": "URL đã lưu phải khớp nguồn và phạm vi đường dẫn của quy tắc.",
+  "site_url_permission": "Cho phép truy cập trang web mới trước khi lưu.",
 };

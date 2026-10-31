@@ -163,7 +163,7 @@
   "collect_again": "↻ Collecter à nouveau",
   "retry_saving": "Réessayer l’enregistrement",
   "applied_sites": "Sites d’application",
-  "site_scope": "Site · Portée",
+  "site_scope": "Appliquer à",
   "enable": "Activer",
   "open": "Ouvrir",
   "site_replacement": "Remplacement sur le site",
@@ -418,4 +418,9 @@
   "import_clipboard_name": "Importation du presse-papiers",
   "import_file_reading": "Lecture du fichier…",
   "import_json_only": "Le JSON brut ou un seul bloc de code JSON est accepté.",
+  "site_url": "URL du site",
+  "site_scope_help": "Page : chemin exact. Préfixe : sous-pages incluses. Site : tous les chemins. Requête et fragment sont ignorés.",
+  "site_url_invalid": "Saisissez une URL HTTP(S) valide sans identifiant ni mot de passe.",
+  "site_url_mismatch": "L’URL enregistrée doit correspondre à l’origine et à la portée du chemin de la règle.",
+  "site_url_permission": "Autorisez l’accès au nouveau site avant d’enregistrer.",
 };

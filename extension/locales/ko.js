@@ -163,7 +163,7 @@
   "collect_again": "↻ 다시 수집",
   "retry_saving": "저장 재시도",
   "applied_sites": "적용 사이트",
-  "site_scope": "사이트 · 범위",
+  "site_scope": "적용 범위",
   "enable": "켜기",
   "open": "열기",
   "site_replacement": "이 사이트 교체",
@@ -418,4 +418,9 @@
   "import_clipboard_name": "클립보드 가져오기",
   "import_file_reading": "파일 읽는 중…",
   "import_json_only": "일반 JSON 또는 단일 JSON 코드 블록을 지원합니다.",
+  "site_url": "사이트 URL",
+  "site_scope_help": "페이지: 정확한 경로. 접두사: 경로와 하위 페이지. 사이트: 모든 경로. 쿼리와 해시는 매칭에서 제외됩니다.",
+  "site_url_invalid": "사용자 이름이나 비밀번호가 없는 올바른 HTTP(S) URL을 입력하세요.",
+  "site_url_mismatch": "저장 URL은 규칙의 출처 및 경로 범위와 일치해야 합니다.",
+  "site_url_permission": "저장하려면 새 사이트 접근 권한을 허용하세요.",
 };

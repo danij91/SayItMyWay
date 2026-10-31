@@ -163,7 +163,7 @@
   "collect_again": "↻ Erneut erfassen",
   "retry_saving": "Speichern erneut versuchen",
   "applied_sites": "Websites mit Anwendung",
-  "site_scope": "Website · Geltungsbereich",
+  "site_scope": "Anwenden auf",
   "enable": "Aktivieren",
   "open": "Öffnen",
   "site_replacement": "Website-Ersetzung",
@@ -418,4 +418,9 @@
   "import_clipboard_name": "Import aus Zwischenablage",
   "import_file_reading": "Datei wird gelesen…",
   "import_json_only": "Reines JSON oder ein einzelner JSON-Codeblock wird unterstützt.",
+  "site_url": "Website-URL",
+  "site_scope_help": "Seite: genauer Pfad. Präfix: mit Unterseiten. Website: alle Pfade. Abfrage und Fragment werden beim Abgleich ignoriert.",
+  "site_url_invalid": "Gib eine gültige HTTP(S)-URL ohne Benutzername oder Passwort ein.",
+  "site_url_mismatch": "Die gespeicherte URL muss zum Ursprung und Pfadbereich der Regel passen.",
+  "site_url_permission": "Erlaube vor dem Speichern den Zugriff auf die neue Website.",
 };

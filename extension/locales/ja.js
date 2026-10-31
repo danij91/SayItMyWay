@@ -163,7 +163,7 @@
   "collect_again": "↻ 再収集",
   "retry_saving": "保存を再試行",
   "applied_sites": "適用先サイト",
-  "site_scope": "サイト · 範囲",
+  "site_scope": "適用範囲",
   "enable": "有効化",
   "open": "開く",
   "site_replacement": "サイトの置換",
@@ -418,4 +418,9 @@
   "import_clipboard_name": "クリップボードから読み込み",
   "import_file_reading": "ファイルを読み込み中…",
   "import_json_only": "通常のJSONまたは単一のJSONコードブロックに対応しています。",
+  "site_url": "サイトURL",
+  "site_scope_help": "ページ: 完全一致のパス。接頭辞: 下位ページも含む。サイト: 全パス。クエリとフラグメントは照合しません。",
+  "site_url_invalid": "ユーザー名やパスワードを含まない有効なHTTP(S) URLを入力してください。",
+  "site_url_mismatch": "保存URLはルールのオリジンとパス範囲に一致する必要があります。",
+  "site_url_permission": "保存する前に新しいサイトへのアクセスを許可してください。",
 };

@@ -163,7 +163,7 @@
   "collect_again": "↻ Coletar novamente",
   "retry_saving": "Tentar salvar novamente",
   "applied_sites": "Sites de aplicação",
-  "site_scope": "Site · Escopo",
+  "site_scope": "Aplicar a",
   "enable": "Ativar",
   "open": "Abrir",
   "site_replacement": "Substituição no site",
@@ -418,4 +418,9 @@
   "import_clipboard_name": "Importação da área de transferência",
   "import_file_reading": "Lendo arquivo…",
   "import_json_only": "Aceita JSON simples ou um único bloco de código JSON.",
+  "site_url": "URL do site",
+  "site_scope_help": "Página: caminho exato. Prefixo: inclui subpáginas. Site: todos os caminhos. Consulta e fragmento não afetam a correspondência.",
+  "site_url_invalid": "Insira uma URL HTTP(S) válida sem usuário ou senha.",
+  "site_url_mismatch": "A URL salva deve corresponder à origem e ao escopo de caminho da regra.",
+  "site_url_permission": "Permita o acesso ao novo site antes de salvar.",
 };

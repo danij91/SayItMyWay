@@ -163,7 +163,7 @@
   "collect_again": "↻ 重新采集",
   "retry_saving": "重试保存",
   "applied_sites": "已应用的网站",
-  "site_scope": "网站 · 范围",
+  "site_scope": "应用范围",
   "enable": "启用",
   "open": "打开",
   "site_replacement": "网站替换",
@@ -418,4 +418,9 @@
   "import_clipboard_name": "剪贴板导入",
   "import_file_reading": "正在读取文件…",
   "import_json_only": "支持纯 JSON 或单个 JSON 代码块。",
+  "site_url": "网站URL",
+  "site_scope_help": "页面：精确路径。前缀：包含子页面。网站：所有路径。查询和片段不参与匹配。",
+  "site_url_invalid": "请输入不含用户名或密码的有效HTTP(S) URL。",
+  "site_url_mismatch": "保存的URL必须符合规则的来源和路径范围。",
+  "site_url_permission": "请先允许访问新网站再保存。",
 };

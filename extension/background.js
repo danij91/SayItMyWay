@@ -407,6 +407,24 @@ async function inlineRequest(message,sender,state){
   state.library=await repository.save(state.library);inlineTokens.delete(message.token);
   await libraryChanged(state.library);return message.type==='inlineDelete'?{deleted:true}:{saved:true};
 }
+// Validate before any write: failed edits cannot retire activation intents or
+// change unrelated origin/currency preferences.
+async function persistRule(state,rule,existing,activate=false){
+  const rules=existing?state.rules.map(r=>r.id===existing.id?rule:r):[...state.rules,rule];
+  TextPatch.validateRules(rules,state.library);
+  if((!existing || existing.origin!==rule.origin) && !await granted(rule.origin))throw Error(TextPatchI18n.t('site_url_permission'));
+  const activationIntents=Object.fromEntries(Object.entries(state.activationIntents).filter(([,intent])=>intent.ruleId!==rule.id));
+  const patch={rules,activationIntents};
+  if(existing && existing.origin!==rule.origin){
+    const wasEnabled=state.originEnabled[existing.origin] ?? state.enabled;
+    // Leave shared destination state untouched. Carry site state only when no
+    // other saved rule uses the destination; a paused source stays paused.
+    if(!state.rules.some(r=>r.id!==existing.id && r.origin===rule.origin))patch.originEnabled={...state.originEnabled,[rule.origin]:wasEnabled};
+    else if(!wasEnabled)rule.enabled=false;
+  }
+  if(activate)patch.originEnabled={...(patch.originEnabled || state.originEnabled),[rule.origin]:true};
+  await chrome.storage.local.set(patch);Object.assign(state,patch);
+}
 async function handle(message,sender) {
   let state=await initial(), notice='';
   if(['inlineContext','inlineSave','inlineDelete'].includes(message.type))return inlineRequest(message,sender,state);
@@ -466,10 +484,10 @@ async function handle(message,sender) {
       await libraryChanged(library);return {library};
     }
     case 'selectTable': {
-      const origin=TextPatch.webURL(message.url).origin;
+      const currentURL=TextPatch.webURL(message.url),origin=currentURL.origin;
       if(!state.library.tables.some(t=>t.id===message.tableId))throw Error(TextPatchI18n.t('select_a_table_2'));
       const previous=TextPatch.selectRule(state.rules,message.url);
-      const rule={...(previous || {id:crypto.randomUUID(),origin,scope:'site',path:'/',enabled:false,matchMode:'exact',caseSensitive:false}),tableId:message.tableId};
+      const rule={...(previous || {id:crypto.randomUUID(),origin,scope:'page',path:currentURL.pathname,enabled:false,matchMode:'exact',caseSensitive:false}),url:currentURL.href,tableId:message.tableId};
       const rules=previous?state.rules.map(r=>r.id===rule.id?rule:r):[...state.rules,rule];
       TextPatch.validateRules(rules,state.library);
       await cancelActivation(state,origin);
@@ -504,24 +522,22 @@ async function handle(message,sender) {
       TextPatch.validateRules(rules);
       await chrome.storage.local.set({rules});state.rules=rules;break;
     }
+    case 'saveSiteSettings': {
+      const existing=state.rules.find(r=>r.id===message.id);
+      if(!existing || !['exact','word'].includes(message.matchMode) || typeof message.caseSensitive!=='boolean')throw Error(TextPatchI18n.t('invalid_settings_format'));
+      // Preserve concurrent table/state changes; only the editable fields cross this boundary.
+      const target=TextPatch.ruleTarget(message.url,message.scope);
+      // A broad rule may navigate to a descendant page. Saving its options or
+      // query/fragment alone must not narrow that existing match scope.
+      if(target.scope===existing.scope && target.origin===existing.origin && TextPatch.webURL(target.url).pathname===TextPatch.webURL(TextPatch.navigationURL(existing)).pathname)target.path=existing.path;
+      await persistRule(state,{...existing,...target,matchMode:message.matchMode,caseSensitive:message.caseSensitive},existing);break;
+    }
     case 'saveRule': {
-      await cancelActivation(state,message.rule?.origin);
-      const rule={...message.rule};
-      const editedId=rule.id;
-      if (!state.rules.some(r=>r.id===rule.id) && !await granted(rule.origin)) throw Error(TextPatchI18n.t('site_access_is_not_allowed_allow_it_in'));
-      const same=r=>r.origin===rule.origin && r.scope===rule.scope && (r.scope==='site' || r.path===rule.path);
-      const previous=state.rules.find(same);
-      rule.id=previous?.id || rule.id || crypto.randomUUID();
-      const existing=state.rules.find(r=>r.id===editedId) || previous;
+      const rule={...message.rule},existing=state.rules.find(r=>r.id===rule.id);
+      rule.id=existing?.id || rule.id || crypto.randomUUID();
       if(rule.matchMode===undefined)rule.matchMode=existing?.matchMode ?? 'exact';
       if(rule.caseSensitive===undefined)rule.caseSensitive=existing?.caseSensitive ?? false;
-      const anchor=previous || state.rules.find(r=>r.id===editedId);
-      const rules=anchor?state.rules.flatMap(r=>r.id===anchor.id?[rule]:r.id===editedId || same(r)?[]:[r]):[...state.rules,rule];
-      TextPatch.validateRules(rules,state.library);
-      state.rules=rules;
-      const patch={rules};
-      if(message.activateSite===true){state.originEnabled={...state.originEnabled,[rule.origin]:true};patch.originEnabled=state.originEnabled;}
-      await chrome.storage.local.set(patch);break;
+      await persistRule(state,rule,existing,message.activateSite===true);break;
     }
     case 'deleteRule':
       await cancelActivation(state);
@@ -558,6 +574,20 @@ async function handle(message,sender) {
 }
 chrome.runtime.onMessage.addListener((message,sender,reply)=>{
   if(sender.id!==chrome.runtime.id)return;
+  if(message.type==='saveSiteSettings' && message.requestPermission===true){
+    if(!trustedExtensionPage(sender))return;
+    try{
+      const target=TextPatch.ruleTarget(message.url,message.scope);
+      // Called synchronously on the forwarded submit gesture. The background
+      // owns completion even if Chrome closes the popup for its permission UI.
+      const permission=chrome.permissions.request({origins:[TextPatch.hostPattern(target.origin)]});
+      Promise.resolve(permission).then(allowed=>{
+        if(!allowed)throw Error(TextPatchI18n.t('site_url_permission'));
+        return serialized(()=>handle(message,sender));
+      }).then(reply,error=>reply({error:error.message}));
+    }catch(error){reply({error:error.message});}
+    return true;
+  }
   if(message.type==='refreshCurrencyRates'){
     if(!trustedExtensionPage(sender))return;
     // Offline fetch must not stall the general settings mutation queue.

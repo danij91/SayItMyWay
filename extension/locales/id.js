@@ -163,7 +163,7 @@
   "collect_again": "↻ Kumpulkan lagi",
   "retry_saving": "Coba simpan lagi",
   "applied_sites": "Situs yang diterapkan",
-  "site_scope": "Situs · Cakupan",
+  "site_scope": "Terapkan ke",
   "enable": "Aktifkan",
   "open": "Buka",
   "site_replacement": "Penggantian situs",
@@ -418,4 +418,9 @@
   "import_clipboard_name": "Impor papan klip",
   "import_file_reading": "Membaca berkas…",
   "import_json_only": "Mendukung JSON biasa atau satu blok kode JSON.",
+  "site_url": "URL situs",
+  "site_scope_help": "Halaman: jalur persis. Awalan: termasuk subhalaman. Situs: semua jalur. Kueri dan fragmen diabaikan saat mencocokkan.",
+  "site_url_invalid": "Masukkan URL HTTP(S) yang valid tanpa nama pengguna atau kata sandi.",
+  "site_url_mismatch": "URL tersimpan harus sesuai dengan asal dan cakupan jalur aturan.",
+  "site_url_permission": "Izinkan akses ke situs baru sebelum menyimpan.",
 };

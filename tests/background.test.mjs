@@ -143,6 +143,7 @@ test('dropdown selection is permission-free, initially OFF, and preserves matche
  s=await h.send({type:'selectTable',url,tableId:'crimson-desert'});
  assert.equal(s.page.enabled,false);assert.equal(h.sent.at(-1).state.enabled,false);
  assert.equal((await h.send({type:'pageState',url:'https://other.example'})).enabled,false);
+ await h.send({type:'deleteRule',id:s.page.rule.id});
  s=await h.send({type:'saveRule',rule:{origin:'https://example.com',scope:'prefix',path:'/docs',tableId:'crimson-desert',enabled:false}});
  s=await h.send({type:'selectTable',url,tableId:'second'});
  assert.equal(s.page.rule.scope,'prefix');assert.equal(s.page.rule.path,'/docs');assert.equal(s.page.rule.enabled,false);
@@ -268,7 +269,7 @@ test('invalid origin overrides fail atomic settings and bundle validation; old s
   }
  }
 });
-test('same-target upsert, specificity, permission registration and revoke restore',async()=>{
+test('same-target rejection, specificity, permission registration and revoke restore',async()=>{
  const h=await harness();
  let s=await h.send({type:'saveRule',rule:{origin:'https://example.com',scope:'site',path:'/',tableId:'crimson-desert',enabled:true}});
  assert.match(s.error,/권한/);
@@ -278,7 +279,7 @@ test('same-target upsert, specificity, permission registration and revoke restor
  s=await h.send({type:'saveRule',rule:{...rule,scope:'prefix',path:'/docs'}});
  s=await h.send({type:'saveRule',rule:{...rule,scope:'page',path:'/docs/a'}});
  s=await h.send({type:'saveRule',rule:{...rule,scope:'page',path:'/docs/a'}});
- assert.equal(s.rules.length,3);
+ assert.ok(s.error);assert.equal((await h.send({type:'state'})).rules.length,3);
  s=await h.send({type:'pageState',url:'https://example.com/docs/a?x=1#y'});
  assert.equal(s.rule.scope,'page');assert.equal(s.enabled,true);
  assert.deepEqual(Array.from(h.registrations[0].matches),['https://example.com/*']);
@@ -345,23 +346,23 @@ test('legacy and new settings roundtrip ignores includeReview without changing s
  assert.equal(h.store.includeReview,false);
 });
 
-test('table edits preserve rule positions and same-target collision retains target position',async()=>{
+test('table edits preserve rule positions and same-target collision is rejected without changing positions',async()=>{
  const h=await harness();h.grants.add('https://example.com/*');
  const base={origin:'https://example.com',scope:'page',tableId:'crimson-desert',enabled:false};
  for(const path of ['/first','/docs/a','/third','/last'])await h.send({type:'saveRule',rule:{...base,path}});
  const before=(await h.send({type:'state'})).rules;
  const own=before.filter(r=>r.origin===base.origin);
  let s=await h.send({type:'selectTable',url:'https://example.com/docs/a',tableId:'crimson-desert'});
- assert.deepEqual(JSON.parse(JSON.stringify(s.rules)),JSON.parse(JSON.stringify(before)));
+ assert.deepEqual(JSON.parse(JSON.stringify(s.rules)),JSON.parse(JSON.stringify(before.map(r=>r.id===own[1].id?{...r,url:'https://example.com/docs/a'}:r))));
  s=await h.send({type:'saveRule',rule:{...own[1],enabled:true}});
  assert.deepEqual(Array.from(s.rules,r=>r.id),Array.from(before,r=>r.id));
  assert.equal(s.rules.find(r=>r.id===own[1].id).enabled,true);
  s=await h.send({type:'saveRule',rule:{...own[0],path:'/third'}});
- assert.deepEqual(Array.from(s.rules.filter(r=>r.origin===base.origin),r=>r.path),['/docs/a','/third','/last']);
- assert.equal(s.rules.find(r=>r.path==='/third').id,own[2].id);
+ assert.ok(s.error);
+ assert.deepEqual(Array.from((await h.send({type:'state'})).rules,r=>r.id),Array.from(before,r=>r.id));
 });
 
-test('read-only state does not reinject tabs; same-origin SPA path selects page rule; edit collision upserts',async()=>{
+test('read-only state does not reinject tabs; same-origin SPA path selects page rule; edit collision is rejected',async()=>{
  const h=await harness();
  h.grants.add('https://example.com/*');
  const rule={origin:'https://example.com',scope:'page',path:'/docs/a',tableId:'crimson-desert',enabled:true};
@@ -371,8 +372,8 @@ test('read-only state does not reinject tabs; same-origin SPA path selects page 
  const page=await new Promise(r=>h.listeners.message({type:'pageState',url:'https://example.com/other'},{id:'test',tab:{url:'https://example.com/docs/a'}},r));
  assert.equal(page.rule.id,b.id);
  s=await h.send({type:'saveRule',rule:{...a,path:'/other'}});
- assert.equal(s.rules.filter(r=>r.origin==='https://example.com').length,1);
- assert.equal(s.rules.find(r=>r.origin==='https://example.com').id,b.id);
+ assert.ok(s.error);
+ assert.equal((await h.send({type:'state'})).rules.filter(r=>r.origin==='https://example.com').length,2);
  h.grants.clear();
  s=await h.send({type:'saveRule',rule:{...b,enabled:false}});
  assert.equal(s.rules.find(r=>r.id===b.id).enabled,false);

@@ -163,7 +163,7 @@
   "collect_again": "↻ 重新擷取",
   "retry_saving": "重試儲存",
   "applied_sites": "已套用的網站",
-  "site_scope": "網站 · 範圍",
+  "site_scope": "套用範圍",
   "enable": "啟用",
   "open": "開啟",
   "site_replacement": "網站替換",
@@ -418,4 +418,9 @@
   "import_clipboard_name": "剪貼簿匯入",
   "import_file_reading": "正在讀取檔案…",
   "import_json_only": "支援純 JSON 或單個 JSON 程式碼區塊。",
+  "site_url": "網站URL",
+  "site_scope_help": "頁面：精確路徑。前綴：包含子頁面。網站：所有路徑。查詢和片段不參與比對。",
+  "site_url_invalid": "請輸入不含使用者名稱或密碼的有效HTTP(S) URL。",
+  "site_url_mismatch": "儲存的URL必須符合規則的來源及路徑範圍。",
+  "site_url_permission": "請先允許存取新網站再儲存。",
 };
