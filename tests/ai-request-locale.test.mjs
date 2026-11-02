@@ -36,10 +36,10 @@ function payload(w,text){
 }
 const control=(dialog,name)=>dialog.querySelector('[data-ai="'+name+'"]');
 
-test('all 20 app locales generate both tasks with localized prose and unchanged portable JSON',async()=>{
+test('all 21 app locales generate both tasks with localized prose and unchanged portable JSON',async()=>{
   const dom=await setup(),w=dom.window,before=JSON.stringify(options);
   try{
-    const locales=Object.keys(w.TextPatchI18n.languages);assert.equal(locales.length,20);
+    const locales=Object.keys(w.TextPatchI18n.languages);assert.equal(locales.length,21);
     for(const locale of locales){
       await w.TextPatchI18n.setLocale(locale);
       for(const task of ['translation','replacement']){

@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
 import {JSDOM} from 'jsdom';
 const source=file=>readFile(new URL('../extension/'+file,import.meta.url),'utf8');
-const codes=['ko','en','ja','zh-Hans','zh-Hant','es','fr','de','pt-BR','ru','id','vi','th','hi','ar','ro','hu','bg','uk','la'];
+const codes=['ko','en','ja','zh-Hans','zh-Hant','es','fr','de','pt-BR','pt-PT','ru','id','vi','th','hi','ar','ro','hu','bg','uk','la'];
 test('Arabic catalog covers every key and preserves interpolation tokens without bidi controls',async()=>{
   const dom=new JSDOM('',{runScripts:'outside-only'});
   try{
@@ -41,7 +41,7 @@ test('Arabic switching isolates mixed table data and preserves drafts, AI choice
     w.EditorStorage={load:async()=>structuredClone(library),save:async()=>{calls.push('save');}};
     w.eval(await source('import-ui.js'));w.eval(await source('editor/app.js'));await new Promise(r=>setTimeout(r,0));
     const $=id=>w.document.getElementById(id),i=w.TextPatchI18n;
-    assert.equal($('app-locale').options.length,20);
+    assert.equal($('app-locale').options.length,21);
     assert.equal($('rows').firstChild.children[0].dir,'auto');
     assert.equal($('rows').firstChild.children[0].textContent,'English 한국어 123 (س)');
     $('table-rename').click();$('table-name').value=mixed+' draft';$('table-form').dispatchEvent(new w.Event('submit',{cancelable:true}));$('add').click();

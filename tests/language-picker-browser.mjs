@@ -14,7 +14,7 @@ const context=await chromium.launchPersistentContext(path.join(dir,'profile'),{
 });
 context.setDefaultTimeout(10000);
 const report={dir,checks:[],screenshots:[],errors:[],boundary:'Actual headless Chromium input and action popup host; IME composition guards use DOM event simulation, no OS IME or screen-reader verification.'};
-const countries={ko:'Republic of Korea',en:'United Kingdom',ja:'Japan','zh-Hans':'China','zh-Hant':'China',es:'Spain',fr:'France',de:'Germany','pt-BR':'Brazil',ru:'Russia',id:'Indonesia',vi:'Vietnam',th:'Thailand',hi:'India',ar:'Saudi Arabia',ro:'ROMANIA',hu:'Hungary',bg:'Bulgaria',uk:'Ukraine',la:'Vatican City'};
+const countries={ko:'Republic of Korea',en:'United Kingdom',ja:'Japan','zh-Hans':'China','zh-Hant':'China',es:'Spain',fr:'France',de:'Germany','pt-BR':'Brazil','pt-PT':'Portugal',ru:'Russia',id:'Indonesia',vi:'Vietnam',th:'Thailand',hi:'India',ar:'Saudi Arabia',ro:'ROMANIA',hu:'Hungary',bg:'Bulgaria',uk:'Ukraine',la:'Vatican City'};
 const table={schemaVersion:1,id:'fixture',name:'User fixture العربية',entries:[{id:'r',en:'Original 日本語',ko:'',status:'untranslated'}]};
 try{
   const worker=context.serviceWorkers()[0]||await context.waitForEvent('serviceworker'),url=new URL(worker.url()),base=url.protocol+'//'+url.host;
@@ -31,7 +31,7 @@ try{
     assert.equal(await worker.evaluate(async()=> (await chrome.storage.local.get('appLocale')).appLocale),locale);
     assert.equal(await popup.locator('#app-locale').isVisible(),false);
   }
-  report.checks.push('All 20 app languages selected through English country aliases using real input/click; shared countries remain multiple results; persistence and second-editor sync');
+  report.checks.push('All 21 app languages selected through English country aliases using real input/click; shared countries remain multiple results; persistence and second-editor sync');
   await popup.click('#language-open');await appInput.fill('no-such-language');assert.equal(await popup.locator('.language-results:visible [role=option]').count(),0);
   assert.ok(await popup.locator('.language-results:visible [role=status]').textContent());await appInput.press('Escape');
   assert.equal(await popup.locator('#app-locale').inputValue(),'la');assert.equal(await popup.locator('#language-menu').isVisible(),false);
@@ -57,7 +57,7 @@ try{
     assert.equal(await editor.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);
     const file=path.join(dir,'rtl-ai-'+width+'.png');await editor.screenshot({path:file});report.screenshots.push(file);await input.press('Escape');
   }
-  report.checks.push('All 20 aliases in both AI pickers via real input/click; auto/custom drafts survive app locale sync; RTL AI list fits 400px and 320px');
+  report.checks.push('All 21 aliases in both AI pickers via real input/click; auto/custom drafts survive app locale sync; RTL AI list fits 400px and 320px');
   // Native action host, without forcing the popup into a caller-sized tab.
   const cdp=await context.browser().newBrowserCDPSession();let sequence=0;
   for(const locale of ['ko','ar','la']){

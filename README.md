@@ -1,8 +1,8 @@
-﻿<p align="center"><img src="extension/icons/normal.svg" width="88" alt="SayItMyWay"></p>
+<p align="center"><img src="extension/icons/normal.svg" width="88" alt="SayItMyWay"></p>
 
 <h1 align="center">SayItMyWay</h1>
 <p align="center">Replace website text your way.</p>
-<p align="center"><a href="LICENSE">MIT License</a> · Chrome Manifest V3 · 20 languages · Local-first</p>
+<p align="center"><a href="LICENSE">MIT License</a> · Chrome Manifest V3 · 21 languages · Local-first</p>
 
 A free Chrome extension that replaces website text using **source → replacement tables**. Translate menus, use familiar names for game terms, or change wording to suit your preferences.
 
@@ -19,7 +19,9 @@ No account, subscription, or donation required. There are no paid limits on save
 - **Prepare AI requests:** Copy or download a translation or rewriting request. Import the AI's response to fill empty replacements while preserving existing work.
 - **Edit on the page:** Use shortcuts to preview original text or add, edit, and delete entries directly on a webpage.
 - **Convert currencies:** Convert displayed prices using ECB reference rates, independently of text replacement. Cached rates remain available offline.
-- **Use your language:** English, Korean, Japanese, Simplified and Traditional Chinese, Spanish, French, German, Brazilian Portuguese, Russian, Indonesian, Vietnamese, Thai, Hindi, Arabic with RTL support, Romanian, Hungarian, Bulgarian, Ukrainian, and experimental Latin (Latina). App UI and AI request wording follow your selected language. The five new translations have not been reviewed by native speakers; Latin uses modern renderings of software terminology and is available inside the app, not as Chrome store metadata.
+- **Use your language:** English, Korean, Japanese, Simplified and Traditional Chinese, Spanish, French, German, European and Brazilian Portuguese, Russian, Indonesian, Vietnamese, Thai, Hindi, Arabic with RTL support, Romanian, Hungarian, Bulgarian, Ukrainian, and experimental Latin (Latina). App UI and AI request wording follow your selected language. The five new translations have not been reviewed by native speakers; Latin uses modern renderings of software terminology and is available inside the app, not as Chrome store metadata.
+Portuguese is available as `Português (Portugal)` and `Português (Brasil)`. Browser language `pt` or `pt-PT` defaults to Portugal, while `pt-BR` selects Brazil; an existing saved choice is preserved. Searching `Portugal` or `pt-PT` finds Portugal, `Brazil` or `pt-BR` finds Brazil, and `Portuguese` finds both. The Portugal translation has not received native-speaker review.
+
 - **Find a language easily:** type an English or native language name, country name, common alias, or language code in the app and AI language pickers. Partial, case-insensitive and accent-insensitive matching works: `Korea`, `한국`, or `한글` finds Korean; `Romania` or `România` finds Romanian. A country can match multiple languages. Typing filters the choices; it only changes your selection when you choose a result.
 
 ## How it works

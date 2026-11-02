@@ -10,6 +10,7 @@ test('library rejects unauthorized and invalid saves without changing revision o
  const server=await createServer({dataPath});await new Promise(r=>server.listen(0,'127.0.0.1',r));const base='http://127.0.0.1:'+server.address().port;
  try{
   const importUI=await fetch(base+'/import-ui.js');assert.equal(importUI.status,200);assert.match(await importUI.text(),/TextPatchImportUI/);
+  const portugal=await fetch(base+'/locales/pt-PT.js');assert.equal(portugal.status,200);assert.match(await portugal.text(),/European Portuguese/);
   const initial=await (await fetch(base+'/api/library')).json();
   const put=(body,headers={Origin:base,'Content-Type':'application/json'})=>fetch(base+'/api/library',{method:'PUT',headers,body:typeof body==='string'?body:JSON.stringify(body)});
   assert.equal((await put(initial,{'Content-Type':'application/json'})).status,403);

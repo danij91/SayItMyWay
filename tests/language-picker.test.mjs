@@ -27,12 +27,12 @@ const cases={
   ko:['Korean','South Korea','대한민국'],en:['English','United States','United Kingdom'],ja:['Japanese','Japan','日本'],
   'zh-Hans':['Simplified Chinese','China','中国'],'zh-Hant':['Traditional Chinese','Taiwan','臺灣'],
   es:['Spanish','Spain','España'],fr:['French','France','Belgique'],de:['German','Germany','Deutschland'],
-  'pt-BR':['Portuguese','Brazil','Brasil'],ru:['Russian','Russia','Россия'],id:['Indonesian','Indonesia','Republik Indonesia'],
+  'pt-BR':['Portuguese','Brazil','Brasil'],'pt-PT':['European Portuguese','Portugal'],ru:['Russian','Russia','Россия'],id:['Indonesian','Indonesia','Republik Indonesia'],
   vi:['Vietnamese','Vietnam','Việt Nam'],th:['Thai','Thailand','ประเทศไทย'],hi:['Hindi','India','भारत'],
   ar:['Arabic','Saudi Arabia','السعودية'],ro:['Romanian','Romania','România'],hu:['Hungarian','Hungary','Magyarország'],
   bg:['Bulgarian','Bulgaria','България'],uk:['Ukrainian','Ukraine','Україна'],la:['Latin','Vatican City','Civitas Vaticana']
 };
-test('shared aliases find all 20 languages through English/native language and country names, codes and partial input',async t=>{
+test('shared aliases find all 21 languages through English/native language and country names, codes and partial input',async t=>{
   const w=await mount(t),i=w.TextPatchI18n;
   assert.deepEqual(Object.keys(cases),Object.keys(i.languages));
   for(const [code,terms] of Object.entries(cases))for(const term of [code,code.replaceAll('-','_'),i.languages[code],...terms]){

@@ -13,13 +13,13 @@ await i18n.ready;
 const newKeys = ['site_matching_settings','site_word_replacement','site_settings_saved','ai_website_url','ai_website_url_hint','ai_invalid_website_url','ai_language_auto','ai_language_choose','ai_language_custom','ai_source_language_custom','ai_target_language_custom'];
 const parameters = value => [...value.matchAll(/\{(\w+)\}/g)].map(match => match[1]).sort();
 
-test('all twenty catalogs cover site and AI contracts with exact keys and parameters', async () => {
-  assert.equal(files.length, 20);
+test('all twenty-one catalogs cover site and AI contracts with exact keys and parameters', async () => {
+  assert.equal(files.length, 21);
   for (const key of [...newKeys, 'ai_response_language', 'ai_replacement_field']) assert.ok(Object.hasOwn(catalogs.en, key), key);
   for (const [locale, catalog] of Object.entries(catalogs)) {
     assert.deepEqual(Object.keys(catalog).sort(), Object.keys(catalogs.en).sort(), locale);
     assert.equal(catalog.text_table_patch, 'SayItMyWay', locale + ': shared product brand');
-    const chromeLocale = {'zh-Hans':'zh_CN','zh-Hant':'zh_TW','pt-BR':'pt_BR'}[locale] || locale;
+    const chromeLocale = {'zh-Hans':'zh_CN','zh-Hant':'zh_TW','pt-BR':'pt_BR','pt-PT':'pt_PT'}[locale] || locale;
     // Latin is app-only: Chrome's supported locale list excludes la.
     if (locale === 'la') await assert.rejects(read('extension/_locales/la/messages.json'), {code:'ENOENT'});
     else {

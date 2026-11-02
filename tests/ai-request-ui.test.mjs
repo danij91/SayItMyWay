@@ -19,7 +19,7 @@ test('each new dialog defaults to the current app language endonym, ignoring sav
   const dom=setup(),w=dom.window;let copied;
   Object.defineProperty(w.navigator,'clipboard',{value:{writeText:async text=>{copied=text;}}});
   try{
-    assert.equal(Object.keys(w.TextPatchI18n.languages).length,20);
+    assert.equal(Object.keys(w.TextPatchI18n.languages).length,21);
     for(const [locale,endonym] of Object.entries(w.TextPatchI18n.languages)){
       await w.TextPatchI18n.setLocale(locale);
       for(const prefs of [{},{targetLanguage:'English'},{targetLanguage:'Esperanto'},{targetLanguage:''}]){

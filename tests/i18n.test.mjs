@@ -27,7 +27,7 @@ test('ko/en catalogs have matching keys and parameters; missing keys fall back s
   assert.equal(node.querySelector('img'),null);assert.match(node.textContent,/<img/);
   assert.equal(i.message('Invalid field: en'),'잘못된 필드: en');
 });
-for(const [language,expected] of [['ko-KR','ko'],['KO','ko'],['en-GB','en'],['ja-JP','ja'],['zh-TW','zh-Hant'],['zh-HK','zh-Hant'],['zh-Hant-CN','zh-Hant'],['zh-CN','zh-Hans'],['zh-SG','zh-Hans'],['zh-Hans-TW','zh-Hans'],['pt','pt-BR'],['pt-PT','pt-BR'],['pt-BR','pt-BR'],['ar-EG','ar'],['ar-SA','ar'],['AR_ae','ar'],['unknown','en'],['kok-IN','en']])test('initial browser language '+language+' selects '+expected,async t=>{
+for(const [language,expected] of [['ko-KR','ko'],['KO','ko'],['en-GB','en'],['ja-JP','ja'],['zh-TW','zh-Hant'],['zh-HK','zh-Hant'],['zh-Hant-CN','zh-Hant'],['zh-CN','zh-Hans'],['zh-SG','zh-Hans'],['zh-Hans-TW','zh-Hans'],['pt','pt-PT'],['pt-PT','pt-PT'],['pt-BR','pt-BR'],['ar-EG','ar'],['ar-SA','ar'],['AR_ae','ar'],['unknown','en'],['kok-IN','en']])test('initial browser language '+language+' selects '+expected,async t=>{
   const w=await mount(t,{language});assert.equal(w.TextPatchI18n.locale,expected);assert.equal(w.document.documentElement.lang,expected);
 });
 test('saved choice wins over browser default, persists and synchronizes between open pages',async t=>{

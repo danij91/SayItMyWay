@@ -33,15 +33,15 @@ try{
     for(const [file,page] of Object.entries(pages)){
       await page.waitForFunction(locale=>document.documentElement.lang===locale,locale);
       assert.equal(await page.evaluate(()=>document.documentElement.dir),'ltr',file+' '+locale);
-      assert.equal(await page.evaluate(()=>Object.keys(TextPatchI18n.languages).length),20);
+      assert.equal(await page.evaluate(()=>Object.keys(TextPatchI18n.languages).length),21);
     }
     assert.equal(await worker.evaluate(async()=> (await chrome.storage.local.get('appLocale')).appLocale),locale);
-    assert.equal(await worker.evaluate(()=>Object.keys(TextPatchI18n.languages).length),20);
+    assert.equal(await worker.evaluate(()=>Object.keys(TextPatchI18n.languages).length),21);
     const editor=pages['editor/index.html'];
     await editor.evaluate(table=>TextPatchAIUI.open({table,loadPreferences:async()=>({targetLanguage:'English'})}).then(()=>{}),table);
     assert.equal(await editor.locator('[data-ai=sourceLanguage]').inputValue(),'auto');
     assert.equal(await editor.locator('[data-ai=targetLanguage]').inputValue(),name);
-    for(const field of ['sourceLanguage','targetLanguage'])assert.equal(await editor.locator('[data-ai='+field+'] option').count(),22);
+    for(const field of ['sourceLanguage','targetLanguage'])assert.equal(await editor.locator('[data-ai='+field+'] option').count(),23);
     const prompt=await editor.evaluate(({table,name})=>TextPatchAI.build({table,task:'translation',targetLanguage:name,requestId:'native-fixture'}).text,{table,name});
     assert.ok(prompt.includes(await editor.evaluate(name=>TextPatchI18n.t('ai_response_language',{p0:name}),name)));
     assert.ok(prompt.includes('"original": "Original 日本語"'));assert.ok(prompt.includes('"requestRow": "0"'));

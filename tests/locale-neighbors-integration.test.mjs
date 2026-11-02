@@ -60,12 +60,12 @@ test('all five choices persist, synchronize, reopen, and expose the Latin notice
     assert.equal(values.appLocale,locale);assert.equal(b.TextPatchI18n.locale,locale);assert.equal(b.document.documentElement.dir,'ltr');
     const reopened=await mount(t,{chrome,language:'ar-EG'});assert.equal(reopened.TextPatchI18n.locale,locale);
   }
-  const chooser=a.document.querySelector('select');assert.equal(chooser.options.length,20);
+  const chooser=a.document.querySelector('select');assert.equal(chooser.options.length,21);
   assert.match(chooser.title,/Latina experimentalis/);assert.match(chooser.getAttribute('aria-label'),/Latina experimentalis/);
   await a.TextPatchI18n.setLocale('ar');assert.equal(b.document.documentElement.dir,'rtl');assert.doesNotMatch(chooser.title,/Latina experimentalis/);
 });
 
-test('new dialogs offer all 20 autonyms, default to selected app language and preserve edited choices on switching',async t=>{
+test('new dialogs offer all 21 autonyms, default to selected app language and preserve edited choices on switching',async t=>{
   const w=await mount(t),before=JSON.stringify(table);
   for(const [locale,name] of Object.entries(added)){
     await w.TextPatchI18n.setLocale(locale);
@@ -94,7 +94,7 @@ test('every HTML loader and background import loads all catalogs before the regi
   }
 });
 
-test('production build includes all 20 app catalogs and only supported Chrome metadata',async t=>{
+test('production build includes all 21 app catalogs and only supported Chrome metadata',async t=>{
   // Chrome's primary locale list includes ro/hu/bg/uk, excludes la:
   // https://developer.chrome.com/docs/extensions/reference/api/i18n#locales
   const root=await mkdtemp(path.join(os.tmpdir(),'text-patch-neighbor-build-'));t.after(()=>rm(root,{recursive:true,force:true}));
@@ -103,5 +103,5 @@ test('production build includes all 20 app catalogs and only supported Chrome me
   for(const file of files)assert.equal(await readFile(path.join(output,'locales',file),'utf8'),await read('extension/locales/'+file));
   for(const locale of ['ro','hu','bg','uk'])assert.equal(JSON.parse(await readFile(path.join(output,'_locales',locale,'messages.json'),'utf8')).appName.message,'SayItMyWay');
   await assert.rejects(readFile(path.join(output,'_locales/la/messages.json')),{code:'ENOENT'});
-  assert.equal(JSON.parse(await readFile(path.join(output,'manifest.json'),'utf8')).version,'1.0.0');
+  assert.equal(JSON.parse(await readFile(path.join(output,'manifest.json'),'utf8')).version,JSON.parse(await read('extension/manifest.json')).version);
 });

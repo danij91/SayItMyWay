@@ -1,7 +1,7 @@
 // App language only: table data and AI source/target choices are never translated.
 (function(root){
   const KEY='appLocale',catalogs=root.TextPatchLocales||{},bindings=new Map(),listeners=new Set();
-  const languages={ko:'한국어',en:'English',ja:'日本語','zh-Hans':'简体中文','zh-Hant':'繁體中文',es:'Español',fr:'Français',de:'Deutsch','pt-BR':'Português (Brasil)',ru:'Русский',id:'Bahasa Indonesia',vi:'Tiếng Việt',th:'ไทย',hi:'हिन्दी',ar:'العربية',ro:'Română',hu:'Magyar',bg:'Български',uk:'Українська',la:'Latina'};
+  const languages={ko:'한국어',en:'English',ja:'日本語','zh-Hans':'简体中文','zh-Hant':'繁體中文',es:'Español',fr:'Français',de:'Deutsch','pt-BR':'Português (Brasil)','pt-PT':'Português (Portugal)',ru:'Русский',id:'Bahasa Indonesia',vi:'Tiếng Việt',th:'ไทย',hi:'हिन्दी',ar:'العربية',ro:'Română',hu:'Magyar',bg:'Български',uk:'Українська',la:'Latina'};
   // Discovery aliases only: countries may match several languages. They never
   // infer a user's language or change the selected locale automatically.
   const languageAliases={
@@ -13,7 +13,8 @@
     es:['Spanish','Castilian','Spain','España','Castellano','Mexico','México','Argentina','Colombia','Chile','Peru','Perú','Latin America','América Latina','es-ES','es-MX','es-419'],
     fr:['French','France','Belgium','Belgique','Switzerland','Suisse','Canada','Québec','Quebec','Luxembourg','fr-FR','fr-CA'],
     de:['German','Germany','Deutschland','Austria','Österreich','Switzerland','Schweiz','Liechtenstein','Luxembourg','Luxemburg','de-DE','de-AT','de-CH'],
-    'pt-BR':['Portuguese','Brazilian Portuguese','Brazil','Brasil','Portugal','Angola','Mozambique','Moçambique','pt','pt-BR','pt-PT'],
+    'pt-BR':['Portuguese','Português','Brazilian Portuguese','Português brasileiro','Brazil','Brasil','pt','pt-BR'],
+    'pt-PT':['Portuguese','Português','European Portuguese','Português europeu','Portugal','pt','pt-PT'],
     ru:['Russian','Russia','Russian Federation','Россия','Российская Федерация','Беларусь','Belarus','Kazakhstan','Казахстан','ru-RU'],
     id:['Indonesian','Indonesia','Republic of Indonesia','Republik Indonesia','Bahasa','id-ID'],
     vi:['Vietnamese','Vietnam','Viet Nam','Việt Nam','Cộng hòa xã hội chủ nghĩa Việt Nam','Tiếng Việt','vi-VN'],
@@ -28,7 +29,12 @@
   };
   const normalizeLanguage=value=>String(value||'').normalize('NFKD').replace(/\p{M}/gu,'').toLowerCase().replaceAll('ß','ss').replaceAll('_','-').trim();
   const languageTerms=Object.fromEntries(Object.entries(languages).map(([code,name])=>[code,[code,name,...languageAliases[code]].map(normalizeLanguage)]));
-  const searchLanguages=query=>Object.keys(languages).filter(code=>languageTerms[code].some(term=>term.includes(normalizeLanguage(query))));
+  const searchLanguages=query=>{
+    const needle=normalizeLanguage(query);
+    // The Portuguese family code discovers both supported regional variants.
+    if(needle==='pt')return ['pt-BR','pt-PT'];
+    return Object.keys(languages).filter(code=>languageTerms[code].some(term=>term.includes(needle)));
+  };
   const pickers=new Set();let pickerId=0;
 
   // The select remains the value/event contract. Its single visible replacement
@@ -101,7 +107,7 @@
   function resolveLocale(value){
     const parts=String(value||'').replaceAll('_','-').toLowerCase().split('-'),base=parts[0];
     if(base==='zh')return parts.includes('hant')?'zh-Hant':parts.includes('hans')?'zh-Hans':parts.some(p=>['tw','hk','mo'].includes(p))?'zh-Hant':'zh-Hans';
-    if(base==='pt')return 'pt-BR';
+    if(base==='pt')return parts.includes('br')?'pt-BR':'pt-PT';
     return supported(base)?base:'en';
   }
   const browserLocale=()=>resolveLocale(root.chrome?.i18n?.getUILanguage?.()||root.navigator?.language||'en');

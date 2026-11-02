@@ -105,7 +105,7 @@ try{
       await downloaded.saveAs(path.join(dir,'prompt-'+locale+'-'+task+'.txt'));
     }
   }
-  report.checks.push('all 20 app locales switched while one dialog stays open: translation and replacement builder/real clipboard/UTF-8 download equality (40 requests)');
+  report.checks.push('all 21 app locales switched while one dialog stays open: translation and replacement builder/real clipboard/UTF-8 download equality (42 requests)');
   await page.evaluate(()=>TextPatchI18n.setLocale('ko'));
   await page.keyboard.press('Escape');await open(small);
   // Deterministic rejection injection only; successful copy/download above use browser APIs.
