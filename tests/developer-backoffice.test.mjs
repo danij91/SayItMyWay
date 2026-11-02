@@ -7,17 +7,17 @@ import vm from 'node:vm';
 import http from 'node:http';
 import {startDeveloperServer} from '../scripts/developer-server.mjs';
 const read = file => readFile(new URL('../'+file,import.meta.url),'utf8');
-const locales = ['ko','en','ja','zh-Hans','zh-Hant','es','fr','de','pt-BR','ru','id','vi','th','hi','ar'];
+const locales = ['ko','en','ja','zh-Hans','zh-Hant','es','fr','de','pt-BR','ru','id','vi','th','hi','ar','ro','hu','bg','uk','la'];
 async function serve(t, options) {
   const server = await startDeveloperServer({port:0,...options});
   t.after(()=>new Promise(resolve=>server.close(resolve)));
   assert.equal(server.address().address,'127.0.0.1');
   return `http://127.0.0.1:${server.address().port}`;
 }
-test('localhost serves bundled content and real shared builder in all 15 locales for both tasks',async t=>{
+test('localhost serves bundled content and real shared builder in all 20 locales for both tasks',async t=>{
   const before = await readFile(new URL('../extension/data/dictionary.json',import.meta.url));
   const base = await serve(t), content = await (await fetch(base+'/api/content')).json();
-  assert.equal(Object.keys(content.languages).length,15);
+  assert.equal(Object.keys(content.languages).length,20);
   assert.deepEqual(content.dictionary,JSON.parse(before));
   assert.equal(content.builderSource,await read('extension/ai-request.js'));
   const c=vm.createContext({URL,structuredClone,navigator:{language:'ko'}});

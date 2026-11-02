@@ -116,11 +116,11 @@ const productionFiles = [
   'interaction-settings.js', 'page-tools.js', 'ai-request.js', 'ai-request.css', 'ai-request-ui.js',
   'manager.js', 'manager.html', 'manager.css', 'library.js', 'site-settings.css',
   'site-list.js', 'shared.js', 'repository.js', 'popup.js', 'import-ui.js', 'popup.html', 'popup.css',
-  'options.js', 'options.html', 'options.css', 'i18n.js', 'engine.js',
+  'options.js', 'options.html', 'options.css', 'i18n.js', 'language-picker.css', 'engine.js',
   'editor/transport.js', 'editor/style.css', 'editor/index.html', 'editor/import.js', 'editor/app.js',
-  ...['ar', 'de', 'en', 'es', 'fr', 'hi', 'id', 'ja', 'ko', 'pt-BR', 'ru', 'th', 'vi', 'zh-Hans', 'zh-Hant']
+  ...['ar', 'de', 'en', 'es', 'fr', 'hi', 'id', 'ja', 'ko', 'pt-BR', 'ru', 'th', 'vi', 'zh-Hans', 'zh-Hant', 'ro', 'hu', 'bg', 'uk', 'la']
     .map(locale => `locales/${locale}.js`),
-  ...['ar', 'de', 'en', 'es', 'fr', 'hi', 'id', 'ja', 'ko', 'pt_BR', 'ru', 'th', 'vi', 'zh_CN', 'zh_TW']
+  ...['ar', 'de', 'en', 'es', 'fr', 'hi', 'id', 'ja', 'ko', 'pt_BR', 'ru', 'th', 'vi', 'zh_CN', 'zh_TW', 'ro', 'hu', 'bg', 'uk']
     .map(locale => `_locales/${locale}/messages.json`),
   ...['active', 'normal', 'warning'].flatMap(state => [
     `icons/${state}.svg`, ...[16, 32, 48, 128].map(size => `icons/${state}-${size}.png`)

@@ -36,10 +36,10 @@ function payload(w,text){
 }
 const control=(dialog,name)=>dialog.querySelector('[data-ai="'+name+'"]');
 
-test('all 15 app locales generate both tasks with localized prose and unchanged portable JSON',async()=>{
+test('all 20 app locales generate both tasks with localized prose and unchanged portable JSON',async()=>{
   const dom=await setup(),w=dom.window,before=JSON.stringify(options);
   try{
-    const locales=Object.keys(w.TextPatchI18n.languages);assert.equal(locales.length,15);
+    const locales=Object.keys(w.TextPatchI18n.languages);assert.equal(locales.length,20);
     for(const locale of locales){
       await w.TextPatchI18n.setLocale(locale);
       for(const task of ['translation','replacement']){
@@ -72,7 +72,7 @@ test('all 15 app locales generate both tasks with localized prose and unchanged 
   }finally{w.close();}
 });
 
-test('open dialog delivers current locale for both tasks in all 15 locales with identical builder/copy/download text',async()=>{
+test('open dialog delivers current locale for both tasks in all 20 locales with identical builder/copy/download text',async()=>{
   const dom=await setup(),w=dom.window,before=JSON.stringify(table);let copied,blob,saved;
   Object.defineProperty(w.navigator,'clipboard',{value:{writeText:async text=>{copied=text;}}});
   w.URL.createObjectURL=value=>{blob=value;return 'blob:test';};w.URL.revokeObjectURL=()=>{};

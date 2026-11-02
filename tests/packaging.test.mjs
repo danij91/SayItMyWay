@@ -150,7 +150,7 @@ test('production package excludes private and development files and preserves pr
   assert.deepEqual(before.filter(name => name.startsWith('data/')), ['data/eurofxref-2026-10-23.xml']);
   assert.ok(!before.some(name => name.startsWith('devtools/')));
   for (const name of ['manifest.json', 'manager.html', 'manager.js', 'manager.css',
-    'interaction-settings.js', 'locales/ko.js', '_locales/en/messages.json', 'icons/normal-16.png', 'editor/app.js']) {
+    'interaction-settings.js', 'language-picker.css', 'locales/ko.js', '_locales/en/messages.json', 'icons/normal-16.png', 'editor/app.js']) {
     assert.deepEqual(await readFile(path.join(output, name)), await readFile(path.join(root, 'extension', name)), name);
   }
   const manifest = JSON.parse(await readFile(path.join(output, 'manifest.json')));

@@ -18,7 +18,7 @@ try{
   const page=await context.newPage(),errors=[],requests=[];
   page.on('pageerror',e=>errors.push(e.message));page.on('request',request=>requests.push(request.url()));
   await page.goto(base);await page.waitForFunction(()=>!document.getElementById('generate').disabled);
-  assert.equal(await page.locator('#locale option').count(),15);
+  assert.equal(await page.locator('#locale option').count(),20);
   for(const locale of await page.locator('#locale option').evaluateAll(nodes=>nodes.map(n=>n.value))){
     await page.selectOption('#locale',locale);
     for(const task of ['translation','replacement']){
@@ -46,5 +46,5 @@ try{
   await page.fill('#dictionary-search','');
   if(process.env.TEXT_PATCH_DEVTOOLS_EVIDENCE)await page.screenshot({path:path.join(process.env.TEXT_PATCH_DEVTOOLS_EVIDENCE,'dictionary.png'),fullPage:false});
   assert.deepEqual(errors,[]);assert.ok(requests.every(url=>url.startsWith(base+'/')),requests.join('\n'));
-  console.log('PASS localhost browser: 15 locales x 2 tasks, exact shared builder, stale output invalidation, UTF-8 download/clipboard, locale/dictionary search, no storage or extension APIs, loopback requests only.');
+  console.log('PASS localhost browser: 20 locales x 2 tasks, exact shared builder, stale output invalidation, UTF-8 download/clipboard, locale/dictionary search, no storage or extension APIs, loopback requests only.');
 }finally{await browser?.close();await new Promise(resolve=>server.close(resolve));}

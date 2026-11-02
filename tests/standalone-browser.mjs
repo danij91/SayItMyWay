@@ -1,3 +1,4 @@
+import {chooseLanguage} from './language-picker-browser-helpers.mjs';
 // Native Chromium, production editor/background/content, isolated profile/data.
 // Only a fixture website is served. The copied manifest pregrants that site's
 // host permission; this does not test Chrome's permission approval/denial UI.
@@ -61,14 +62,14 @@ try{
   // A real popup changes the app language while the entry dialog is unsaved.
   const draftTableId=await editor.locator('#table-select').inputValue();
   const localePopup=await context.newPage();await localePopup.goto('chrome-extension://'+id+'/popup.html');
-  await localePopup.locator('#app-locale').selectOption('en');
+  await chooseLanguage(localePopup,'#app-locale','en');
   await editor.locator('#save').filter({hasText:'Apply to draft'}).waitFor();
   assert.equal(await editor.locator('#editor').evaluate(el=>el.open),true);
   assert.equal(await editor.locator('[name=en]').inputValue(),'Standalone original');
   assert.equal(await editor.locator('[name=ko]').inputValue(),'Native replacement');
   assert.equal(await editor.locator('#table-select').inputValue(),draftTableId);
   assert.deepEqual(await library(),initial);
-  await localePopup.locator('#app-locale').selectOption('ko');await editor.locator('#save').filter({hasText:'초안에 반영'}).waitFor();await localePopup.close();
+  await chooseLanguage(localePopup,'#app-locale','ko');await editor.locator('#save').filter({hasText:'초안에 반영'}).waitFor();await localePopup.close();
   result.checks.push('Real popup language chooser synchronizes the editor while an entry dialog and table draft are unsaved; controls and stored data stay intact');
   await editor.locator('[name=status]').selectOption('verified');await editor.locator('#entry-details').evaluate(el=>el.open=true);
   await editor.locator('[name=source]').fill('Synthetic browser fixture');await editor.locator('[name=evidence]').fill('Test-only expected replacement');
@@ -91,13 +92,15 @@ try{
   const exportEvent=page.waitForEvent('download');await editor.locator('#export-current').click();
   const exported=JSON.parse(await readFile(await(await exportEvent).path(),'utf8'));
   assert.equal(exported.format,'text-patch-table');assert.equal(exported.id,undefined);assert.equal(exported.entries[0].id,undefined);
-  await editor.locator('#ai-request').click();await editor.locator('[data-ai=targetLanguage]').selectOption('English');
-  await editor.locator('#app-locale').selectOption('en');
+  await editor.locator('#ai-request').click();await chooseLanguage(editor,'[data-ai=targetLanguage]','English');
+  // The native modal blocks the background globe; emulate an external locale
+  // update here, as the earlier independent popup test does through real UI.
+  await editor.locator('#app-locale').evaluate(()=>TextPatchI18n.setLocale('en'));
   assert.equal(await editor.locator('[data-ai=targetLanguage]').inputValue(),'English');
   await editor.locator('[data-ai=download]').filter({hasText:'Download file'}).waitFor();
   const aiEvent=page.waitForEvent('download');await editor.locator('[data-ai=download]').click();
   const ai=await readFile(await(await aiEvent).path(),'utf8');assert.match(ai,/target language English/);assert.match(ai,/Portable source/);
-  assert.equal(await editor.locator('[data-ai=output]').count(),0);await editor.locator('[data-ai=close]').click();await editor.locator('#app-locale').selectOption('ko');
+  assert.equal(await editor.locator('[data-ai=output]').count(),0);await editor.locator('[data-ai=close]').click();await chooseLanguage(editor,'#app-locale','ko');
   await editor.locator('#save-all').click();await editor.locator('#save-state').filter({hasText:'저장됨'}).waitFor();
   result.checks.push('Native file selection and DataTransfer drop create drafts; portable JSON export and complete AI UTF-8 download work');
   // A second editor writes while the first holds an older draft: no overwrite.
@@ -207,7 +210,7 @@ try{
   result.checks.push('Native popup selection stays OFF, checkbox applies/restores actual DOM, collection saves a separate new table without changing selection');
   // English UI also fits the 400px popup and localizes stored capture reasons.
   const collectionBeforeLocale=await worker.evaluate(async()=> (await chrome.storage.local.get('collections')).collections);
-  await popup.locator('#app-locale').selectOption('en');
+  await chooseLanguage(popup,'#app-locale','en');
   await popup.locator('#capture').filter({hasText:'New collection'}).waitFor();
   await popup.locator('#capture-append').filter({hasText:'Add to table'}).waitFor();
   await popup.locator('#table-ai:not(:disabled)').waitFor();

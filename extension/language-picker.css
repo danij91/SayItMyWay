@@ -1,0 +1,12 @@
+/* Shared app and AI language combobox; the select is retained as a hidden value contract. */
+.language-native[hidden]{display:none!important}
+.language-combobox{position:relative;display:block;box-sizing:border-box;width:100%;min-width:0;text-align:start}
+.language-combobox .language-search{display:block;box-sizing:border-box;width:100%;max-width:100%;min-width:0;min-height:36px;margin:5px 0 0;padding:8px 10px;border:1px solid #8a96a8;border-radius:6px;background:#fff;color:#182433;font:inherit}
+.language-combobox .language-search:focus-visible{outline:2px solid #2363d1;outline-offset:1px}
+.language-results{position:absolute;z-index:40;inset-inline:0;top:100%;box-sizing:border-box;display:block;max-height:min(200px,30vh);overflow:auto;overscroll-behavior:contain;background:#fff;color:#182433;border:1px solid #a6b2c3;border-radius:6px;box-shadow:0 6px 18px #20242b25;text-align:start}
+.language-results[hidden]{display:none!important}
+.language-results [role=option],.language-empty{display:block;padding:8px 10px;overflow-wrap:anywhere;white-space:normal;font-size:14px;line-height:1.4}
+.language-results [role=option]{cursor:pointer}
+.language-results [role=option][aria-selected=true]{font-weight:600}
+.language-results [role=option]:hover,.language-results [role=option].active{background:#edf3fc;color:#244d84}
+.language-empty{color:#606977;font-size:12px}

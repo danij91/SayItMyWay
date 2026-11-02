@@ -1,7 +1,102 @@
 // App language only: table data and AI source/target choices are never translated.
 (function(root){
   const KEY='appLocale',catalogs=root.TextPatchLocales||{},bindings=new Map(),listeners=new Set();
-  const languages={ko:'한국어',en:'English',ja:'日本語','zh-Hans':'简体中文','zh-Hant':'繁體中文',es:'Español',fr:'Français',de:'Deutsch','pt-BR':'Português (Brasil)',ru:'Русский',id:'Bahasa Indonesia',vi:'Tiếng Việt',th:'ไทย',hi:'हिन्दी',ar:'العربية'};
+  const languages={ko:'한국어',en:'English',ja:'日本語','zh-Hans':'简体中文','zh-Hant':'繁體中文',es:'Español',fr:'Français',de:'Deutsch','pt-BR':'Português (Brasil)',ru:'Русский',id:'Bahasa Indonesia',vi:'Tiếng Việt',th:'ไทย',hi:'हिन्दी',ar:'العربية',ro:'Română',hu:'Magyar',bg:'Български',uk:'Українська',la:'Latina'};
+  // Discovery aliases only: countries may match several languages. They never
+  // infer a user's language or change the selected locale automatically.
+  const languageAliases={
+    ko:['Korean','Korea','South Korea','Republic of Korea','대한민국','한국','한글','조선','Hangul','ko-KR'],
+    en:['English','United States','United States of America','USA','US','United Kingdom','UK','Great Britain','Britain','England','Canada','Australia','New Zealand','Ireland','en-US','en-GB'],
+    ja:['Japanese','Japan','日本','日本国','にほん','にっぽん','ja-JP'],
+    'zh-Hans':['Chinese','Simplified Chinese','Mandarin','China','People’s Republic of China',"People's Republic of China",'PRC','Mainland China','Singapore','中国','中國','中华人民共和国','中華人民共和國','新加坡','中文','汉语','汉字','zh','zh-CN','zh-SG'],
+    'zh-Hant':['Chinese','Traditional Chinese','Mandarin','China','Taiwan','Republic of China','ROC','Hong Kong','Macao','Macau','中国','中國','臺灣','台灣','中華民國','香港','澳門','澳门','中文','漢語','漢字','zh','zh-TW','zh-HK','zh-MO'],
+    es:['Spanish','Castilian','Spain','España','Castellano','Mexico','México','Argentina','Colombia','Chile','Peru','Perú','Latin America','América Latina','es-ES','es-MX','es-419'],
+    fr:['French','France','Belgium','Belgique','Switzerland','Suisse','Canada','Québec','Quebec','Luxembourg','fr-FR','fr-CA'],
+    de:['German','Germany','Deutschland','Austria','Österreich','Switzerland','Schweiz','Liechtenstein','Luxembourg','Luxemburg','de-DE','de-AT','de-CH'],
+    'pt-BR':['Portuguese','Brazilian Portuguese','Brazil','Brasil','Portugal','Angola','Mozambique','Moçambique','pt','pt-BR','pt-PT'],
+    ru:['Russian','Russia','Russian Federation','Россия','Российская Федерация','Беларусь','Belarus','Kazakhstan','Казахстан','ru-RU'],
+    id:['Indonesian','Indonesia','Republic of Indonesia','Republik Indonesia','Bahasa','id-ID'],
+    vi:['Vietnamese','Vietnam','Viet Nam','Việt Nam','Cộng hòa xã hội chủ nghĩa Việt Nam','Tiếng Việt','vi-VN'],
+    th:['Thai','Thailand','ประเทศไทย','ราชอาณาจักรไทย','สยาม','Siam','th-TH'],
+    hi:['Hindi','India','Republic of India','भारत','भारत गणराज्य','हिंदुस्तान','हिन्दुस्तान','हिंदी','hi-IN'],
+    ar:['Arabic','Saudi Arabia','Kingdom of Saudi Arabia','السعودية','المملكة العربية السعودية','Egypt','مصر','United Arab Emirates','UAE','الإمارات','Iraq','العراق','Syria','سوريا','Jordan','الأردن','Lebanon','لبنان','Morocco','المغرب','Algeria','الجزائر','Tunisia','تونس','ar-SA','ar-EG','ar-AE'],
+    ro:['Romanian','Romania','România','Moldova','Republic of Moldova','Republica Moldova','Moldovan','Moldovenească','ro-RO','ro-MD'],
+    hu:['Hungarian','Hungary','Magyarország','Magyarorszag','hu-HU'],
+    bg:['Bulgarian','Bulgaria','Republic of Bulgaria','България','Република България','bg-BG'],
+    uk:['Ukrainian','Ukraine','Україна','Украина','uk-UA'],
+    la:['Latin','Vatican','Vatican City','Holy See','Vatican City State','Civitas Vaticana','Status Civitatis Vaticanae','Sancta Sedes','Latinitas','Lingua Latina','la-VA']
+  };
+  const normalizeLanguage=value=>String(value||'').normalize('NFKD').replace(/\p{M}/gu,'').toLowerCase().replaceAll('ß','ss').replaceAll('_','-').trim();
+  const languageTerms=Object.fromEntries(Object.entries(languages).map(([code,name])=>[code,[code,name,...languageAliases[code]].map(normalizeLanguage)]));
+  const searchLanguages=query=>Object.keys(languages).filter(code=>languageTerms[code].some(term=>term.includes(normalizeLanguage(query))));
+  const pickers=new Set();let pickerId=0;
+
+  // The select remains the value/event contract. Its single visible replacement
+  // is an editable combobox; search text is never a committed language value.
+  function languagePicker(select,{label=()=>select.getAttribute('aria-label')||t('app_language'),onSearch=()=>{}}={}){
+    if(select.languagePicker)return select.languagePicker;
+    const doc=select.ownerDocument,host=doc.createElement('span'),input=doc.createElement('input'),list=doc.createElement('span');
+    const id='language-choice-'+(++pickerId);
+    host.className='language-combobox';input.id=id;input.type='text';input.autocomplete='off';input.spellcheck=false;input.dir='auto';input.className='language-search';
+    input.setAttribute('role','combobox');input.setAttribute('aria-autocomplete','list');input.setAttribute('aria-haspopup','listbox');input.setAttribute('aria-controls',id+'-list');input.setAttribute('aria-expanded','false');
+    list.id=id+'-list';list.className='language-results';list.setAttribute('role','listbox');list.hidden=true;
+    for(const owner of select.labels||[])if(owner.htmlFor===select.id)owner.htmlFor=input.id;
+    select.hidden=true;select.tabIndex=-1;select.classList.add('language-native');select.after(host);host.append(input,list);
+    let open=false,query='',dirty=false,composing=false,active=-1,matches=[],selectedValue;
+    function options(){
+      const codes=new Set(searchLanguages(query)),needle=normalizeLanguage(query);
+      return [...select.options].filter(option=>{
+        if(option.disabled)return false;
+        const code=Object.hasOwn(languages,option.value)?option.value:Object.keys(languages).find(code=>languages[code]===option.value);
+        return code?codes.has(code):[option.textContent,option.value,...(option.value==='auto'?['Auto detect','Automatic detection']:option.value==='__custom__'?['Custom language']:[])].some(term=>normalizeLanguage(term).includes(needle));
+      });
+    }
+    function activate(index){
+      active=index;
+      for(const [i,node] of [...list.querySelectorAll('[role=option]')].entries())node.classList.toggle('active',i===active);
+      if(active<0)input.removeAttribute('aria-activedescendant');
+      else {input.setAttribute('aria-activedescendant',id+'-option-'+active);list.children[active]?.scrollIntoView?.({block:'nearest'});}
+    }
+    function render(){
+      matches=options();list.replaceChildren();
+      for(const [index,option] of matches.entries()){
+        const node=doc.createElement('span');node.id=id+'-option-'+index;node.setAttribute('role','option');node.setAttribute('aria-selected',String(option.value===select.value));node.dir='auto';node.textContent=option.textContent;node.dataset.value=option.value;
+        node.addEventListener('pointerdown',event=>event.preventDefault());
+        node.addEventListener('click',event=>{event.preventDefault();choose(index);});list.append(node);
+      }
+      if(!matches.length){const empty=doc.createElement('span');empty.className='language-empty';empty.setAttribute('role','status');empty.textContent=t('no_search_results');list.append(empty);}
+      activate(-1);
+    }
+    function show(){if(select.disabled)return;open=true;list.hidden=false;input.setAttribute('aria-expanded','true');render();}
+    function close(){open=false;query='';dirty=false;list.hidden=true;input.setAttribute('aria-expanded','false');input.removeAttribute('aria-activedescendant');input.value=select.selectedOptions[0]?.textContent||'';}
+    function choose(index){
+      const option=matches[index];if(!option)return;
+      select.value=option.value;close();selectedValue=select.value;
+      select.dispatchEvent(new root.Event('input',{bubbles:true}));select.dispatchEvent(new root.Event('change',{bubbles:true}));
+    }
+    function refresh(){
+      const text=label();input.setAttribute('aria-label',text);input.title=select.title||text;list.setAttribute('aria-label',text);input.disabled=select.disabled;input.setAttribute('aria-required',String(select.required));
+      if(selectedValue!==select.value || !dirty){input.value=select.selectedOptions[0]?.textContent||'';selectedValue=select.value;}
+      if(open)render();
+    }
+    input.addEventListener('focus',()=>{query='';dirty=false;show();input.select();});
+    input.addEventListener('click',()=>{if(!open){query='';show();input.select();}});
+    input.addEventListener('input',()=>{dirty=true;query=input.value;onSearch();if(!composing)show();});
+    input.addEventListener('compositionstart',()=>{composing=true;});
+    input.addEventListener('compositionend',()=>{composing=false;dirty=true;query=input.value;onSearch();show();});
+    input.addEventListener('keydown',event=>{
+      if(composing || event.isComposing || event.keyCode===229)return;
+      if(['ArrowDown','ArrowUp'].includes(event.key)){
+        event.preventDefault();if(!open)show();
+        activate(matches.length?(event.key==='ArrowDown'?Math.min(active+1,matches.length-1):(active<0?matches.length-1:Math.max(active-1,0))):-1);
+      }else if(event.key==='Enter' && open){event.preventDefault();choose(active);}
+      else if(event.key==='Escape' && (open||dirty)){event.preventDefault();close();}
+      else if(event.key==='Tab')close();
+    });
+    host.addEventListener('focusout',()=>{Promise.resolve().then(()=>{if(!host.contains(doc.activeElement))close();});});
+    select.addEventListener('change',()=>{close();refresh();});
+    const api={input,host,close,refresh};select.languagePicker=api;pickers.add({select,...api});refresh();return api;
+  }
   const supported=value=>Object.hasOwn(languages,value);
   function resolveLocale(value){
     const parts=String(value||'').replaceAll('_','-').toLowerCase().split('-'),base=parts[0];
@@ -34,11 +129,15 @@
     document.documentElement.dir=locale==='ar'?'rtl':'ltr';
     for(const el of document.querySelectorAll('[data-i18n]'))el.textContent=(el.hasAttribute('data-brand-title')?t('text_table_patch')+' \u00b7 ':'')+t(el.dataset.i18n);
     for(const attr of ['title','aria-label','placeholder'])for(const el of document.querySelectorAll('[data-i18n-'+attr+']'))el.setAttribute(attr,t(el.getAttribute('data-i18n-'+attr)));
-    for(const el of document.querySelectorAll('[data-locale-chooser] select'))el.value=locale;
+    for(const el of document.querySelectorAll('[data-locale-chooser] select')){
+      el.value=locale;
+      const label=t('app_language');el.title=label;el.setAttribute('aria-label',label);
+    }
     for(const [node,properties] of bindings){
       if(!node.isConnected){bindings.delete(node);continue;}
       for(const [property,resolve] of properties)if(property==='textContent')node.textContent=resolve();else node.setAttribute(property,resolve());
     }
+    for(const picker of pickers){if(!picker.select.isConnected)pickers.delete(picker);else picker.refresh();}
   }
   function change(value){if(!supported(value)||value===locale)return;locale=value;apply();for(const listener of listeners)listener(locale);}
   const onChange=listener=>{listeners.add(listener);return ()=>listeners.delete(listener);};
@@ -99,7 +198,7 @@
     for(const [key,source] of prefixes)if(input.startsWith(source))return t(key)+message(input.slice(source.length),depth+1);
     return input;
   }
-  root.TextPatchI18n={t,text,attribute,message,apply,onChange,setLocale,browserLocale,resolveLocale,languages,get locale(){return locale;},key:KEY};
+  root.TextPatchI18n={t,text,attribute,message,apply,onChange,setLocale,browserLocale,resolveLocale,languages,languageAliases,searchLanguages,languagePicker,get locale(){return locale;},key:KEY};
   const started=generation;
   root.TextPatchI18n.ready=(async()=>{
     try{
@@ -116,8 +215,12 @@
         select.replaceChildren(...Object.entries(languages).map(([value,name])=>{const option=root.document.createElement('option');option.value=value;option.textContent=name;option.dir='auto';return option;}));
       }
       apply();
-      for(const select of root.document.querySelectorAll('[data-locale-chooser] select'))select.addEventListener('change',()=>setLocale(select.value).catch(()=>{select.title=t('could_not_save_language_choice');}));
+      for(const select of root.document.querySelectorAll('[data-locale-chooser] select')){
+        select.addEventListener('change',()=>setLocale(select.value).catch(()=>{select.title=t('could_not_save_language_choice');select.languagePicker?.refresh();}));
+        languagePicker(select);
+      }
     };
+    root.document.addEventListener('pointerdown',event=>{for(const picker of pickers){if(!picker.select.isConnected)pickers.delete(picker);else if(!picker.host.contains(event.target))picker.close();}});
     if(root.document.readyState==='loading')root.document.addEventListener('DOMContentLoaded',mount,{once:true});else mount();
   }
 })(globalThis);

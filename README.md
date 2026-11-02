@@ -2,7 +2,7 @@
 
 <h1 align="center">SayItMyWay</h1>
 <p align="center">Replace website text your way.</p>
-<p align="center"><a href="LICENSE">MIT License</a> · Chrome Manifest V3 · 15 languages · Local-first</p>
+<p align="center"><a href="LICENSE">MIT License</a> · Chrome Manifest V3 · 20 languages · Local-first</p>
 
 A free Chrome extension that replaces website text using **source → replacement tables**. Translate menus, use familiar names for game terms, or change wording to suit your preferences.
 
@@ -19,7 +19,8 @@ No account, subscription, or donation required. There are no paid limits on save
 - **Prepare AI requests:** Copy or download a translation or rewriting request. Import the AI's response to fill empty replacements while preserving existing work.
 - **Edit on the page:** Use shortcuts to preview original text or add, edit, and delete entries directly on a webpage.
 - **Convert currencies:** Convert displayed prices using ECB reference rates, independently of text replacement. Cached rates remain available offline.
-- **Use your language:** English, Korean, Japanese, Simplified and Traditional Chinese, Spanish, French, German, Brazilian Portuguese, Russian, Indonesian, Vietnamese, Thai, Hindi, and Arabic with RTL support.
+- **Use your language:** English, Korean, Japanese, Simplified and Traditional Chinese, Spanish, French, German, Brazilian Portuguese, Russian, Indonesian, Vietnamese, Thai, Hindi, Arabic with RTL support, Romanian, Hungarian, Bulgarian, Ukrainian, and experimental Latin (Latina). App UI and AI request wording follow your selected language. The five new translations have not been reviewed by native speakers; Latin uses modern renderings of software terminology and is available inside the app, not as Chrome store metadata.
+- **Find a language easily:** type an English or native language name, country name, common alias, or language code in the app and AI language pickers. Partial, case-insensitive and accent-insensitive matching works: `Korea`, `한국`, or `한글` finds Korean; `Romania` or `România` finds Romanian. A country can match multiple languages. Typing filters the choices; it only changes your selection when you choose a result.
 
 ## How it works
 
@@ -76,6 +77,23 @@ The extension checks [ECB daily reference rates](https://www.ecb.europa.eu/stats
 - ECB requests do not include page text, prices, or tables. When you share an AI request or open an external link, that service's policies apply.
 
 ## Development
+
+To create a release ZIP on Windows, run this from the project folder:
+
+```powershell
+npm run package:extension
+```
+
+The command reads the current version from `extension/manifest.json` and asks what to package. For example, at `1.0.0`:
+
+- **1 — Patch:** `1.0.1`, for fixes.
+- **2 — Minor:** `1.1.0`, for new features.
+- **3 — Major:** `2.0.0`, for major changes.
+- **4 — Custom:** enter a higher version yourself.
+- **5 — Rebuild:** keep the current version and replace its ZIP.
+- **0 or Enter — Cancel:** leave files unchanged.
+
+It updates the manifest automatically, builds the production extension and writes `dist/SayItMyWay-<version>.zip`, including license notices and excluding development fixtures and user tables. A failed build/package restores the original source manifest. No manual version edit is needed. Upload the resulting ZIP to the Chrome Web Store separately; packaging does not publish it. Use a higher version for each store update.
 
 Use Node.js **22 or later**.
 

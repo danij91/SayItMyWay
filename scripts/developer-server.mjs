@@ -4,7 +4,7 @@ import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 import vm from 'node:vm';
 const projectRoot = fileURLToPath(new URL('../', import.meta.url));
-const locales = ['ko','en','ja','zh-Hans','zh-Hant','es','fr','de','pt-BR','ru','id','vi','th','hi','ar'];
+const locales = ['ko','en','ja','zh-Hans','zh-Hant','es','fr','de','pt-BR','ru','id','vi','th','hi','ar','ro','hu','bg','uk','la'];
 // Only explicit bundled assets are read. Request paths never become filesystem paths.
 const assets = ['tools/devtools/index.html','tools/devtools/app.js','tools/devtools/style.css',
   'extension/data/dictionary.json','extension/shared.js','extension/library.js',

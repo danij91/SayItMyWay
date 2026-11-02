@@ -178,5 +178,6 @@ load();
 // Language selection stays collapsed until the globe is activated.
 const languageMenu=document.getElementById('editor-language');
 languageMenu.querySelector('select').addEventListener('change',()=>{languageMenu.open=false;languageMenu.querySelector('summary').focus();});
+languageMenu.addEventListener('toggle',()=>{const picker=languageMenu.querySelector('select').languagePicker;if(languageMenu.open)picker?.input.focus();else picker?.close();});
 document.addEventListener('click',event=>{if(!languageMenu.contains(event.target))languageMenu.open=false;});
-document.addEventListener('keydown',event=>{if(event.key==='Escape' && languageMenu.open){languageMenu.open=false;languageMenu.querySelector('summary').focus();event.preventDefault();}});
+document.addEventListener('keydown',event=>{if(event.key==='Escape' && !event.isComposing && event.keyCode!==229 && languageMenu.open){languageMenu.open=false;languageMenu.querySelector('summary').focus();event.preventDefault();}});

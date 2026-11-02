@@ -77,6 +77,8 @@
     dialog.setAttribute('aria-describedby',status.id);
     doc.body.append(dialog);
     let edited=false,busy=false,revision=0;
+    const sourcePicker=TextPatchI18n.languagePicker(source,{label:()=>TextPatchI18n.t('source_language'),onSearch:()=>{edited=true;}});
+    const targetPicker=TextPatchI18n.languagePicker(target,{label:()=>TextPatchI18n.t('target_language'),onSearch:()=>{edited=true;}});
     const total=table?.entries?.filter(e=>typeof e.ko==='string' && !e.ko.trim()).length||0;
     const ready=()=>TextPatchI18n.t('all_p0_untranslated_rows_import_the_ai_response',{p0:total});
     const invalidate=()=>{revision++;TextPatchI18n.text(status,()=>ready());};
@@ -88,6 +90,7 @@
       instruction.parentElement.hidden=translation;
       target.required=translation;targetCustom.required=translation && target.value===CUSTOM;
       instruction.required=!translation;
+      sourcePicker.refresh();targetPicker.refresh();
     };
     for(const control of [task,source,sourceCustom,target,targetCustom,instruction]){
       const change=()=>{edited=true;invalidate();visibility();};
@@ -132,7 +135,7 @@
           finally{anchor?.remove();if(url)root.setTimeout(()=>root.URL.revokeObjectURL(url),1000);}
         }
         if(current())try{await save(prefs);}catch{if(current())status.textContent+=TextPatchI18n.t('could_not_remember_your_choices');}
-      }catch(error){TextPatchI18n.text(status,()=>TextPatchI18n.message(error.message));let control=task.value==='translation'?(target.value===CUSTOM?targetCustom:target):instruction;try{root.TextPatchAI.websiteURL(website.value);}catch{control=website;}if(control===website || !control.value.trim())control.focus();}
+      }catch(error){TextPatchI18n.text(status,()=>TextPatchI18n.message(error.message));let control=task.value==='translation'?(target.value===CUSTOM?targetCustom:target):instruction;try{root.TextPatchAI.websiteURL(website.value);}catch{control=website;}if(control===website || !control.value.trim())(control.languagePicker?.input||control).focus();}
       finally{busy=false;copy.disabled=download.disabled=false;dialog.removeAttribute('aria-busy');if(focusDownload && current())download.focus();}
     }
     copy.onclick=()=>deliver('copy');download.onclick=()=>deliver('download');
@@ -157,7 +160,7 @@
         if(typeof prefs.instruction==='string')instruction.value=prefs.instruction.slice(0,4000);
       }
     }catch{if(dialog.isConnected && !edited)TextPatchI18n.text(status,()=>TextPatchI18n.t('could_not_load_previous_choices_enter_them_manually'));}
-    await contextReady;visibility();return dialog;
+    await contextReady;visibility();sourcePicker.refresh();targetPicker.refresh();return dialog;
   }
   function confirmResult(result){
     return new Promise(resolve=>{

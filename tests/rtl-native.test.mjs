@@ -43,7 +43,7 @@ test('native Arabic mixed text, open dialogs, URL isolation and 400px popup',{sk
     await mount('editor/index.html',['editor/style.css','ai-request.css'],1100);
     const seed=JSON.parse(await source('data/dictionary.json'));
     await run(`globalThis.libraryFixture=TextPatch.migrate(${JSON.stringify(seed)});globalThis.testTable=libraryFixture.tables[0];testTable.name='جدول Korean 한국어 / ABC 123 (42)';Object.assign(testTable.entries[0],{en:'English 한국어 123 (س)',ko:'العربية ABC 42 (한)',status:'review'});globalThis.savedFixture=JSON.stringify(libraryFixture);globalThis.saveCalls=0;globalThis.EditorStorage={load:async()=>structuredClone(libraryFixture),save:async()=>{saveCalls++}};`);
-    await run(await source('editor/import.js'));await run(await source('editor/app.js'));
+    await run(await source('editor/import.js'));await run(await source('import-ui.js'));await run(await source('editor/app.js'));
     await run(`new Promise(r=>setTimeout(r,20))`);await run(`TextPatchI18n.setLocale('ar')`);
     assert.deepEqual(await run(`[document.documentElement.dir,getComputedStyle(document.querySelector('#rows td')).direction,getComputedStyle(document.querySelector('#rows td:nth-child(2)')).direction]`),['rtl','ltr','rtl']);
     await screenshot('editor-ar-mixed');

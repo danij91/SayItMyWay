@@ -1,3 +1,4 @@
+import {chooseLanguage} from './language-picker-browser-helpers.mjs';
 ﻿// Isolated real Chromium delivery/layout checks. No live data or profile is used.
 import assert from 'node:assert/strict';
 import {mkdtemp,copyFile,readFile,writeFile} from 'node:fs/promises';
@@ -20,7 +21,7 @@ try{
   await page.locator('#rows tr').first().waitFor();
   const open=async table=>{
     await page.evaluate(table=>TextPatchAIUI.open({table,loadPreferences:()=>({targetLanguage:'Esperanto'}),savePreferences:()=>{}}).then(()=>{}),table);
-    await page.locator('[data-ai=targetLanguage]').selectOption('__custom__');await page.locator('[data-ai=targetLanguageCustom]').fill('Esperanto');
+    await chooseLanguage(page,'[data-ai=targetLanguage]','__custom__');await page.locator('[data-ai=targetLanguageCustom]').fill('Esperanto');
   };
   const screenshot=async name=>{const file=path.join(dir,name+'.png');await page.screenshot({path:file});report.screenshots.push(file);};
   const payload=text=>JSON.parse(text.replaceAll('\r\n','\n').split('--- JSON 데이터 시작 ---\n\n')[1].split('\n\n--- JSON 데이터 끝 ---')[0]);
@@ -32,15 +33,15 @@ try{
   assert.equal(await page.locator('[data-ai=targetLanguage]').inputValue(),'한국어');
   for(const name of ['sourceLanguage','targetLanguage']){
     assert.equal(await page.locator(`[data-ai=${name}]`).evaluate(el=>el.tagName),'SELECT');
-    assert.equal(await page.locator(`[data-ai=${name}] option`).count(),17);
+    assert.equal(await page.locator(`[data-ai=${name}] option`).count(),22);
     assert.deepEqual(await page.locator(`[data-ai=${name}] option`).allTextContents().then(values=>values.slice(1,-1)),await page.evaluate(()=>Object.values(TextPatchI18n.languages)));
   }
-  await page.locator('[data-ai=sourceLanguage]').focus();await page.keyboard.press('ArrowDown');await page.keyboard.press('Enter');
+  await page.locator('[data-ai=sourceLanguage]').evaluate(el=>el.languagePicker.input.focus());await page.keyboard.insertText('Korea');await page.keyboard.press('ArrowDown');await page.keyboard.press('Enter');
   assert.equal(await page.locator('[data-ai=sourceLanguage]').inputValue(),'한국어');
-  await page.locator('[data-ai=sourceLanguage]').selectOption('__custom__');await page.locator('[data-ai=sourceLanguageCustom]').fill('Historical Latin');
-  await page.locator('[data-ai=targetLanguage]').selectOption('__custom__');await page.locator('[data-ai=targetLanguageCustom]').fill('Esperanto');
-  await page.locator('[data-ai=targetLanguage]').selectOption('العربية');assert.equal(await page.locator('[data-ai=targetLanguageCustom]').isVisible(),false);
-  await page.locator('[data-ai=targetLanguage]').selectOption('__custom__');assert.equal(await page.locator('[data-ai=targetLanguageCustom]').inputValue(),'Esperanto');
+  await chooseLanguage(page,'[data-ai=sourceLanguage]','__custom__');await page.locator('[data-ai=sourceLanguageCustom]').fill('Historical Latin');
+  await chooseLanguage(page,'[data-ai=targetLanguage]','__custom__');await page.locator('[data-ai=targetLanguageCustom]').fill('Esperanto');
+  await chooseLanguage(page,'[data-ai=targetLanguage]','العربية');assert.equal(await page.locator('[data-ai=targetLanguageCustom]').isVisible(),false);
+  await chooseLanguage(page,'[data-ai=targetLanguage]','__custom__');assert.equal(await page.locator('[data-ai=targetLanguageCustom]').inputValue(),'Esperanto');
   assert.equal(await page.locator('[data-ai=websiteURL]').inputValue(),'https://example.com/');
   await page.locator('[data-ai=websiteURL]').fill('https://name:password@manual.example/path?secret=yes#secret');
   await page.locator('[data-ai=copy]').click();await page.locator('[data-ai=status]').filter({hasText:'복사했습니다'}).waitFor();
@@ -60,7 +61,7 @@ try{
   assert.equal(await page.locator('[data-ai=targetLanguage]').inputValue(),'한국어');assert.equal(await page.locator('[data-ai=targetLanguageCustom]').inputValue(),'');
   assert.equal(await page.locator('[data-ai=websiteURL]').inputValue(),'https://example.com/');
   await screenshot('native-language-and-site');await page.keyboard.press('Escape');
-  report.checks.push('native 15-language selects and keyboard choice, custom drafts/preferences, edited sanitized website, optional blank and invalid URL focus');
+  report.checks.push('native 20-language selects and keyboard choice, custom drafts/preferences, edited sanitized website, optional blank and invalid URL focus');
   await open(table);await page.locator('[data-ai=copy]').click();
   await page.locator('[data-ai=status]').filter({hasText:'605행 요청을 복사'}).waitFor();
   const copied=await page.evaluate(()=>navigator.clipboard.readText());
@@ -104,7 +105,7 @@ try{
       await downloaded.saveAs(path.join(dir,'prompt-'+locale+'-'+task+'.txt'));
     }
   }
-  report.checks.push('all 15 app locales switched while one dialog stays open: translation and replacement builder/real clipboard/UTF-8 download equality (30 requests)');
+  report.checks.push('all 20 app locales switched while one dialog stays open: translation and replacement builder/real clipboard/UTF-8 download equality (40 requests)');
   await page.evaluate(()=>TextPatchI18n.setLocale('ko'));
   await page.keyboard.press('Escape');await open(small);
   // Deterministic rejection injection only; successful copy/download above use browser APIs.

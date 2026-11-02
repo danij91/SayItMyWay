@@ -181,11 +181,11 @@ $('table-search').addEventListener('keydown',event=>{
   if(event.key==='Enter' && tableOpen){event.preventDefault();if(tableMatches[tableActive])chooseTable(tableMatches[tableActive].id);}
   if(event.key==='Escape' && tableOpen){event.preventDefault();closeTables();}
 });
-function closeLanguages(){const open=!$('language-menu').hidden;$('language-menu').hidden=true;$('language-open').setAttribute('aria-expanded','false');return open;}
-$('language-open').onclick=()=>{const opening=$('language-menu').hidden;closeTables();closeLanguages();if(opening){$('language-menu').hidden=false;$('language-open').setAttribute('aria-expanded','true');$('app-locale').focus();}};
+function closeLanguages(){const open=!$('language-menu').hidden;$('language-menu').hidden=true;$('language-open').setAttribute('aria-expanded','false');$('app-locale').languagePicker?.close();return open;}
+$('language-open').onclick=()=>{const opening=$('language-menu').hidden;closeTables();closeLanguages();if(opening){$('language-menu').hidden=false;$('language-open').setAttribute('aria-expanded','true');($('app-locale').languagePicker?.input||$('app-locale')).focus();}};
 $('app-locale').addEventListener('change',()=>{closeLanguages();$('language-open').focus();});
 document.addEventListener('click',event=>{if(!event.target.closest('#language-menu,#language-open'))closeLanguages();});
-document.addEventListener('keydown',event=>{if(event.key==='Escape' && closeLanguages()){$('language-open').focus();event.preventDefault();}});
+document.addEventListener('keydown',event=>{if(event.key==='Escape' && !event.isComposing && event.keyCode!==229 && closeLanguages()){$('language-open').focus();event.preventDefault();}});
 const importChooser=TextPatchImportUI.chooser({open:$('import-open'),dialog:$('import-editor'),fileInput:$('import-file'),fileButton:$('import-file-choice'),clipboardButton:$('import-clipboard'),cancel:$('import-cancel'),status:$('import-error'),allowed:()=>!!state&&!busy&&!importing,consume:async(text,name)=>{
  importing=true;available();$('import-status').hidden=false;
  try{
